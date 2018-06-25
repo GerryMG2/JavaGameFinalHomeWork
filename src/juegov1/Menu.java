@@ -26,7 +26,7 @@ public class Menu extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        Entrada = gc.getInput()
+        Entrada = gc.getInput();
     }
 
     @Override
