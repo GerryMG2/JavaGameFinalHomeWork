@@ -17,17 +17,22 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class nvl1 extends BasicGameState{
 
+    
+    ImagenP ugan;
     @Override
     public int getID() {
-        return 1;
+        return 0;
     }
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+        ugan = new ImagenP(100,100,"resources/uganda.png");
+        
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
+        ugan.draw(ugan.position.x, ugan.position.y,0.5f);
     }
 
     @Override

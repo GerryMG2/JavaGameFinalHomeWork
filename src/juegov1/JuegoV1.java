@@ -16,14 +16,17 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class JuegoV1 extends StateBasedGame {
 
+    public static AppGameContainer contenedor;
+
     /**
      * @param args the command line arguments
      * @throws org.newdawn.slick.SlickException
      */
+
     public static void main(String[] args) throws SlickException {
         try {
-            AppGameContainer contenedor = new AppGameContainer(new JuegoV1("JuegoJava"));
-            contenedor.setDisplayMode(640, 360, false);
+            contenedor = new AppGameContainer(new JuegoV1("JuegoJava"));
+            contenedor.setDisplayMode(1280, 720, false);
             contenedor.start();
         } catch (SlickException slick) {
             System.exit(1);
