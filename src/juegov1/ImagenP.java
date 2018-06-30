@@ -12,39 +12,41 @@ import org.newdawn.slick.SlickException;
  *
  * @author gerar
  */
-public class ImagenP extends Image{
+public class ImagenP extends Image {
+
     public Punto position;
     private float vx;
     private float vey0;
-    public ImagenP (){
-        position.x = 0;
-        position.y = 0;
+
+    public ImagenP() {
+        position.x = 0f;
+        position.y = 0f;
         vey0 = 0f;
         vx = 0f;
     }
-    
-    
 
-    public ImagenP(int x,int y,String ref) throws SlickException {
+    public ImagenP(float x, float y, String ref) throws SlickException {
         super(ref);
-        position.x = (float)x;
-        position.y = (float)y;
+        try {
+            position = new Punto();
+            position.setX(x);
+            position.setY(y);
+        } catch (Exception error) {
+            error.printStackTrace();
+        }
+
     }
-    
-    public void updatePosition(float delta){
-        float tiempo = delta / 1000;
+
+    public void updatePosition(float delta) {
+        float tiempo = (float) delta / 1000;
         float x0 = (float) this.position.x + this.width;
         float y0 = (float) this.position.y + this.height;
-        if(y0 >= JuegoV1.contenedor.getWidth())
-        {
+        if (y0 >= JuegoV1.contenedor.getWidth()) {
             this.position.y = JuegoV1.contenedor.getWidth() - this.width;
-        }else{
-            
-        }
-        
-    }
+        } else {
 
-    
-    
+        }
+
+    }
 
 }

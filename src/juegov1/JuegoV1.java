@@ -22,7 +22,6 @@ public class JuegoV1 extends StateBasedGame {
      * @param args the command line arguments
      * @throws org.newdawn.slick.SlickException
      */
-
     public static void main(String[] args) throws SlickException {
         try {
             contenedor = new AppGameContainer(new JuegoV1("JuegoJava"));
@@ -39,8 +38,9 @@ public class JuegoV1 extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
-        this.addState(new Menu());
         this.addState(new nvl1());
+        this.addState(new Menu());
+
     }
 
 }

@@ -11,13 +11,17 @@ package juegov1;
  */
 public class Punto {
     public float x,y;
+    public Punto(){
+        x = 0f;
+        y = 0f;
+    }
 
     public float getX() {
         return x;
     }
 
     public void setX(float x) {
-        this.x = x;
+        this.x = (float)x;
     }
 
     public float getY() {
@@ -25,7 +29,7 @@ public class Punto {
     }
 
     public void setY(float y) {
-        this.y = y;
+        this.y = (float)y;
     }
     
 }
