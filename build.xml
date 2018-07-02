@@ -7,9 +7,10 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="JuegoV1" default="default" basedir=".">
-    <description>Builds, tests, and runs the project JuegoV1.</description>
+<project name="Thaia" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Thaia.</description>
     <import file="nbproject/build-impl.xml"/>
+	
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -58,7 +59,7 @@
 
     An example of overriding the target for project execution could look like this:
 
-        <target name="run" depends="JuegoV1-impl.jar">
+        <target name="run" depends="Thaia-impl.jar">
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>
@@ -70,4 +71,13 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="-post-jar">
+        <copy todir="${dist.dir}/res">
+            <fileset dir="${basedir}/res" includes="**/*" />
+        </copy>
+        <copy todir="${dist.dir}">
+            <fileset dir="${basedir}/slick" includes="*.dll/**" />
+        </copy>
+        
+    </target>
 </project>
