@@ -37,10 +37,10 @@ public class nvl1 extends BasicGameState {
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        ugan = new ImagenP(100.0f, 100.0f, 1.0f, 20, 5.0f, 15.0f, "res/uganda.gif");
+        ugan = new ImagenP(100.0f, 100.0f, 1.0f, 20, 100f, 700f, "res/uganda.gif");
         flip = new Image("res/Img/Character/assets/player/player.png");
         events = gc.getInput();
-        jugador = new Character(10, 500, 2, 0, 10.0f);
+        jugador = new Character(10, 500, 2, 0, 100.0f, 700f);
         jugador.IniAnimations(flip);
         fondo = new ScrollingBackground("res/Img/Backgorund/back.jpg", 7, gc);
         fondo.setDragSpeed(15);
@@ -61,11 +61,29 @@ public class nvl1 extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         ugan.updatePosition(i);
         jugador.updatePosition(i);
-        jugador.actionClick(events);
-        jugador.ActionMove(i);
-        ugan.actionClick(events);
         jugador2.update(gc, i);
         fondo.update(jugador2);
+        if (events.isKeyDown(Input.KEY_D)) {
+            jugador.actionClick(Input.KEY_D);
+            ugan.actionClick(Input.KEY_D);
+
+        }
+        if (events.isKeyDown(Input.KEY_A)) {
+            jugador.actionClick(Input.KEY_A);
+            ugan.actionClick(Input.KEY_A);
+
+        }
+        if (events.isKeyPressed(Input.KEY_X)) {
+            jugador.actionClick(Input.KEY_X);
+            ugan.actionClick(Input.KEY_X);
+
+        }
+        if(!events.isKeyDown(Input.KEY_D) && !events.isKeyDown(Input.KEY_A)){
+            //System.out.println("entro");
+            jugador.actionClick(666);
+            ugan.actionClick(666);
+        }
+
     }
 
 }

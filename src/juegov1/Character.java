@@ -22,21 +22,22 @@ public class Character {
     public Punto position;
     private float vx;
     private float vey0;
-    public float gravity = -100f;
+    public float gravity = -2300f;
     private float escala;
     private int desfase;
     private float velocidadx;
     private Image playerImg;
     private SpriteSheet subImage;
+    private float velocidadsalto;
 
     public void IniAnimations(Image sprite) {
         playerImg = sprite;
         subImage = new SpriteSheet(playerImg.getSubImage(0, 150, 368, 50), 46, 50);
         PrincipalAnimation = new Animation(subImage, 80);
-        
+
     }
 
-    public Character(float x, float y, float escala, int desfase,float velocidad) {
+    public Character(float x, float y, float escala, int desfase, float velocidad, float velocidadsalto) {
         try {
             position = new Punto();
             position.setX(x);
@@ -44,7 +45,7 @@ public class Character {
             this.escala = escala;
             this.desfase = desfase;
             this.velocidadx = velocidad;
-            
+            this.velocidadsalto = velocidadsalto;
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -83,54 +84,68 @@ public class Character {
     }
 
     public void RenderDraw() {
-        this.PrincipalAnimation.draw(position.x,position.y,PrincipalAnimation.getWidth()*escala, PrincipalAnimation.getHeight()*escala);
+        this.PrincipalAnimation.draw(position.x, position.y, this.PrincipalAnimation.getWidth() * escala, this.PrincipalAnimation.getHeight() * escala);
     }
 
     public void updatePosition(float delta) {
         float tiempo = (float) (delta / 1000);
         float y0 = this.position.y;
-        if (y0 + (this.PrincipalAnimation.getHeight()*escala) - desfase >= JuegoV1.contenedor.getHeight()) {
+        if (y0 + (this.PrincipalAnimation.getHeight() * escala) - (desfase * escala) >= JuegoV1.contenedor.getHeight()) {
             this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala);
+            //System.out.println(this.position.y);
+            //System.out.println(JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala));
+            if (this.vey0 == this.velocidadsalto) {
+                //System.out.println("salto");
+                this.position.y = (float) this.position.y
+                        - (float) (this.vey0 * tiempo)
+                        + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
+                this.vey0 = this.vey0 + (this.gravity * tiempo);
+            }
         } else {
             this.position.y = (float) this.position.y
                     - (float) (this.vey0 * tiempo)
-                    + (float) (0.5f * (-gravity) * (float) (Math.pow(tiempo, 2)));
+                    + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
             this.vey0 = this.vey0 + (this.gravity * tiempo);
         }
         ActionMove(tiempo);
 
     }
-    public void actionClick(Input in){
-        if(in.isKeyDown(Input.KEY_D))
-        {
+
+    public void actionClick(int key) {
+        if (key == Input.KEY_D) {
             this.vx = this.velocidadx;
+        } else {
+            //this.vx = 0;
         }
-        else
+        if (key == Input.KEY_A) {
+            this.vx = -this.velocidadx;
+        } else {
+            //this.vx = 0;
+        }
+        if(key == 666)
         {
-            if(in.isKeyDown(Input.KEY_A))
-            {
-                this.vx = - this.velocidadx;
-            }
-            else{
-                this.vx = 0;
-            }
-        }
-        
-    }
-    
-    public void ActionMove(float tiempo){
-        if(JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * escala) - (desfase *escala)){
-            this.position.x = JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * escala) -(desfase * escala);
+            //System.out.println("");
             this.vx = 0;
         }
-        else
-        {
-            if(this.position.x < 0){
+
+        if (key == Input.KEY_X && this.position.y == JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala)) {
+
+            this.vey0 = this.velocidadsalto;
+        }
+
+    }
+
+    public void ActionMove(float tiempo) {
+        if (JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * escala) + (desfase * escala)) {
+            this.position.x = JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * escala) - (desfase * escala);
+            this.vx = 0;
+        } else {
+            if (this.position.x < 0) {
                 this.position.x = 0;
                 this.vx = 0;
             }
         }
-        this.position.x = this.position.x + this.vx * (tiempo/10);
+        this.position.x = this.position.x + (this.vx * (tiempo));
     }
 
 }

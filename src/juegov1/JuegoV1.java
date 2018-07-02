@@ -30,7 +30,7 @@ public class JuegoV1 extends StateBasedGame {
             contenedor.setVSync(true);
             contenedor.start();
         } catch (SlickException slick) {
-            System.exit(1);
+            slick.printStackTrace();
         }
     }
 
