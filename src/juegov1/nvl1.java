@@ -11,6 +11,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Image;
 
 /**
  *
@@ -20,28 +21,34 @@ public class nvl1 extends BasicGameState{
 
     private Input events;
     private ImagenP ugan;
+    private Image flip;
+    private Character jugador;
     @Override
     public int getID() {
-        return 0;
+        return 1;
     }
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        //ugan = new ImagenP(100.0f,100.0f,1.0f,20,"res/uganda.gif");
+        ugan = new ImagenP(100.0f,100.0f,1.0f,20,"res/uganda.gif");
+        flip =new Image("res/Img/Character/assets/player/player.png");
         events = gc.getInput();
+        jugador = new Character(10, 500,1, 0);
+        jugador.IniAnimations(flip);
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-        //ugan.draw(ugan.position.getX(), ugan.position.getY(),ugan.getEscala());
-        
-        
-        
+        ugan.draw(ugan.position.getX(), ugan.position.getY(),ugan.getEscala());
+        jugador.RenderDraw();
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         ugan.updatePosition(i);
+        jugador.updatePosition(i);
+        jugador.actionClick(events);
+        jugador.ActionDerecha(i);
     }
     
 }
