@@ -140,7 +140,7 @@ public class Character {
                 this.vx = 0;
             }
         }
-        this.position.x = this.position.x + this.vx * (tiempo/10);
+        this.position.x = this.position.x + this.vx * (tiempo);
     }
 
 }

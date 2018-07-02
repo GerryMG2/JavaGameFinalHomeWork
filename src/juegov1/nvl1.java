@@ -34,7 +34,7 @@ public class nvl1 extends BasicGameState {
         ugan = new ImagenP(100.0f, 100.0f, 1.0f, 20, 5.0f, 15.0f, "res/uganda.gif");
         flip = new Image("res/Img/Character/assets/player/player.png");
         events = gc.getInput();
-        jugador = new Character(10, 500, 2, 0, 10.0f);
+        jugador = new Character(10, 500, 2, 0, 10.0f,700f);
         jugador.IniAnimations(flip);
     }
 
