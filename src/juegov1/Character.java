@@ -83,7 +83,7 @@ public class Character {
     }
 
     public void RenderDraw() {
-        this.PrincipalAnimation.draw(position.x,position.y);
+        this.PrincipalAnimation.draw(position.x,position.y,PrincipalAnimation.getWidth()*escala, PrincipalAnimation.getHeight()*escala);
     }
 
     public void updatePosition(float delta) {
