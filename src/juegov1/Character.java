@@ -80,16 +80,16 @@ public class Character {
 
     public void updatePosition(float delta) {
         float tiempo = (float) (delta / 1000);
-        float x0 = (float) this.position.x + (this.PrincipalAnimation.getWidth() * escala);
         float y0 = this.position.y;
-        if (y0 + this.PrincipalAnimation.getHeight() >= JuegoV1.contenedor.getHeight()) {
-            this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala);
+        if (y0 + (this.PrincipalAnimation.getHeight()*escala) - desfase >= JuegoV1.contenedor.getHeight()) {
+            this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala);
         } else {
             this.position.y = (float) this.position.y
                     - (float) (this.vey0 * tiempo)
                     + (float) (0.5f * (-gravity) * (float) (Math.pow(tiempo, 2)));
             this.vey0 = this.vey0 + (this.gravity * tiempo);
         }
+        ActionMove(tiempo);
 
     }
     public void actionClick(Input in){
@@ -103,10 +103,14 @@ public class Character {
             {
                 this.vx = - 5;
             }
+            else{
+                this.vx = 0;
+            }
         }
+        
     }
     
-    public void ActionDerecha(float tiempo){
+    public void ActionMove(float tiempo){
         if(JuegoV1.contenedor.getWidth() <= this.position.x + this.PrincipalAnimation.getWidth()){
             this.position.x = JuegoV1.contenedor.getWidth() - this.PrincipalAnimation.getWidth();
             this.vx = 0;

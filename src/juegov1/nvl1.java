@@ -27,13 +27,13 @@ public class nvl1 extends BasicGameState{
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        //ugan = new ImagenP(100.0f,100.0f,1.0f,20,"res/uganda.gif");
+        ugan = new ImagenP(100.0f,100.0f,0.5f,20,"res/uganda.gif");
         events = gc.getInput();
     }
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-        //ugan.draw(ugan.position.getX(), ugan.position.getY(),ugan.getEscala());
+        ugan.draw(ugan.position.getX(), ugan.position.getY(),ugan.getEscala());
         
         
         

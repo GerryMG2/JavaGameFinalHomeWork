@@ -50,8 +50,8 @@ public class ImagenP extends Image {
         float tiempo = (float) (delta / 1000);
         float x0 = (float) this.position.x + (this.width * escala);
         float y0 = this.position.y;
-        if (y0 + this.height - desfase >= JuegoV1.contenedor.getHeight()) {
-            this.position.y = JuegoV1.contenedor.getHeight()- (this.height * escala) + desfase;
+        if (y0 + (this.height * escala) - (desfase * escala) >= JuegoV1.contenedor.getHeight()) {
+            this.position.y = JuegoV1.contenedor.getHeight()- (this.height * escala) + (desfase*escala);
         } else {
             this.position.y =  (float)this.position.y -  
                     (float)(this.vey0 * tiempo) + 
