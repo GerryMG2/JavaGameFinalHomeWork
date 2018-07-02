@@ -92,7 +92,7 @@ public class Character {
         }
 
     }
-    public void actionClick(float tiempo,Input in){
+    public void actionClick(Input in){
         if(in.isKeyDown(Input.KEY_D))
         {
             this.vx = 5;
