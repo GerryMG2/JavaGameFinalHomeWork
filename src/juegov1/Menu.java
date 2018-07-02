@@ -21,7 +21,7 @@ public class Menu extends BasicGameState {
     private Input Entrada;
     @Override
     public int getID() {
-        return 1;
+        return 2;
     }
 
     @Override

@@ -25,6 +25,7 @@ public class Character {
     public float gravity = -100f;
     private float escala;
     private int desfase;
+    private float velocidadx;
     private Image playerImg;
     private SpriteSheet subImage;
 
@@ -35,13 +36,15 @@ public class Character {
         
     }
 
-    public Character(float x, float y, float escala, int desfase) {
+    public Character(float x, float y, float escala, int desfase,float velocidad) {
         try {
             position = new Punto();
             position.setX(x);
             position.setY(y);
             this.escala = escala;
             this.desfase = desfase;
+            this.velocidadx = velocidad;
+            
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -85,36 +88,46 @@ public class Character {
 
     public void updatePosition(float delta) {
         float tiempo = (float) (delta / 1000);
-        float x0 = (float) this.position.x + (this.PrincipalAnimation.getWidth() * escala);
         float y0 = this.position.y;
-        if (y0 + this.PrincipalAnimation.getHeight() >= JuegoV1.contenedor.getHeight()) {
-            this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala);
+        if (y0 + (this.PrincipalAnimation.getHeight()*escala) - desfase >= JuegoV1.contenedor.getHeight()) {
+            this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala);
         } else {
             this.position.y = (float) this.position.y
                     - (float) (this.vey0 * tiempo)
                     + (float) (0.5f * (-gravity) * (float) (Math.pow(tiempo, 2)));
             this.vey0 = this.vey0 + (this.gravity * tiempo);
         }
+        ActionMove(tiempo);
 
     }
-
-    public void actionClick(Input in) {
-        if (in.isKeyDown(Input.KEY_D)) {
-            this.vx = 5;
-        } else {
-            if (in.isKeyDown(Input.KEY_A)) {
-                this.vx = - 5;
+    public void actionClick(Input in){
+        if(in.isKeyDown(Input.KEY_D))
+        {
+            this.vx = this.velocidadx;
+        }
+        else
+        {
+            if(in.isKeyDown(Input.KEY_A))
+            {
+                this.vx = - this.velocidadx;
+            }
+            else{
+                this.vx = 0;
             }
         }
+        
     }
-
-    public void ActionDerecha(float tiempo) {
-        if (JuegoV1.contenedor.getWidth() <= this.position.x + this.PrincipalAnimation.getWidth()) {
-            this.position.x = JuegoV1.contenedor.getWidth() - this.PrincipalAnimation.getWidth();
+    
+    public void ActionMove(float tiempo){
+        if(JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * escala) - (desfase *escala)){
+            this.position.x = JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * escala) -(desfase * escala);
             this.vx = 0;
-        } else {
-            if (this.position.x - this.PrincipalAnimation.getWidth() == 0) {
-                this.position.x = this.PrincipalAnimation.getWidth();
+        }
+        else
+        {
+            if(this.position.x < 0){
+                this.position.x = 0;
+                this.vx = 0;
             }
         }
         this.position.x = this.position.x + this.vx * (tiempo/10);

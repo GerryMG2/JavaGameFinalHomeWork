@@ -5,6 +5,7 @@
  */
 package juegov1;
 
+import core.MainMenu;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -26,6 +27,7 @@ public class JuegoV1 extends StateBasedGame {
         try {
             contenedor = new AppGameContainer(new JuegoV1("JuegoJava"));
             contenedor.setDisplayMode(1280, 720, false);
+            contenedor.setVSync(true);
             contenedor.start();
         } catch (SlickException slick) {
             System.exit(1);
@@ -38,6 +40,7 @@ public class JuegoV1 extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
+        addState(new MainMenu());
         this.addState(new nvl1());
         this.addState(new Menu());
 

@@ -30,10 +30,10 @@ public class nvl1 extends BasicGameState{
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-        ugan = new ImagenP(100.0f,100.0f,1.0f,20,"res/uganda.gif");
+        ugan = new ImagenP(100.0f,100.0f,1.0f,20,5.0f,15.0f,"res/uganda.gif");
         flip =new Image("res/Img/Character/assets/player/player.png");
         events = gc.getInput();
-        jugador = new Character(10, 500,1, 0);
+        jugador = new Character(10, 500,1, 0,14.0f);
         jugador.IniAnimations(flip);
     }
 
@@ -41,6 +41,9 @@ public class nvl1 extends BasicGameState{
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         ugan.draw(ugan.position.getX(), ugan.position.getY(),ugan.getEscala());
         jugador.RenderDraw();
+        
+        
+        
     }
 
     @Override
@@ -48,7 +51,8 @@ public class nvl1 extends BasicGameState{
         ugan.updatePosition(i);
         jugador.updatePosition(i);
         jugador.actionClick(events);
-        jugador.ActionDerecha(i);
+        jugador.ActionMove(i);
+        ugan.actionClick(events);
     }
     
 }
