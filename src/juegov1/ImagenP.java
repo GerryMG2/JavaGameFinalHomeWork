@@ -17,7 +17,7 @@ public class ImagenP extends Image {
     public Punto position;
     private float vx;
     private float vey0;
-    public float gravity = -100f;
+    public float gravity = -1300f;
     private float escala;
     private int desfase;
 
@@ -56,7 +56,7 @@ public class ImagenP extends Image {
             this.position.y =  (float)this.position.y -  
                     (float)(this.vey0 * tiempo) + 
                     (float)(0.5f * (-gravity) * (float)(Math.pow(tiempo, 2))) ;
-            float dify = this.position.y - y0;
+            
             this.vey0 = this.vey0 + (this.gravity * tiempo);
         }
 

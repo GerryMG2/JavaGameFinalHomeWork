@@ -7,6 +7,7 @@ package juegov1;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -17,7 +18,7 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class nvl1 extends BasicGameState{
 
-    
+    private Input events;
     private ImagenP ugan;
     @Override
     public int getID() {
@@ -27,6 +28,7 @@ public class nvl1 extends BasicGameState{
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         ugan = new ImagenP(100.0f,100.0f,1.0f,20,"res/uganda.gif");
+        events = gc.getInput();
     }
 
     @Override
