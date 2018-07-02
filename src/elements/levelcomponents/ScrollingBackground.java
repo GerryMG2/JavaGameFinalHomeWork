@@ -1,6 +1,6 @@
 package elements.levelcomponents;
 
-import elements.Player;
+import elements.gameactor.Player;
 import java.awt.Font;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.GameContainer;
@@ -17,17 +17,16 @@ import subsystem.FontLoader;
 public class ScrollingBackground {
 
     private final Image backG;
-    private final int loopCont;
     private final Input contrl;
     private final int FrameWidth, FrameHeight;
+    private int loopCont;
     private int x = 0, dizpla = 0, cLoop = 0, dragSpeed = 1;
     private FontLoader Cfont;
     private Font fotnString;
     private TrueTypeFont leFont;
 
-    public ScrollingBackground(Image backG, int loops, GameContainer cnt) {
+    public ScrollingBackground(Image backG, GameContainer cnt) {
         this.backG = backG;
-        loopCont = loops;
         contrl = cnt.getInput();
         FrameWidth = cnt.getWidth();
         FrameHeight = cnt.getHeight();
@@ -59,20 +58,20 @@ public class ScrollingBackground {
     }
 
     private void drag(boolean start, boolean end) {
-        if (end && contrl.isKeyDown(Input.KEY_RIGHT)) {
+        if (end && contrl.isKeyDown(Input.KEY_RIGHT) && (cLoop < loopCont)) {
             x -= dragSpeed;
             dizpla -= dragSpeed;
-            if ((dizpla <= 0) && (cLoop < loopCont)) {
+            if (dizpla <= 0 ) {
                 dizpla = FrameWidth;
                 x = 0;
                 if (cLoop < loopCont) {
                     cLoop++;
                 }
             }
-        } else if (start && contrl.isKeyDown(Input.KEY_LEFT)) {
+        } else if (start && contrl.isKeyDown(Input.KEY_LEFT) && (cLoop > 0)) {
             x += dragSpeed;
             dizpla += dragSpeed;
-            if ((dizpla >= FrameWidth) && (cLoop > 0)) {
+            if (dizpla >= FrameWidth) {
                 dizpla = 0;
                 x = -FrameWidth;
                 if (cLoop > 0) {
