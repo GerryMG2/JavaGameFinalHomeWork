@@ -25,8 +25,8 @@ public class Character {
     private float escala;
     private int desfase;
 
-    public void IniAnimations(Animation animations[]) {
-        this.animations = animations;
+    public void IniAnimations() {
+        
 
     }
 
