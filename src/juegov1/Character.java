@@ -5,9 +5,10 @@
  */
 package juegov1;
 
-
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SpriteSheet;
 
 /**
  *
@@ -24,10 +25,14 @@ public class Character {
     public float gravity = -100f;
     private float escala;
     private int desfase;
+    private Image playerImg;
+    private SpriteSheet subImage;
 
-    public void IniAnimations() {
+    public void IniAnimations(Image sprite) {
+        playerImg = sprite;
+        subImage = new SpriteSheet(playerImg.getSubImage(0, 150, 368, 50), 46, 50);
+        PrincipalAnimation = new Animation(subImage, 80);
         
-
     }
 
     public Character(float x, float y, float escala, int desfase) {
@@ -75,7 +80,7 @@ public class Character {
     }
 
     public void RenderDraw() {
-        this.PrincipalAnimation.draw();
+        this.PrincipalAnimation.draw(position.x,position.y);
     }
 
     public void updatePosition(float delta) {
@@ -92,32 +97,27 @@ public class Character {
         }
 
     }
-    public void actionClick(Input in){
-        if(in.isKeyDown(Input.KEY_D))
-        {
+
+    public void actionClick(Input in) {
+        if (in.isKeyDown(Input.KEY_D)) {
             this.vx = 5;
-        }
-        else
-        {
-            if(in.isKeyDown(Input.KEY_A))
-            {
+        } else {
+            if (in.isKeyDown(Input.KEY_A)) {
                 this.vx = - 5;
             }
         }
     }
-    
-    public void ActionDerecha(float tiempo){
-        if(JuegoV1.contenedor.getWidth() <= this.position.x + this.PrincipalAnimation.getWidth()){
+
+    public void ActionDerecha(float tiempo) {
+        if (JuegoV1.contenedor.getWidth() <= this.position.x + this.PrincipalAnimation.getWidth()) {
             this.position.x = JuegoV1.contenedor.getWidth() - this.PrincipalAnimation.getWidth();
             this.vx = 0;
-        }
-        else
-        {
-            if(this.position.x  - this.PrincipalAnimation.getWidth() == 0){
+        } else {
+            if (this.position.x - this.PrincipalAnimation.getWidth() == 0) {
                 this.position.x = this.PrincipalAnimation.getWidth();
             }
         }
-        this.position.x = this.position.x +  this.vx * tiempo;
+        this.position.x = this.position.x + this.vx * (tiempo/10);
     }
 
 }
