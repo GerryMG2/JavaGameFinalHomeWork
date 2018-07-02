@@ -28,6 +28,7 @@ public class Character {
     private float velocidadx;
     private Image playerImg;
     private SpriteSheet subImage;
+    private float velocidadsalto;
 
     public void IniAnimations(Image sprite) {
         playerImg = sprite;
@@ -36,7 +37,7 @@ public class Character {
         
     }
 
-    public Character(float x, float y, float escala, int desfase,float velocidad) {
+    public Character(float x, float y, float escala, int desfase,float velocidad,float velocidadsalto) {
         try {
             position = new Punto();
             position.setX(x);
@@ -44,7 +45,7 @@ public class Character {
             this.escala = escala;
             this.desfase = desfase;
             this.velocidadx = velocidad;
-            
+            this.velocidadsalto = velocidadsalto;
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -91,6 +92,12 @@ public class Character {
         float y0 = this.position.y;
         if (y0 + (this.PrincipalAnimation.getHeight()*escala) - desfase >= JuegoV1.contenedor.getHeight()) {
             this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala);
+            if(this.vey0 == this.velocidadsalto){
+                this.position.y = (float) this.position.y
+                    - (float) (this.vey0 * tiempo)
+                    + (float) (0.5f * (-gravity) * (float) (Math.pow(tiempo, 2)));
+            this.vey0 = this.vey0 + (this.gravity * tiempo);
+            }
         } else {
             this.position.y = (float) this.position.y
                     - (float) (this.vey0 * tiempo)
@@ -115,11 +122,14 @@ public class Character {
                 this.vx = 0;
             }
         }
+         if(in.isKeyPressed(Input.KEY_X) && this.position.y  == JuegoV1.contenedor.getHeight()- (this.PrincipalAnimation.getHeight() * escala) + (desfase*escala)){
+            this.vey0 = this.velocidadsalto;
+        }
         
     }
     
     public void ActionMove(float tiempo){
-        if(JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * escala) - (desfase *escala)){
+        if(JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * escala) + (desfase *escala)){
             this.position.x = JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * escala) -(desfase * escala);
             this.vx = 0;
         }
