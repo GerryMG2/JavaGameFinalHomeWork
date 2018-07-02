@@ -24,19 +24,21 @@ public class Character {
     public float gravity = -100f;
     private float escala;
     private int desfase;
+    private float velocidadx;
 
     public void IniAnimations() {
         
-
     }
 
-    public Character(float x, float y, float escala, int desfase) {
+    public Character(float x, float y, float escala, int desfase,float velocidad) {
         try {
             position = new Punto();
             position.setX(x);
             position.setY(y);
             this.escala = escala;
             this.desfase = desfase;
+            this.velocidadx = velocidad;
+            
         } catch (Exception error) {
             error.printStackTrace();
         }
@@ -95,13 +97,13 @@ public class Character {
     public void actionClick(Input in){
         if(in.isKeyDown(Input.KEY_D))
         {
-            this.vx = 5;
+            this.vx = this.velocidadx;
         }
         else
         {
             if(in.isKeyDown(Input.KEY_A))
             {
-                this.vx = - 5;
+                this.vx = - this.velocidadx;
             }
             else{
                 this.vx = 0;
@@ -111,14 +113,15 @@ public class Character {
     }
     
     public void ActionMove(float tiempo){
-        if(JuegoV1.contenedor.getWidth() <= this.position.x + this.PrincipalAnimation.getWidth()){
-            this.position.x = JuegoV1.contenedor.getWidth() - this.PrincipalAnimation.getWidth();
+        if(JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * escala) - (desfase *escala)){
+            this.position.x = JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * escala) -(desfase * escala);
             this.vx = 0;
         }
         else
         {
-            if(this.position.x  - this.PrincipalAnimation.getWidth() == 0){
-                this.position.x = this.PrincipalAnimation.getWidth();
+            if(this.position.x < 0){
+                this.position.x = 0;
+                this.vx = 0;
             }
         }
         this.position.x = this.position.x +  this.vx * tiempo;
