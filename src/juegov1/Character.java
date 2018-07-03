@@ -9,6 +9,8 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 /**
  *
@@ -29,12 +31,13 @@ public class Character {
     private Image playerImg;
     private SpriteSheet subImage;
     private float velocidadsalto;
-
+    public Shape shape;
     public void IniAnimations(Image sprite) {
         playerImg = sprite;
         subImage = new SpriteSheet(playerImg.getSubImage(0, 150, 368, 50), 46, 50);
         PrincipalAnimation = new Animation(subImage, 80);
-
+        shape = new Rectangle(this.position.x,this.position.y,this.position.x + (this.PrincipalAnimation.getWidth() * escala) - (desfase * escala),this.position.y + (this.PrincipalAnimation.getHeight() * escala) - (desfase * escala));
+        
     }
 
     public Character(float x, float y, float escala, int desfase, float velocidad, float velocidadsalto) {
@@ -46,9 +49,18 @@ public class Character {
             this.desfase = desfase;
             this.velocidadx = velocidad;
             this.velocidadsalto = velocidadsalto;
+            
         } catch (Exception error) {
             error.printStackTrace();
         }
+    }
+    
+    public int getAncho(){
+        return (int)(this.PrincipalAnimation.getWidth() - desfase ) *(int)escala;
+    }
+    
+    public int getAlto(){
+        return (this.PrincipalAnimation.getHeight() - desfase) * (int) escala;
     }
 
     public int getVida() {
@@ -93,6 +105,7 @@ public class Character {
         if (y0 + (this.PrincipalAnimation.getHeight() * escala) - (desfase * escala) >= JuegoV1.contenedor.getHeight()) {
             this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala);
             //System.out.println(this.position.y);
+            this.shape.setY(this.position.y);
             //System.out.println(JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala));
             if (this.vey0 == this.velocidadsalto) {
                 //System.out.println("salto");
@@ -100,12 +113,14 @@ public class Character {
                         - (float) (this.vey0 * tiempo)
                         + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
                 this.vey0 = this.vey0 + (this.gravity * tiempo);
+                this.shape.setY(this.position.y);
             }
         } else {
             this.position.y = (float) this.position.y
                     - (float) (this.vey0 * tiempo)
                     + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
             this.vey0 = this.vey0 + (this.gravity * tiempo);
+            this.shape.setY(this.position.y);
         }
         ActionMove(tiempo);
 
@@ -138,14 +153,17 @@ public class Character {
     public void ActionMove(float tiempo) {
         if (JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * escala) + (desfase * escala)) {
             this.position.x = JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * escala) - (desfase * escala);
+            this.shape.setX(this.position.x);
             this.vx = 0;
         } else {
             if (this.position.x < 0) {
                 this.position.x = 0;
+                this.shape.setX(this.position.x);
                 this.vx = 0;
             }
         }
         this.position.x = this.position.x + (this.vx * (tiempo));
+        this.shape.setX(this.position.x);
     }
 
 }

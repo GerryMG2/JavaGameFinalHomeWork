@@ -24,6 +24,7 @@ public class ImagenP extends Image {
     private float velocidadX;
     private float velocidadSalto;
     private int anchoImagen;
+    
 
     public ImagenP() {
         position.x = 0f;
