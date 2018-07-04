@@ -8,7 +8,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Rectangle;
@@ -17,42 +16,36 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author yury_
  */
-public class StaticLevel extends BasicGameState {
+public class StaticLevel{
 
     private Dimension tamano;
     private Image fondo, flip;
     private float scal;
-    private int cwid, chei, id;
+    private int cwid, chei;
     private int Gx, Gy, Lx, Ly, Co;
     private Player jugador2;
     private Character target;
     private Input control;
     private Shape dezone;
+    private Rectangle cropZone;
     private Rectangle platform;
 
-    public StaticLevel(int id) {
-        this.id = id;
+    public StaticLevel() {
         scal = 1;
     }
 
-    public StaticLevel(int indicador, float scalar) {
-        id = indicador;
+    public StaticLevel(float scalar) {
         scal = scalar;
     }
 
-    @Override
-    public int getID() {
-        return id;
-    }
-
-    @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         Gx = 0;
         Gy = 0;
         fondo = new Image("res/Img/Backgorund/ciudad.jpg");
+        fondo = fondo.getScaledCopy(scal);
         cwid = container.getWidth();
         chei = container.getHeight();
-        tamano = new Dimension((int) (fondo.getWidth() * scal), (int) (fondo.getHeight() * scal));
+        tamano = new Dimension((int) fondo.getWidth(), (int) fondo.getHeight());
         Lx = Gx + cwid;
         Ly = Gy + chei;
         jugador2 = new Player("res/Img/Character/assets/player/player.png");
@@ -63,10 +56,9 @@ public class StaticLevel extends BasicGameState {
         target.IniAnimations(flip);
         setTarget(target);
         platform = new Rectangle(10, 450, 300, 25);
-
+        cropZone = new Rectangle(0, 0, cwid, chei);
     }
 
-    @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         if (target == null) {
             freeScroll(delta);
@@ -90,10 +82,8 @@ public class StaticLevel extends BasicGameState {
         if (platform.intersects(dezone)) {
             target.position.y = platform.getY() - target.getAlto();
         }
-
     }
 
-    @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         fondo.draw(0, 0, cwid, chei, Gx, Gy, Lx, Ly);
         //jugador2.render();
@@ -140,18 +130,9 @@ public class StaticLevel extends BasicGameState {
     }
 
     private void targetScroll() {
-        Gx = (int) target.position.x;
-        Gy = (int) target.position.y;
-        Lx = Gx + cwid;
-        Ly = Gy + chei;
-        if (Lx >= fondo.getWidth()) {
-            Lx = fondo.getWidth();
-            Gx = Lx - cwid;
-        }
-        if (Ly >= fondo.getHeight()) {
-            Ly = fondo.getHeight();
-            Gy= Ly - cwid;
-        }
+        
+        
+
     }
 
 }
