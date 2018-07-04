@@ -43,6 +43,18 @@ public class ScrollingBackground {
         fotnString = Cfont.getMyFont(1, 30);
         leFont = new TrueTypeFont(fotnString, true);
     }
+    
+        public ScrollingBackground(Image face, int loops, GameContainer cnt){
+        backG = face;
+        loopCont = loops;
+        contrl = cnt.getInput();
+        FrameWidth = cnt.getWidth();
+        dizpla = FrameWidth;
+        FrameHeight = cnt.getHeight();
+        Cfont = new FontLoader("res/Fonts/fuente.ttf");
+        fotnString = Cfont.getMyFont(1, 30);
+        leFont = new TrueTypeFont(fotnString, true);
+    }
 
     public void render(GameContainer container, Graphics g) {
         backG.draw(x, 0, FrameWidth, FrameHeight);
@@ -85,4 +97,9 @@ public class ScrollingBackground {
         this.dragSpeed = dragSpeed;
     }
 
+    public int getcLoop() {
+        return cLoop;
+    }
+
+    
 }

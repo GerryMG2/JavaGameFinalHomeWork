@@ -61,7 +61,6 @@ public class nvl1 extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         ugan.updatePosition(i);
         jugador.updatePosition(i);
-        jugador2.update(gc, i);
         fondo.update(jugador2);
         if (events.isKeyDown(Input.KEY_D)) {
             jugador.actionClick(Input.KEY_D);
@@ -82,6 +81,10 @@ public class nvl1 extends BasicGameState {
             //System.out.println("entro");
             jugador.actionClick(666);
             ugan.actionClick(666);
+        }
+        jugador2.update(gc, i);
+        if(fondo.getcLoop() > 1){
+            sbg.enterState(3);
         }
 
     }
