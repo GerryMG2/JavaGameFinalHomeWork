@@ -54,7 +54,7 @@ public class StaticLevel {
         if (target == null) {
             freeScroll(delta);
         } else {
-            targetScroll(delta);
+            targetScroll();
         }
         if (platform.intersects(dezone)) {
             target.position.y = platform.getY() - target.getAlto();
@@ -94,7 +94,7 @@ public class StaticLevel {
         x1 = (int) ((int) cwid * 0.6f);
         y0 = (int) ((int) chei * 0.2f);
         y1 = (int) ((int) chei * 0.6f);
-        chaBoundry = new Rectangle(0, 0, cwid, chei);
+        chaBoundry = new Rectangle(x0, y0, x1, y1);
     }
 
     private void freeScroll(int delta) {
@@ -129,40 +129,33 @@ public class StaticLevel {
 
     }
 
-    private void targetScroll(int delta) {
-        if (target.position.x > chaBoundry.getCenterX()) {
-            Gx +=  delta;
+    private void targetScroll() {
+        int tempx, tempy;
+        tempx = (int) target.position.x;
+        tempy = (int) target.position.y;
+        if ((target.position.x > chaBoundry.getCenterX()) && (Lx < tamano.width)) {
+            target.position.x = chaBoundry.getCenterX();
+            Gx += (tempx - target.position.x);
             Lx = Gx + cwid;
-            if (Lx > tamano.width) {
-                Gx = tamano.width - cwid;
-                Lx = Gx + cwid;
-            } else {
-                target.position.x = chaBoundry.getCenterX();
-            }
-        } else if (target.position.x < chaBoundry.getCenterX()) {
-            Gx -= delta;
-            if (Gx < 0) {
-                Gx = 0;
-            } else {
-                target.position.x = chaBoundry.getCenterX();
-            }
+        } else if ((target.position.x < chaBoundry.getCenterX()) && (Gx > 0)) {
+            target.position.x = chaBoundry.getCenterX();
+            Gx -= (target.position.x - tempx);
             Lx = Gx + cwid;
         }
         if (target.position.y > chaBoundry.getCenterY()) {
-            Gy += delta;
+            Gy += 100;
             Ly = Gy + chei;
             if (Ly > tamano.height) {
                 Gy = tamano.height - chei;
                 Ly = Gy + chei;
-            }else {
+            } else {
                 target.position.y = chaBoundry.getCenterY();
             }
         } else if (target.position.y < chaBoundry.getCenterY()) {
-            Gy -= delta;
+            Gy -= 100;
             if (Gy < 0) {
                 Gy = 0;
-            }
-             else {
+            } else {
                 target.position.y = chaBoundry.getCenterY();
             }
             Ly = Gy + chei;
