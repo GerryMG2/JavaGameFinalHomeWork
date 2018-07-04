@@ -32,6 +32,7 @@ public class Character {
     private SpriteSheet subImage;
     private float velocidadsalto;
     public Shape shape;
+    public boolean puedoSaltar = false;
     public void IniAnimations(Image sprite) {
         playerImg = sprite;
         subImage = new SpriteSheet(playerImg.getSubImage(0, 150, 368, 50), 46, 50);
@@ -58,7 +59,6 @@ public class Character {
     public int getAncho(){
         return (int)(this.PrincipalAnimation.getWidth() - desfase ) *(int)escala;
     }
-    
     public int getAlto(){
         return (this.PrincipalAnimation.getHeight() - desfase) * (int) escala;
     }
@@ -96,7 +96,7 @@ public class Character {
     }
 
     public void RenderDraw() {
-        this.PrincipalAnimation.draw(position.x, position.y, this.PrincipalAnimation.getWidth() * escala, this.PrincipalAnimation.getHeight() * escala);
+        this.PrincipalAnimation.draw(position.x, position.y, this.getAncho(), this.getAlto());
     }
 
     public void updatePosition(float delta) {
