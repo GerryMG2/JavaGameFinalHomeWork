@@ -1,6 +1,5 @@
 package elements.leveltypes;
 
-import elements.gameactor.Player;
 import juegov1.Character;
 import java.awt.Dimension;
 import org.newdawn.slick.GameContainer;
@@ -16,19 +15,17 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author yury_
  */
-public class StaticLevel{
+public class StaticLevel {
 
     private Dimension tamano;
     private Image fondo, flip;
-    private float scal;
+    private final float scal;
     private int cwid, chei;
     private int Gx, Gy, Lx, Ly, Co;
-    private Player jugador2;
     private Character target;
     private Input control;
     private Shape dezone;
-    private Rectangle cropZone;
-    private Rectangle platform;
+    private Rectangle platform, cropZone, chaBoundry;
 
     public StaticLevel() {
         scal = 1;
@@ -48,13 +45,7 @@ public class StaticLevel{
         tamano = new Dimension((int) fondo.getWidth(), (int) fondo.getHeight());
         Lx = Gx + cwid;
         Ly = Gy + chei;
-        jugador2 = new Player("res/Img/Character/assets/player/player.png");
-        jugador2.setBoundries(0, 0, cwid, chei);
         control = container.getInput();
-        flip = new Image("res/Img/Character/assets/player/player.png");
-        target = new Character(10, 300, 2, 0, 100.0f, 700f);
-        target.IniAnimations(flip);
-        setTarget(target);
         platform = new Rectangle(10, 450, 300, 25);
         cropZone = new Rectangle(0, 0, cwid, chei);
     }
@@ -63,9 +54,8 @@ public class StaticLevel{
         if (target == null) {
             freeScroll(delta);
         } else {
-            targetScroll();
+            targetScroll(delta);
         }
-        //jugador2.update(container, delta);
         if (platform.intersects(dezone)) {
             target.position.y = platform.getY() - target.getAlto();
         }
@@ -86,15 +76,25 @@ public class StaticLevel{
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         fondo.draw(0, 0, cwid, chei, Gx, Gy, Lx, Ly);
-        //jugador2.render();
         target.RenderDraw();
         g.fill(platform);
         g.draw(platform);
+        g.draw(chaBoundry);
     }
 
     public void setTarget(Character mainThing) {
         target = mainThing;
         dezone = target.shape;
+        calcBoundry();
+    }
+
+    private void calcBoundry() {
+        int x0, y0, x1, y1;
+        x0 = (int) ((int) cwid * 0.2f);
+        x1 = (int) ((int) cwid * 0.6f);
+        y0 = (int) ((int) chei * 0.2f);
+        y1 = (int) ((int) chei * 0.6f);
+        chaBoundry = new Rectangle(0, 0, cwid, chei);
     }
 
     private void freeScroll(int delta) {
@@ -129,10 +129,44 @@ public class StaticLevel{
 
     }
 
-    private void targetScroll() {
-        
-        
-
+    private void targetScroll(int delta) {
+        if (target.position.x > chaBoundry.getCenterX()) {
+            Gx +=  delta;
+            Lx = Gx + cwid;
+            if (Lx > tamano.width) {
+                Gx = tamano.width - cwid;
+                Lx = Gx + cwid;
+            } else {
+                target.position.x = chaBoundry.getCenterX();
+            }
+        } else if (target.position.x < chaBoundry.getCenterX()) {
+            Gx -= delta;
+            if (Gx < 0) {
+                Gx = 0;
+            } else {
+                target.position.x = chaBoundry.getCenterX();
+            }
+            Lx = Gx + cwid;
+        }
+        if (target.position.y > chaBoundry.getCenterY()) {
+            Gy += delta;
+            Ly = Gy + chei;
+            if (Ly > tamano.height) {
+                Gy = tamano.height - chei;
+                Ly = Gy + chei;
+            }else {
+                target.position.y = chaBoundry.getCenterY();
+            }
+        } else if (target.position.y < chaBoundry.getCenterY()) {
+            Gy -= delta;
+            if (Gy < 0) {
+                Gy = 0;
+            }
+             else {
+                target.position.y = chaBoundry.getCenterY();
+            }
+            Ly = Gy + chei;
+        }
     }
 
 }
