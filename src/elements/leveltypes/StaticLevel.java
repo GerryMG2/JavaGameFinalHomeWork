@@ -137,29 +137,21 @@ public class StaticLevel {
             target.position.x = chaBoundry.getCenterX();
             Gx += (tempx - target.position.x);
             Lx = Gx + cwid;
-        } else if ((target.position.x < chaBoundry.getCenterX()) && (Gx > 0)) {
+        } else if ((target.position.x < chaBoundry.getCenterX()) && (Gx > target.getAncho())) {
             target.position.x = chaBoundry.getCenterX();
             Gx -= (target.position.x - tempx);
             Lx = Gx + cwid;
         }
-        if (target.position.y > chaBoundry.getCenterY()) {
-            Gy += 100;
+        if ((target.position.y > chaBoundry.getCenterY()) && (Ly < (tamano.getHeight() - target.getAlto()))) {
+            target.position.y = chaBoundry.getCenterY();
+            Gy += (tempy - target.position.y);
             Ly = Gy + chei;
-            if (Ly > tamano.height) {
-                Gy = tamano.height - chei;
-                Ly = Gy + chei;
-            } else {
-                target.position.y = chaBoundry.getCenterY();
-            }
-        } else if (target.position.y < chaBoundry.getCenterY()) {
-            Gy -= 100;
-            if (Gy < 0) {
-                Gy = 0;
-            } else {
-                target.position.y = chaBoundry.getCenterY();
-            }
+        } else if ((target.position.y < chaBoundry.getCenterY()) && (Gy > target.getAlto())) {
+            target.position.y = chaBoundry.getCenterY();
+            Gy -= (target.position.y - tempy);
             Ly = Gy + chei;
         }
+
     }
 
 }
