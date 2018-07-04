@@ -10,6 +10,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import elements.leveltypes.*;
 
 /**
  *
@@ -43,7 +44,8 @@ public class JuegoV1 extends StateBasedGame {
         //addState(new MainMenu());
         this.addState(new nvl1());
         this.addState(new Menu());
-
+        addState(new StaticLevel(3));
+        //addState(new SideScrollLevel(7,3));
     }
 
 }

@@ -49,6 +49,18 @@ public class Player {
                 x = oriX;
             }
             checkBoundri();
+        } else if (cnt.getInput().isKeyDown(Input.KEY_UP)) {
+            y -= (0.25 * delta);
+            if (y < oriY) {
+                y = oriY;
+            }
+            checkBoundri();
+        } else if (cnt.getInput().isKeyDown(Input.KEY_DOWN)) {
+            y += (0.25 * delta);
+            if (y > finY) {
+                y = finY;
+            }
+            checkBoundri();
         }
     }
 
@@ -62,6 +74,13 @@ public class Player {
         oriY = (int) bound.getY();
         finY = (int) (bound.getY() + bound.getHeight());
         x = oriX;
+    }
+
+    public void setBoundries(int x0, int y0, int x1, int y1) {
+        oriX = x0;
+        oriY = y0;
+        finX = x1;
+        finY = y1;
     }
 
     private void checkBoundri() {
