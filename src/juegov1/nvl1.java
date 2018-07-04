@@ -111,7 +111,7 @@ public class nvl1 extends BasicGameState {
             ugan.actionClick(666);
         }
         jugador2.update(gc, i);
-        if(fondo.getcLoop() > 1){
+        if(fondo.getcLoop() > 0){
             sbg.enterState(3);
         }
         
