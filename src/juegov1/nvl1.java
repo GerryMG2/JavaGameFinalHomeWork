@@ -5,6 +5,7 @@
  */
 package juegov1;
 
+import elements.levelcomponents.Platform;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -17,7 +18,6 @@ import elements.levelcomponents.Bullet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import elements.leveltypes.StaticLevel;
-import org.newdawn.slick.Color;
 
 /**
  *
@@ -31,17 +31,21 @@ public class nvl1 extends BasicGameState {
     private Character jugador;
     private ScrollingBackground fondo;
     private Rectangle boundry;
-    private int currentB=0;
+    private int currentB = 0;
     private StaticLevel nivel;
-    
-    private int delta=0;    
-    
+
+    private int delta = 0;
+
     private Bullet b;
-    private static int cuantityBu=10;
-    
+    private static int cuantityBu = 10;
+
     private Bullet[] bullets;
-    
-    private static int FireRate=250;
+
+    private static int FireRate = 250;
+    private Platform cosa;
+    private Platform cosa1;
+    private Platform cosa2;
+    private Platform cosa3;
 
     @Override
     public int getID() {
@@ -53,23 +57,27 @@ public class nvl1 extends BasicGameState {
         ugan = new ImagenP(100.0f, 100.0f, 1.0f, 20, 100f, 700f, "res/uganda.gif");
         flip = new Image("res\\Img\\Character\\assets\\player\\player.png");
         events = gc.getInput();
-        jugador = new Character(10, 500, 2, 0, 100.0f, 2200f);
+        jugador = new Character(10, 500, 2, 0, 100.0f, 1200f);
         jugador.IniAnimations(flip);
         fondo = new ScrollingBackground("res/Img/Backgorund/back.jpg", 7, gc);
         fondo.setDragSpeed(15);
         boundry = new Rectangle(190, 30, (gc.getWidth() - 700), (gc.getHeight() - 60));
-        
+
         b = new Bullet(new Vector2f(100, 100), new Vector2f(500, 0)/*vector direccion de la vala primer valor x y segundo y*/);
-        
+
         bullets = new Bullet[cuantityBu];
-        
-        for(int i =0 ;i<bullets.length;i++){
-            bullets[i]= new Bullet();
+
+        for (int i = 0; i < bullets.length; i++) {
+            bullets[i] = new Bullet();
         }
         nivel = new StaticLevel(3);
         nivel.init(gc, "res\\Img\\Backgorund\\ciudad2.jpg");
         nivel.setTarget(jugador);
-        
+        cosa = new Platform(new Rectangle(10, 400, 100, 20));
+        cosa1 = new Platform(new Rectangle(310, 700, 100, 20));
+        cosa2 = new Platform(new Rectangle(610, 500, 100, 20));
+        cosa3 = new Platform(new Rectangle(1200, 300, 100, 20));
+
     }
 
     @Override
@@ -77,16 +85,20 @@ public class nvl1 extends BasicGameState {
         nivel.render(gc, sbg, grphcs);
         ugan.draw(ugan.position.getX(), ugan.position.getY(), ugan.getEscala());
         jugador.RenderDraw();
-        for(Bullet bu:bullets){
+        for (Bullet bu : bullets) {
             bu.render(gc, grphcs);
         }
-        
+
         b.render(gc, grphcs);
+        cosa.render(grphcs);
+        cosa1.render(grphcs);
+        cosa2.render(grphcs);
+        cosa3.render(grphcs);
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        delta+=i;
+        delta += i;
         ugan.updatePosition(i);
         jugador.updatePosition(i);
         if (events.isKeyDown(Input.KEY_D)) {
@@ -109,23 +121,29 @@ public class nvl1 extends BasicGameState {
             jugador.actionClick(666);
             ugan.actionClick(666);
         }
-        if(fondo.getcLoop() > 0){
+        if (fondo.getcLoop() > 0) {
             sbg.enterState(3);
         }
-        
-        if(delta>FireRate&&gc.getInput().isKeyDown(Input.KEY_SPACE)){
-            bullets[currentB]=new Bullet(new Vector2f(200, 300), new Vector2f(500, 50));
+
+        if (delta > FireRate && gc.getInput().isKeyDown(Input.KEY_SPACE)) {
+            bullets[currentB] = new Bullet(new Vector2f(200, 300), new Vector2f(500, 50));
             currentB++;
-            if(currentB >= bullets.length)currentB=0;
-            delta=0;
+            if (currentB >= bullets.length) {
+                currentB = 0;
+            }
+            delta = 0;
         }
-        
-        for(Bullet bu:bullets){
+
+        for (Bullet bu : bullets) {
             bu.update(i);
         }
-        
+
         b.update(i);
         nivel.update(gc, sbg, i);
+        cosa.relocalizar(nivel.getGlobalX(), nivel.getGlobalY());
+        cosa1.relocalizar(nivel.getGlobalX(), nivel.getGlobalY());
+        cosa2.relocalizar(nivel.getGlobalX(), nivel.getGlobalY());
+        cosa3.relocalizar(nivel.getGlobalX(), nivel.getGlobalY());
     }
 
 }

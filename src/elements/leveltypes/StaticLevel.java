@@ -9,7 +9,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.geom.Rectangle;
-import elements.powerup.Arma;
 
 /**
  *
@@ -25,7 +24,8 @@ public class StaticLevel {
     private Character target;
     private Input control;
     private Rectangle chaBoundry;
-    private Arma weapon;
+    public Rectangle cameraBoundry;
+    
 
     public StaticLevel() {
         scal = 1;
@@ -46,7 +46,6 @@ public class StaticLevel {
         Lx = Gx + cwid;
         Ly = Gy + chei;
         control = container.getInput();
-        weapon = new Arma(new Image("res\\Img\\Character\\assets\\weapons\\large.png"), control);
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
@@ -64,27 +63,18 @@ public class StaticLevel {
         if (control.isKeyPressed(Input.KEY_D)) {
             target.actionClick(Input.KEY_D);
         }
-        weapon.update(((int)target.position.x+target.getAncho()), ((int)target.position.y+(target.getAlto()/2 )), delta);
+        
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         fondo.draw(0, 0, cwid, chei, Gx, Gy, Lx, Ly);
         target.RenderDraw();
-        weapon.render(container, g);
     }
 
     public void setTarget(Character mainThing) {
         target = mainThing;
-        calcBoundry();
-    }
-
-    private void calcBoundry() {
-        int x0, y0, x1, y1;
-        x0 = (int) ((int) cwid * 0.2f);
-        x1 = (int) ((int) cwid * 0.6f);
-        y0 = (int) ((int) chei * 0.2f);
-        y1 = (int) ((int) chei * 0.6f);
-        chaBoundry = new Rectangle(x0, y0, x1, y1);
+        chaBoundry = new Rectangle(0, 0, cwid, chei);
+        cameraBoundry = new Rectangle(0, 0, cwid, chei);
     }
 
     private void freeScroll(int delta) {
@@ -127,7 +117,7 @@ public class StaticLevel {
             target.position.x = chaBoundry.getCenterX();
             Gx += (tempx - target.position.x);
             Lx = Gx + cwid;
-        } else if ((target.position.x < chaBoundry.getCenterX()) && (Gx > target.getAncho())) {
+        } else if ((target.position.x < chaBoundry.getCenterX()) && (Gx > 0)){
             target.position.x = chaBoundry.getCenterX();
             Gx -= (target.position.x - tempx);
             Lx = Gx + cwid;
@@ -144,4 +134,12 @@ public class StaticLevel {
 
     }
 
+    public int getGlobalX() {
+        return Gx;
+    }
+
+    public int getGlobalY() {
+        return Gy;
+    }
+    
 }

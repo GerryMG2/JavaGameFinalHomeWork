@@ -7,21 +7,23 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
+import TiposGenerales.DinamicObject;
 
 /**
  *
  * @author yury_
  */
-public class Arma {
+public class Arma extends DinamicObject{
 
-    private final Image texture;
+    private  Image texture;
     public int x, y;
     private final Input control;
     private Bullet bala;
 
     public Arma(Image texture, Input control) {
-        this.texture = texture;
+        super(0.0f, 0.0f, 9.8f, 1.0f, 0);
         this.control = control;
+        this.texture = texture;
     }
 
     public void update(int xcoor, int ycoor, int delta) {
@@ -57,6 +59,10 @@ public class Arma {
         angulo = (float) Math.toDegrees(angulo);
         System.out.println("" + angulo);
         return angulo;
+    }
+
+    @Override
+    public void update(int delta) {
     }
 
 }
