@@ -46,7 +46,7 @@ public abstract class DinamicObject {
         subImage = new SpriteSheet(playerImg.getSubImage(0, 150, 368, 50), 46, 50);
         PrincipalAnimation = new Animation(subImage, 80);
         shape = new Rectangle(this.position.x,this.position.y,this.position.x + (this.PrincipalAnimation.getWidth() * escala) - (desfase * escala),this.position.y + (this.PrincipalAnimation.getHeight() * escala) - (desfase * escala));
-        this.ancho = (this.PrincipalAnimation.getWidth() - desfase ) *escala;;
+        this.ancho = (this.PrincipalAnimation.getWidth() - desfase ) *escala;
         this.alto = (this.PrincipalAnimation.getHeight() - desfase) * escala;
     }
     

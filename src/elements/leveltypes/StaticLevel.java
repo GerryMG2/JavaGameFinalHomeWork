@@ -8,8 +8,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Rectangle;
+import elements.powerup.Arma;
 
 /**
  *
@@ -18,14 +18,14 @@ import org.newdawn.slick.geom.Rectangle;
 public class StaticLevel {
 
     private Dimension tamano;
-    private Image fondo, flip;
+    private Image fondo;
     private final float scal;
     private int cwid, chei;
-    private int Gx, Gy, Lx, Ly, Co;
+    private int Gx, Gy, Lx, Ly;
     private Character target;
     private Input control;
-    private Shape dezone;
-    private Rectangle platform, cropZone, chaBoundry;
+    private Rectangle chaBoundry;
+    private Arma weapon;
 
     public StaticLevel() {
         scal = 1;
@@ -35,10 +35,10 @@ public class StaticLevel {
         scal = scalar;
     }
 
-    public void init(GameContainer container, StateBasedGame game) throws SlickException {
+    public void init(GameContainer container, String path) throws SlickException {
         Gx = 0;
         Gy = 0;
-        fondo = new Image("res/Img/Backgorund/ciudad.jpg");
+        fondo = new Image(path);
         fondo = fondo.getScaledCopy(scal);
         cwid = container.getWidth();
         chei = container.getHeight();
@@ -46,8 +46,7 @@ public class StaticLevel {
         Lx = Gx + cwid;
         Ly = Gy + chei;
         control = container.getInput();
-        platform = new Rectangle(10, 450, 300, 25);
-        cropZone = new Rectangle(0, 0, cwid, chei);
+        weapon = new Arma(new Image("res\\Img\\Character\\assets\\weapons\\large.png"), control);
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
@@ -56,10 +55,6 @@ public class StaticLevel {
         } else {
             targetScroll();
         }
-        if (platform.intersects(dezone)) {
-            target.position.y = platform.getY() - target.getAlto();
-        }
-        target.updatePosition(delta);
         if (control.isKeyPressed(Input.KEY_X)) {
             target.actionClick(Input.KEY_X);
         }
@@ -69,22 +64,17 @@ public class StaticLevel {
         if (control.isKeyPressed(Input.KEY_D)) {
             target.actionClick(Input.KEY_D);
         }
-        if (platform.intersects(dezone)) {
-            target.position.y = platform.getY() - target.getAlto();
-        }
+        weapon.update(((int)target.position.x+target.getAncho()), ((int)target.position.y+(target.getAlto()/2 )), delta);
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         fondo.draw(0, 0, cwid, chei, Gx, Gy, Lx, Ly);
         target.RenderDraw();
-        g.fill(platform);
-        g.draw(platform);
-        g.draw(chaBoundry);
+        weapon.render(container, g);
     }
 
     public void setTarget(Character mainThing) {
         target = mainThing;
-        dezone = target.shape;
         calcBoundry();
     }
 

@@ -52,7 +52,7 @@ public class nvl1 extends BasicGameState {
         ugan = new ImagenP(100.0f, 100.0f, 1.0f, 20, 100f, 700f, "res/uganda.gif");
         flip = new Image("res/Img/Character/assets/player/player.png");
         events = gc.getInput();
-        jugador = new Character(10, 500, 2, 0, 100.0f, 4500f);
+        jugador = new Character(10, 500, 2, 0, 100.0f, 2200f);
         jugador.IniAnimations(flip);
         fondo = new ScrollingBackground("res/Img/Backgorund/back.jpg", 7, gc);
         fondo.setDragSpeed(15);
@@ -66,7 +66,7 @@ public class nvl1 extends BasicGameState {
             bullets[i]= new Bullet();
         }
         nivel = new StaticLevel(3);
-        nivel.init(gc, sbg);
+        nivel.init(gc, "res\\Img\\Backgorund\\ciudad2.jpg");
         nivel.setTarget(jugador);
         
     }
