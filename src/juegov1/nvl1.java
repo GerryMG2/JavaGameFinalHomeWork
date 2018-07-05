@@ -17,6 +17,7 @@ import elements.levelcomponents.Bullet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import elements.leveltypes.StaticLevel;
+import org.newdawn.slick.Color;
 
 /**
  *
@@ -50,7 +51,7 @@ public class nvl1 extends BasicGameState {
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         ugan = new ImagenP(100.0f, 100.0f, 1.0f, 20, 100f, 700f, "res/uganda.gif");
-        flip = new Image("res/Img/Character/assets/player/player.png");
+        flip = new Image("res\\Img\\Character\\assets\\player\\player.png");
         events = gc.getInput();
         jugador = new Character(10, 500, 2, 0, 100.0f, 2200f);
         jugador.IniAnimations(flip);

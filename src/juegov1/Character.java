@@ -11,6 +11,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import subsystem.SpriteSheetCutter;
 
 /**
  *
@@ -28,15 +29,16 @@ public class Character {
     private float escala;
     private int desfase;
     private float velocidadx;
-    private Image playerImg;
+    private SpriteSheetCutter tijeras;
     private SpriteSheet subImage;
     private float velocidadsalto;
     public Shape shape;
     public boolean puedoSaltar = false;
     public void IniAnimations(Image sprite) {
-        playerImg = sprite;
-        subImage = new SpriteSheet(playerImg.getSubImage(0, 150, 368, 50), 46, 50);
-        PrincipalAnimation = new Animation(subImage, 80);
+        tijeras  = new SpriteSheetCutter();
+        PrincipalAnimation = tijeras.makeAnimation(sprite, 0, 160, 368, 40, 8, 1);
+        animations = new Animation[3];
+        animations[0] = tijeras.makeAnimation(sprite, 0, 50,10,270,6,1);
         shape = new Rectangle(this.position.x,this.position.y,this.position.x + (this.PrincipalAnimation.getWidth() * escala) - (desfase * escala),this.position.y + (this.PrincipalAnimation.getHeight() * escala) - (desfase * escala));
         
     }
