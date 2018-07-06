@@ -6,6 +6,8 @@
 package elements.levelcomponents;
 
 import TiposGenerales.DinamicObject;
+import TiposGenerales.personaje;
+import elements.gameactor.Player;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import org.newdawn.slick.geom.Vector2f;
@@ -23,6 +25,7 @@ public class EscopetaPickUpObject extends DinamicObject {
     private int changeD = 0;
     private boolean active = true;
     private ArrayList<DinamicObject> objects;
+    private personaje p;
 
     public EscopetaPickUpObject(float x, float y, float gravity, float escala, int desfase, int alturaDeLevitacion, int vxdeltaD, ArrayList<DinamicObject> objects) {
         super(x, y, gravity, escala, desfase);
@@ -40,8 +43,17 @@ public class EscopetaPickUpObject extends DinamicObject {
         return false;
     }
 
+    public void pickedup() {
+        if (active) {
+            if(p.position.x <= this.position.x && this.position.x <= p.position.x + p.getAncho()&& p.position.y <= this.position.y && this.position.y <= p.position.y + p.getAncho()){
+                this.active=false;
+            }
+        }
+    }
+
     @Override
     public void update(int delta) {
+        pickedup();
         for (DinamicObject object : objects) {
             if (active && changeD == 0 && colisionsuelo(object)) {
                 Vector2f Velocidad = new Vector2f(delta, gravity);
@@ -56,7 +68,7 @@ public class EscopetaPickUpObject extends DinamicObject {
                 Velocidad.scale((delta / 1000.0f));
                 this.vx = vx - 2 * Velocidad.x;
                 this.vey0 = vey0 + Velocidad.y;
-                changeD=0;
+                changeD = 0;
             }
 
         }
