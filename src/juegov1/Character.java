@@ -105,6 +105,7 @@ public class Character {
         float tiempo = (float) (delta / 1000);
         float y0 = this.position.y;
         if (y0 + (this.PrincipalAnimation.getHeight() * escala) - (desfase * escala) >= JuegoV1.contenedor.getHeight()) {
+            
             this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala);
             //System.out.println(this.position.y);
             this.shape.setY(this.position.y);

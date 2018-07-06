@@ -32,6 +32,7 @@ public abstract class StaticObject  extends ObjectS{
         super.position.setX(shape.getX());
         super.position.setY(shape.getY());
         update();
+        
     }
 
     public abstract void update();

@@ -9,14 +9,6 @@ package TiposGenerales;
  *
  * @author gerar
  */
-public class ContainerObjectsS {
-    private ObjectS lista[];
-
-    public ContainerObjectsS(ObjectS[] lista) {
-        this.lista = lista;
-    }
-    
-    public void render(){
-        
-    }
+public enum UtilEnum {
+    X,Y,N
 }

@@ -17,7 +17,7 @@ import org.newdawn.slick.geom.Shape;
  * @author gerar
  */
 public abstract class DinamicObject extends ObjectS{
-    
+    public Punto lastPosition;
     Animation animations[];
     Animation PrincipalAnimation;
     private float vx;
@@ -88,5 +88,6 @@ public abstract class DinamicObject extends ObjectS{
     }
     
     public abstract void update(int delta);
+    public abstract void update(int delta,ContainerS con);
     
 }

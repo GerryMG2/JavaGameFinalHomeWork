@@ -5,6 +5,10 @@
  */
 package TiposGenerales;
 
+import elements.levelcomponents.Platform;
+import juegov1.Punto;
+import org.newdawn.slick.geom.Rectangle;
+
 /**
  *
  * @author gerar
@@ -60,12 +64,33 @@ public abstract class personaje extends DinamicObject {
      *
      * @param key
      */
+    
+    public UtilEnum Choca(Platform[] recList){
+        UtilEnum response = UtilEnum.N;
+        for(Platform r: recList){
+            if(this.shape.intersects(r.shape))
+            {
+                if(this.position.y == this.lastPosition.y){
+                    response = UtilEnum.X;
+                }
+                else
+                {
+                    response = UtilEnum.Y;
+                }
+                
+            }
+        }
+        
+        
+        
+        
+        return response;
+    }
 
     public abstract void ActionClick(int key);
     
     public void SetWeapon(int arma){
         this.arma=arma;
     } 
-    
     
 }
