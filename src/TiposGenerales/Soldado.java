@@ -85,7 +85,7 @@ public class Soldado extends personaje {
             this.vx = 0;
         }
 
-        if (key == Input.KEY_X && this.position.y == juegov1.JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * this.getEscala()) + (this.getDesfase() * this.getEscala())) {
+        if (key == Input.KEY_X && this.puedoSaltar ) {
 
             this.setVey0(this.getVelocidadsalto());
         }
@@ -118,15 +118,9 @@ public class Soldado extends personaje {
             this.shape.setY(this.position.y);
             if(this.Choca(con.lista) == UtilEnum.Y){
                 this.position = this.lastPosition;
+                this.puedoSaltar = true;
             }
-            if (this.getVey0() == this.getVelocidadsalto()) {
-                //System.out.println("salto");
-                this.position.y = (float) this.position.y
-                        - (float) (this.getVey0() * tiempo)
-                        + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
-                this.setVey0(this.getVey0() + (this.gravity * tiempo));
-                this.shape.setY(this.position.y);
-            }
+            
         }
         ActionMove(tiempo,con);
     }
