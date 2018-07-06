@@ -16,6 +16,8 @@ public abstract class personaje extends DinamicObject {
     private float velocidadx;
     private float velocidadsalto;
     public boolean puedoSaltar = false;
+    public int arma;
+    
     public personaje(float x, float y, float gravity, float escala, int desfase,float velocidadSalto,float velocidad) {
         super(x, y, gravity, escala, desfase);
         this.velocidadsalto = velocidadSalto;
@@ -61,8 +63,9 @@ public abstract class personaje extends DinamicObject {
 
     public abstract void ActionClick(int key);
     
-    
-    
+    public void SetWeapon(int arma){
+        this.arma=arma;
+    } 
     
     
 }
