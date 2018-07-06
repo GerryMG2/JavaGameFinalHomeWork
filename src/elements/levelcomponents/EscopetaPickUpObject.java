@@ -20,18 +20,19 @@ public class EscopetaPickUpObject extends DinamicObject {
 
     float vx;
     float vey0;
-    private int alturaDeLevitacion;
-    private int vxdeltaD;
+    private final int alturaDeLevitacion;
+    private final int vxdeltaD;
     private int changeD = 0;
     private boolean active = true;
     private ArrayList<DinamicObject> objects;
     private personaje p;
 
-    public EscopetaPickUpObject(float x, float y, float gravity, float escala, int desfase, int alturaDeLevitacion, int vxdeltaD, ArrayList<DinamicObject> objects) {
+    public EscopetaPickUpObject(float x, float y, float gravity, float escala, int desfase, int alturaDeLevitacion, int vxdeltaD, ArrayList<DinamicObject> objects, personaje p) {
         super(x, y, gravity, escala, desfase);
         this.alturaDeLevitacion = alturaDeLevitacion;
         this.vxdeltaD = vxdeltaD;
         this.objects = objects;
+        this.p=p;
     }
 
     public boolean colisionsuelo(DinamicObject object) {
@@ -57,7 +58,7 @@ public class EscopetaPickUpObject extends DinamicObject {
         pickedup();
         for (DinamicObject object : objects) {
             if (active && changeD == 0 && colisionsuelo(object)) {
-                Vector2f Velocidad = new Vector2f(delta, gravity);
+                Vector2f Velocidad = new Vector2f(vxdeltaD, gravity);
                 //Velocidad se pasa a una constante de movimiento
                 Velocidad.scale((delta / 1000.0f));
                 this.vx = vx + 2 * Velocidad.x;
@@ -65,14 +66,14 @@ public class EscopetaPickUpObject extends DinamicObject {
                 changeD = 1;
             }
             if (active && changeD == 1 && colisionsuelo(object)) {
-                Vector2f Velocidad = new Vector2f(delta, gravity);
+                Vector2f Velocidad = new Vector2f(vxdeltaD, gravity);
                 Velocidad.scale((delta / 1000.0f));
                 this.vx = vx - 2 * Velocidad.x;
                 this.vey0 = vey0 + Velocidad.y;
                 changeD = 0;
             }
             if (active && !colisionsuelo(object)) {
-                Vector2f Velocidad = new Vector2f(delta, gravity);
+                Vector2f Velocidad = new Vector2f(vxdeltaD, gravity);
                 switch (changeD) {
                     case 1:
                         Velocidad.scale((delta / 1000.0f));
