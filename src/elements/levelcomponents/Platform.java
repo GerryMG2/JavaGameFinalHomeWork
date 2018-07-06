@@ -23,7 +23,7 @@ public class Platform extends StaticObject{
 
     @Override
     public void update() {
-        System.out.println("ahuevo");
+        
     }
     
 }

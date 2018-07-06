@@ -31,7 +31,7 @@ public abstract class personaje extends DinamicObject {
     }
 
     public float getVey0() {
-        return vey0;
+        return vey0;    
     }
 
     public void setVey0(float vey0) {
@@ -60,6 +60,7 @@ public abstract class personaje extends DinamicObject {
      */
 
     public abstract void ActionClick(int key);
+    
     
     
     

@@ -151,6 +151,8 @@ public class Character {
         }
 
     }
+    
+    
 
     public void ActionMove(float tiempo) {
         if (JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * escala) + (desfase * escala)) {

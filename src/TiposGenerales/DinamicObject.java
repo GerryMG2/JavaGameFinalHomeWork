@@ -16,8 +16,8 @@ import org.newdawn.slick.geom.Shape;
  *
  * @author gerar
  */
-public abstract class DinamicObject {
-    public Punto position;
+public abstract class DinamicObject extends ObjectS{
+    
     Animation animations[];
     Animation PrincipalAnimation;
     private float vx;
@@ -28,9 +28,10 @@ public abstract class DinamicObject {
     private float velocidadx;
     private Image playerImg;
     private SpriteSheet subImage;
-    public Shape shape;
     private float ancho;
     private float alto;
+    public boolean transparente = false;
+    public boolean traspasable = true;
 
     public DinamicObject(float x,float y, float gravity, float escala, int desfase) {
         position = new Punto();
@@ -88,7 +89,5 @@ public abstract class DinamicObject {
     }
     
     public abstract void update(int delta);
-    
-    
     
 }

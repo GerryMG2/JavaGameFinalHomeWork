@@ -88,5 +88,7 @@ public class Soldado extends personaje {
         }
 
     }
+    
+    
 
 }
