@@ -46,6 +46,7 @@ public class EscopetaPickUpObject extends DinamicObject {
     public void pickedup() {
         if (active) {
             if(p.position.x <= this.position.x && this.position.x <= p.position.x + p.getAncho()&& p.position.y <= this.position.y && this.position.y <= p.position.y + p.getAncho()){
+                p.SetWeapon(1);
                 this.active=false;
             }
         }
