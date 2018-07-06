@@ -1,12 +1,13 @@
 package TiposGenerales;
 
 import org.newdawn.slick.geom.Rectangle;
+import juegov1.Punto;
 
 /**
  *
  * @author yury_
  */
-public abstract class StaticObject {
+public abstract class StaticObject  extends ObjectS{
 
     private final int x, y;
     private final Rectangle contenedor;
@@ -14,7 +15,9 @@ public abstract class StaticObject {
     public StaticObject(Rectangle placeholder) {
         x = (int) placeholder.getX();
         y = (int) placeholder.getY();
+        super.position = new Punto();
         contenedor = placeholder;
+        super.shape = contenedor;
     }
 
     /**
@@ -27,6 +30,8 @@ public abstract class StaticObject {
      */
     public void relocalizar(int Gx, int Gy) {
         contenedor.setLocation(x - Gx, y - Gy);
+        super.position.setX(contenedor.getX());
+        super.position.setY(contenedor.getY());
         update();
     }
 

@@ -25,7 +25,6 @@ public class StaticLevel {
     private Input control;
     private Rectangle chaBoundry;
     public Rectangle cameraBoundry;
-    
 
     public StaticLevel() {
         scal = 1;
@@ -53,22 +52,27 @@ public class StaticLevel {
             freeScroll(delta);
         } else {
             targetScroll();
+            if (control.isKeyPressed(Input.KEY_X)) {
+                target.actionClick(Input.KEY_X);
+            }
+            if (control.isKeyPressed(Input.KEY_A)) {
+                target.actionClick(Input.KEY_A);
+            }
+            if (control.isKeyPressed(Input.KEY_D)) {
+                target.actionClick(Input.KEY_D);
+            }
+            if (!control.isKeyDown(Input.KEY_D) && !control.isKeyDown(Input.KEY_A)) {
+                target.actionClick(666);
+            }
         }
-        if (control.isKeyPressed(Input.KEY_X)) {
-            target.actionClick(Input.KEY_X);
-        }
-        if (control.isKeyPressed(Input.KEY_A)) {
-            target.actionClick(Input.KEY_A);
-        }
-        if (control.isKeyPressed(Input.KEY_D)) {
-            target.actionClick(Input.KEY_D);
-        }
-        
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         fondo.draw(0, 0, cwid, chei, Gx, Gy, Lx, Ly);
-        target.RenderDraw();
+        if (target != null) {
+            target.RenderDraw();
+        }
+
     }
 
     public void setTarget(Character mainThing) {
@@ -117,7 +121,7 @@ public class StaticLevel {
             target.position.x = chaBoundry.getCenterX();
             Gx += (tempx - target.position.x);
             Lx = Gx + cwid;
-        } else if ((target.position.x < chaBoundry.getCenterX()) && (Gx > 0)){
+        } else if ((target.position.x < chaBoundry.getCenterX()) && (Gx > 0)) {
             target.position.x = chaBoundry.getCenterX();
             Gx -= (target.position.x - tempx);
             Lx = Gx + cwid;
@@ -141,5 +145,5 @@ public class StaticLevel {
     public int getGlobalY() {
         return Gy;
     }
-    
+
 }
