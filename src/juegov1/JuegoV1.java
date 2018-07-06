@@ -11,6 +11,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import elements.leveltypes.*;
+import core.nivel3;
 
 /**
  *
@@ -41,7 +42,7 @@ public class JuegoV1 extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gc) throws SlickException {
-         //addState(new MainMenu());
+         addState(new nivel3());
         this.addState(new nvl1());
         this.addState(new Menu());
     }

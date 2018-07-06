@@ -1,11 +1,9 @@
 package elements.powerup;
 
+import TiposGenerales.ContainerS;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import elements.levelcomponents.Bullet;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import TiposGenerales.DinamicObject;
 
@@ -15,7 +13,6 @@ import TiposGenerales.DinamicObject;
  */
 public class Arma extends DinamicObject{
 
-    private  Image texture;
     public int x, y;
     private final Input control;
     private Bullet bala;
@@ -23,7 +20,7 @@ public class Arma extends DinamicObject{
     public Arma(Image texture, Input control) {
         super(0.0f, 0.0f, 9.8f, 1.0f, 0);
         this.control = control;
-        this.texture = texture;
+        super.IniAnimations(texture);
     }
 
     public void update(int xcoor, int ycoor, int delta) {
@@ -31,20 +28,13 @@ public class Arma extends DinamicObject{
         y = ycoor;
         calcAngle(control.getMouseX(), control.getMouseY());
         if (control.isKeyPressed(Input.KEY_B)) {
-            bala = new Bullet(new Vector2f(x+texture.getWidth(), (y+(texture.getHeight()-20)/2)), new Vector2f(500, 0));
+            bala = new Bullet(new Vector2f(x+getAncho(), (y+(getAlto()-20)/2)), new Vector2f(500, 0));
             System.out.println("Disparo");
         }
 
         if (bala != null) {
             bala.update(delta);
         }
-    }
-
-    public void render(GameContainer container, Graphics g) throws SlickException {
-        if (bala != null) {
-            bala.render(container, g);
-        }
-        texture.draw(x, y);
     }
 
     private void calcAngle(int xp, int yp) {
@@ -63,6 +53,11 @@ public class Arma extends DinamicObject{
 
     @Override
     public void update(int delta) {
+    }
+
+    @Override
+    public void update(int delta, ContainerS con) {
+        
     }
 
 }

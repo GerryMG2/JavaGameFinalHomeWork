@@ -5,6 +5,7 @@
  */
 package elements.levelcomponents;
 
+import TiposGenerales.ContainerS;
 import TiposGenerales.DinamicObject;
 import TiposGenerales.personaje;
 import elements.gameactor.Player;
@@ -90,6 +91,10 @@ public class EscopetaPickUpObject extends DinamicObject {
 
         }
 
+    }
+
+    @Override
+    public void update(int delta, ContainerS con) {
     }
 
 }
