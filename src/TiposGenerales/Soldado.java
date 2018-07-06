@@ -24,11 +24,13 @@ public class Soldado extends personaje {
 
     @Override
     public void update(int delta) {
+        //System.out.println("Entro");
         float tiempo = (float) (delta / 1000);
         this.lastPosition = this.position;
         float y0 = this.position.y;
-        if (y0 + (this.PrincipalAnimation.getHeight() * this.getEscala()) - (this.getDesfase() * this.getEscala()) >= JuegoV1.contenedor.getHeight()) {
-            this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * this.getEscala()) + (this.getDesfase() * this.getEscala());
+        if (y0 + (this.PrincipalAnimation.getHeight() * this.getEscala()) - (this.getDesfase() * this.getEscala()) >= juegov1.JuegoV1.contenedor.getHeight()) {
+            this.position.y = juegov1.JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * this.getEscala()) + (this.getDesfase() * this.getEscala());
+            
             //System.out.println(this.position.y);
             this.shape.setY(this.position.y);
             //System.out.println(JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala));
@@ -45,12 +47,14 @@ public class Soldado extends personaje {
                     - (float) (this.getVey0() * tiempo)
                     + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
             this.setVey0(this.getVey0() + (this.gravity * tiempo));
+            //System.out.println(this.position.y);
             this.shape.setY(this.position.y);
         }
         ActionMove(tiempo);
     }
 
     public void ActionMove(float tiempo) {
+       // System.out.println("Entra action");
         if (juegov1.JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * this.getEscala()) + (this.getDesfase() * this.getEscala())) {
             this.position.x = juegov1.JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * this.getEscala()) - (this.getDesfase() * this.getEscala());
             this.shape.setX(this.position.x);
@@ -119,6 +123,7 @@ public class Soldado extends personaje {
             if(this.Choca(con.lista) == UtilEnum.Y){
                 this.position = this.lastPosition;
                 this.puedoSaltar = true;
+                this.shape.setY(this.position.y);
             }
             
         }
