@@ -5,16 +5,18 @@
  */
 package TiposGenerales;
 
-import juegov1.Punto;
-import org.newdawn.slick.geom.Shape;
-
 /**
  *
  * @author gerar
  */
-public abstract class ObjectS {
-    public Punto position;
-    public Shape shape;
-    public boolean transparente = false;
-    public boolean traspasable = false;
+public class ContainerObjectsS {
+    private ObjectS lista[];
+
+    public ContainerObjectsS(ObjectS[] lista) {
+        this.lista = lista;
+    }
+    
+    public void render(){
+        
+    }
 }

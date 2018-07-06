@@ -30,8 +30,7 @@ public abstract class DinamicObject extends ObjectS{
     private SpriteSheet subImage;
     private float ancho;
     private float alto;
-    public boolean transparente = false;
-    public boolean traspasable = true;
+    
 
     public DinamicObject(float x,float y, float gravity, float escala, int desfase) {
         position = new Punto();
