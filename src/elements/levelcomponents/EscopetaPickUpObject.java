@@ -45,9 +45,9 @@ public class EscopetaPickUpObject extends DinamicObject {
 
     public void pickedup() {
         if (active) {
-            if(p.position.x <= this.position.x && this.position.x <= p.position.x + p.getAncho()&& p.position.y <= this.position.y && this.position.y <= p.position.y + p.getAncho()){
+            if (p.position.x <= this.position.x && this.position.x <= p.position.x + p.getAncho() && p.position.y <= this.position.y && this.position.y <= p.position.y + p.getAncho()) {
                 p.SetWeapon(1);
-                this.active=false;
+                this.active = false;
             }
         }
     }
@@ -70,6 +70,21 @@ public class EscopetaPickUpObject extends DinamicObject {
                 this.vx = vx - 2 * Velocidad.x;
                 this.vey0 = vey0 + Velocidad.y;
                 changeD = 0;
+            }
+            if (active && !colisionsuelo(object)) {
+                Vector2f Velocidad = new Vector2f(delta, gravity);
+                switch (changeD) {
+                    case 1:
+                        Velocidad.scale((delta / 1000.0f));
+                        this.vx = vx - 2 * Velocidad.x;
+                        changeD = 0;
+                        break;
+                    case 0:
+                        Velocidad.scale((delta / 1000.0f));
+                        this.vx = vx + 2 * Velocidad.x;
+                        changeD = 1;
+                        break;
+                }
             }
 
         }
