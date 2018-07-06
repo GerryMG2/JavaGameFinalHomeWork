@@ -2,6 +2,7 @@ package TiposGenerales;
 
 import org.newdawn.slick.geom.Rectangle;
 import juegov1.Punto;
+import org.newdawn.slick.geom.Shape;
 
 /**
  *
@@ -10,14 +11,12 @@ import juegov1.Punto;
 public abstract class StaticObject  extends ObjectS{
 
     private final int x, y;
-    private final Rectangle contenedor;
 
     public StaticObject(Rectangle placeholder) {
         x = (int) placeholder.getX();
         y = (int) placeholder.getY();
         super.position = new Punto();
-        contenedor = placeholder;
-        super.shape = contenedor;
+        super.shape = placeholder;
     }
 
     /**
@@ -29,16 +28,16 @@ public abstract class StaticObject  extends ObjectS{
      * @param Gy Este paremetro representa la pocion global vertical reclaculada en la cual el objeto debe desplazaerce
      */
     public void relocalizar(int Gx, int Gy) {
-        contenedor.setLocation(x - Gx, y - Gy);
-        super.position.setX(contenedor.getX());
-        super.position.setY(contenedor.getY());
+        shape.setLocation(x - Gx, y - Gy);
+        super.position.setX(shape.getX());
+        super.position.setY(shape.getY());
         update();
     }
 
     public abstract void update();
 
-    public Rectangle getContenedor() {
-        return contenedor;
+    public Shape getContenedor() {
+        return super.shape;
     }
 
 }

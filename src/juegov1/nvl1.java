@@ -77,6 +77,10 @@ public class nvl1 extends BasicGameState {
         cosa1 = new Platform(new Rectangle(310, 700, 100, 20));
         cosa2 = new Platform(new Rectangle(610, 500, 100, 20));
         cosa3 = new Platform(new Rectangle(1200, 300, 100, 20));
+        cosa.setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
+        cosa1.setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
+        cosa2.setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
+        cosa3.setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
 
     }
 
@@ -90,10 +94,10 @@ public class nvl1 extends BasicGameState {
         }
 
         b.render(gc, grphcs);
-        cosa.render(grphcs);
-        cosa1.render(grphcs);
-        cosa2.render(grphcs);
-        cosa3.render(grphcs);
+        cosa.render();
+        cosa1.render();
+        cosa2.render();
+        cosa3.render();
     }
 
     @Override

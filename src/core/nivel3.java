@@ -32,12 +32,16 @@ public class nivel3 extends BasicGameState {
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        jugador = new Character(0, 0, 2, 0, 100, 700);
+        jugador = new Character(0, 0, 2, 0, 500, 700);
         jugador.IniAnimations(new Image("res\\Img\\Character\\assets\\player\\player.png"));
         cosa = new Platform(new Rectangle(0, 500, 300, 50));
         cosa1 = new Platform(new Rectangle(500, 800, 300, 50));
         cosa2 = new Platform(new Rectangle(800, 600, 300, 50));
         cosa3 = new Platform(new Rectangle(1200, 1500, 300, 50));
+        cosa.setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
+        cosa1.setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
+        cosa2.setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
+        cosa3.setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
         nivel = new StaticLevel(2);
         nivel.init(container, "res\\Img\\Backgorund\\nivel3.jpg");
         nivel.setTarget(jugador);
@@ -48,24 +52,24 @@ public class nivel3 extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         nivel.render(container, game, g);
         jugador.RenderDraw();
-        cosa.render(g);
-        cosa1.render(g);
-        cosa2.render(g);
-        cosa3.render(g);
+        cosa.render();
+        cosa1.render();
+        cosa2.render();
+        cosa3.render();
 
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        jugador.updatePosition(delta);
         cosa.relocalizar(nivel.getGlobalX(), nivel.getGlobalY());
         cosa1.relocalizar(nivel.getGlobalX(), nivel.getGlobalY());
         cosa2.relocalizar(nivel.getGlobalX(), nivel.getGlobalY());
         cosa3.relocalizar(nivel.getGlobalX(), nivel.getGlobalY());
-        nivel.update(container, game, delta);
-        if ((jugador.position.x> cosa3.getContenedor().getX())) {
-            jugador.position.x = cosa3.getContenedor().getX();
+        jugador.updatePosition(delta);
+        if ((jugador.position.x+jugador.getAncho() > cosa3.getContenedor().getX())) {
+            jugador.position.x = cosa3.getContenedor().getX()-jugador.getAncho();
         }
+        nivel.update(container, game, delta);
     }
 
 }
