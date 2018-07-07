@@ -12,23 +12,25 @@ import elements.levelcomponents.Platform;
  * @author gerar
  */
 public class ContainerS {
+
     public Platform lista[];
 
     public ContainerS(Platform[] lista) {
         this.lista = lista;
     }
-    
-    public void render(){
-        for(Platform oj : lista)
-        {
-            if(!oj.transparente)
-            {
-                //aca el metodo render
+
+    public void render() {
+        for (Platform oj : lista) {
+            if (!oj.transparente) {
+                oj.render();
             }
         }
     }
-    
-    public void update(){
-        
+
+    public void update(int gx, int gy) {
+        for (Platform oj : lista) {
+            oj.relocalizar(gx, gy);
+        }
+
     }
 }
