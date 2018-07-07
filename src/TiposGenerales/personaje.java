@@ -15,7 +15,7 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public abstract class personaje extends DinamicObject {
     
-    float vx;
+    private float vx;
     private float vey0;
     private float velocidadx;
     private float velocidadsalto;
@@ -32,16 +32,16 @@ public abstract class personaje extends DinamicObject {
         return vx;
     }
 
-    public void setVx(float vx) {
-        this.vx = vx;
+    public void setVx(float vxn) {
+        this.vx = vxn;
     }
 
     public float getVey0() {
         return vey0;    
     }
 
-    public void setVey0(float vey0) {
-        this.vey0 = vey0;
+    public void setVey0(float vey0n) {
+        this.vey0 = vey0n;
     }
 
     public float getVelocidadx() {

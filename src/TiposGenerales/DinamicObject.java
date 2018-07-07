@@ -17,15 +17,14 @@ import org.newdawn.slick.geom.Shape;
  * @author gerar
  */
 public abstract class DinamicObject extends ObjectS{
-    public Punto lastPosition;
-    Animation animations[];
-    Animation PrincipalAnimation;
-    private float vx;
-    private float vey0;
+    
+    public Animation animations[];
+    public Animation PrincipalAnimation;
+    
     public float gravity;
     private float escala;
     private int desfase;
-    private float velocidadx;
+    
     private Image playerImg;
     private SpriteSheet subImage;
     private float ancho;
@@ -33,7 +32,7 @@ public abstract class DinamicObject extends ObjectS{
     
 
     public DinamicObject(float x,float y, float gravity, float escala, int desfase) {
-        position = new Punto();
+        
         this.position.x = x;
         this.position.y = y;
         this.gravity = gravity;

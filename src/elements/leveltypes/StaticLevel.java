@@ -1,6 +1,8 @@
 package elements.leveltypes;
 
+import TiposGenerales.Soldado;
 import juegov1.Character;
+import TiposGenerales.personaje;
 import java.awt.Dimension;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -47,31 +49,18 @@ public class StaticLevel {
         control = container.getInput();
     }
 
-    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+    public void update(int delta) throws SlickException {
         if (target == null) {
             freeScroll(delta);
         } else {
             targetScroll();
-            if (control.isKeyPressed(Input.KEY_X)) {
-                target.actionClick(Input.KEY_X);
-            }
-            if (control.isKeyPressed(Input.KEY_A)) {
-                target.actionClick(Input.KEY_A);
-            }
-            if (control.isKeyPressed(Input.KEY_D)) {
-                target.actionClick(Input.KEY_D);
-            }
-            if (!control.isKeyDown(Input.KEY_D) && !control.isKeyDown(Input.KEY_A)) {
-                target.actionClick(666);
-            }
+          
         }
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         fondo.draw(0, 0, cwid, chei, Gx, Gy, Lx, Ly);
-        if (target != null) {
-            target.RenderDraw();
-        }
+       
 
     }
 
