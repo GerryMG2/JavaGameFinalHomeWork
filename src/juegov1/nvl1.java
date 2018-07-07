@@ -99,27 +99,27 @@ public class nvl1 extends BasicGameState {
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
         delta += i;
         ugan.updatePosition(i);
-//        jugador.updatePosition(i);
-//        if (events.isKeyDown(Input.KEY_D)) {
-//            jugador.actionClick(Input.KEY_D);
-//            ugan.actionClick(Input.KEY_D);
-//
-//        }
-//        if (events.isKeyDown(Input.KEY_A)) {
-//            jugador.actionClick(Input.KEY_A);
-//            ugan.actionClick(Input.KEY_A);
-//
-//        }
-//        if (events.isKeyPressed(Input.KEY_X)) {
-//            jugador.actionClick(Input.KEY_X);
-//            ugan.actionClick(Input.KEY_X);
-//
-//        }
-//        if (!events.isKeyDown(Input.KEY_D) && !events.isKeyDown(Input.KEY_A)) {
-//            //System.out.println("entro");
-//            jugador.actionClick(666);
-//            ugan.actionClick(666);
-//        }
+   //     jugador.updatePosition(i);
+        if (events.isKeyDown(Input.KEY_D)) {
+          //  jugador.actionClick(Input.KEY_D);
+            ugan.actionClick(Input.KEY_D);
+
+        }
+        if (events.isKeyDown(Input.KEY_A)) {
+         //   jugador.actionClick(Input.KEY_A);
+            ugan.actionClick(Input.KEY_A);
+
+        }
+        if (events.isKeyPressed(Input.KEY_X)) {
+           // jugador.actionClick(Input.KEY_X);
+            ugan.actionClick(Input.KEY_X);
+
+        }
+        if (!events.isKeyDown(Input.KEY_D) && !events.isKeyDown(Input.KEY_A)) {
+            //System.out.println("entro");
+          //  jugador.actionClick(666);
+            ugan.actionClick(666);
+       }
         if (fondo.getcLoop() > 0) {
             sbg.enterState(3);
         }

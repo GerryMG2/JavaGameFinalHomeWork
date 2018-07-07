@@ -43,30 +43,31 @@ public class Soldado extends personaje {
                 this.shape.setY(this.position.y);
             }
         } else {
+           
             this.position.y = (float) this.position.y
                     - (float) (this.getVey0() * tiempo)
                     + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
             this.setVey0(this.getVey0() + (this.gravity * tiempo));
-            //System.out.println(this.position.y);
+            System.out.println(this.position.y);
             this.shape.setY(this.position.y);
         }
         ActionMove(tiempo);
     }
 
     public void ActionMove(float tiempo) {
-       // System.out.println("Entra action");
+       System.out.println(juegov1.JuegoV1.contenedor.getWidth());
         if (juegov1.JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * this.getEscala()) + (this.getDesfase() * this.getEscala())) {
             this.position.x = juegov1.JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * this.getEscala()) - (this.getDesfase() * this.getEscala());
             this.shape.setX(this.position.x);
-            this.vx = 0;
+            this.setVx(0);
         } else {
             if (this.position.x < 0) {
                 this.position.x = 0;
                 this.shape.setX(this.position.x);
-                this.vx = 0;
+                this.setVx(0);
             }
         }
-        this.position.x = this.position.x + (this.vx * (tiempo));
+        this.position.x = this.position.x + (this.getVx() * (tiempo));
         this.shape.setX(this.position.x);
     }
     
@@ -75,18 +76,18 @@ public class Soldado extends personaje {
     @Override
     public void ActionClick(int key) {
         if (key == Input.KEY_D) {
-            this.vx = this.getVelocidadx();
+            this.setVx(this.getVelocidadx());
         } else {
             //this.vx = 0;
         }
         if (key == Input.KEY_A) {
-            this.vx = -this.getVelocidadx();
+            this.setVx(-this.getVelocidadx());
         } else {
             //this.vx = 0;
         }
         if (key == 666) {
             //System.out.println("");
-            this.vx = 0;
+            this.setVx(0);
         }
 
         if (key == Input.KEY_X && this.puedoSaltar ) {
@@ -134,21 +135,30 @@ public class Soldado extends personaje {
        if (juegov1.JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * this.getEscala()) + (this.getDesfase() * this.getEscala())) {
             this.position.x = juegov1.JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * this.getEscala()) - (this.getDesfase() * this.getEscala());
             this.shape.setX(this.position.x);
-            this.vx = 0;
+            this.setVx(0);
         } else {
             if (this.position.x < 0) {
                 this.position.x = 0;
                 this.shape.setX(this.position.x);
-                this.vx = 0;
+                this.setVx(0);
             }
         }
-        this.position.x = this.position.x + (this.vx * (tiempo));
+//        this.position.x = this.position.x + (this.setVx(0); * (tiempo));
          if(this.Choca(con.lista) == UtilEnum.X){
                 this.position = this.lastPosition;
             }
         this.shape.setX(this.position.x);
     }
     
-    
+    public void debug(){
+        System.out.println("velocidad x = " + this.getVx());
+        System.out.println("Velocidad y = " + this.getVey0());
+        System.out.println("Position x = " + this.position.x);
+        System.out.println("Position y = " + this.position.y);
+        System.out.println("Gravedad = " + this.gravity);
+        System.out.println("Puede saltar = " + this.puedoSaltar);
+        System.out.println("Transparente =" + this.transparente);
+        System.out.println("Velocidad correr" + this.getVelocidadx());
+    }
 
 }

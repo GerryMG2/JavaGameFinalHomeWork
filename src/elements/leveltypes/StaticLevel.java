@@ -1,5 +1,7 @@
 package elements.leveltypes;
 
+import TiposGenerales.Soldado;
+import juegov1.Character;
 import TiposGenerales.personaje;
 import java.awt.Dimension;
 import org.newdawn.slick.GameContainer;
@@ -21,7 +23,7 @@ public class StaticLevel {
     private final float scal;
     private int cwid, chei;
     private int Gx, Gy, Lx, Ly;
-    private personaje target;
+    private Character target;
     private Input control;
     private Rectangle chaBoundry;
     public Rectangle cameraBoundry;
@@ -58,13 +60,11 @@ public class StaticLevel {
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         fondo.draw(0, 0, cwid, chei, Gx, Gy, Lx, Ly);
-        if (target != null) {
-            target.render();
-        }
+       
 
     }
 
-    public void setTarget(personaje mainThing) {
+    public void setTarget(Character mainThing) {
         target = mainThing;
         chaBoundry = new Rectangle(0, 0, cwid, chei);
         cameraBoundry = new Rectangle(0, 0, cwid, chei);
