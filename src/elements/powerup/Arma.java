@@ -1,5 +1,6 @@
 package elements.powerup;
 
+import TiposGenerales.ContainerS;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import elements.levelcomponents.Bullet;
@@ -63,6 +64,11 @@ public class Arma extends DinamicObject{
 
     @Override
     public void update(int delta) {
+    }
+
+    @Override
+    public void update(int delta, ContainerS con) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
