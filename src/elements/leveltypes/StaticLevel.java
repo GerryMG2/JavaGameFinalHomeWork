@@ -1,8 +1,6 @@
 package elements.leveltypes;
 
-import TiposGenerales.Soldado;
 import juegov1.Character;
-import TiposGenerales.personaje;
 import java.awt.Dimension;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -23,6 +21,7 @@ public class StaticLevel {
     private final float scal;
     private int cwid, chei;
     private int Gx, Gy, Lx, Ly;
+    private int tempx, tempy;
     private Character target;
     private Input control;
     private Rectangle chaBoundry;
@@ -54,13 +53,12 @@ public class StaticLevel {
             freeScroll(delta);
         } else {
             targetScroll();
-          
+
         }
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         fondo.draw(0, 0, cwid, chei, Gx, Gy, Lx, Ly);
-       
 
     }
 
@@ -103,7 +101,6 @@ public class StaticLevel {
     }
 
     private void targetScroll() {
-        int tempx, tempy;
         tempx = (int) target.position.x;
         tempy = (int) target.position.y;
         if ((target.position.x > chaBoundry.getCenterX()) && (Lx < tamano.width)) {
@@ -133,6 +130,14 @@ public class StaticLevel {
 
     public int getGlobalY() {
         return Gy;
+    }
+
+    public float getGlobalDXD() {
+        return target.position.x - tempx;
+    }
+
+    public float getGlobalDYD() {
+        return target.position.y - tempy;
     }
 
 }
