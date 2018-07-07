@@ -5,10 +5,11 @@
  */
 package elements.levelcomponents;
 
-import TiposGenerales.ContainerS;
 import TiposGenerales.DinamicObject;
 import TiposGenerales.personaje;
+import elements.gameactor.Player;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import org.newdawn.slick.geom.Vector2f;
 
 /**
@@ -89,11 +90,6 @@ public class EscopetaPickUpObject extends DinamicObject {
 
         }
 
-    }
-
-    @Override
-    public void update(int delta, ContainerS con) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
