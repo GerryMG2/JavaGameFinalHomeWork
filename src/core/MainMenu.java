@@ -6,8 +6,13 @@
 package core;
 
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import juegov1.Boton;
+
+import juegov1.Punto;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,6 +25,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.TrueTypeFont;
 import subsystem.FontLoader;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.RoundedRectangle;
 /**
  *
  * @author yury_
@@ -29,12 +35,14 @@ public class MainMenu extends BasicGameState {
     private Image gear;
     private Image gear2;
     private int angulo;
-    private Shape algo;
+    private Boton playButton;
+    private Boton exitButton;
     private FontLoader Cfont;
     private Font fotnString;
     private TrueTypeFont leFont;
     private Input control;
-
+    private RoundedRectangle forma;
+    
     @Override
     public int getID() {
         return 0;
@@ -43,15 +51,16 @@ public class MainMenu extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game){
         angulo = 0;
-        Cfont = new FontLoader("res/Fonts/fuente.ttf");
+        playButton = new Boton();
+        exitButton = new Boton();
+        Cfont = new FontLoader("res/Fonts/Fuente.ttf");
         fotnString = Cfont.getMyFont(1, 50);
         leFont = new TrueTypeFont(fotnString, true);
         control = container.getInput();
         try {
             gear = new Image("res/refer.png");
             gear2 = new Image("res/refer.png");
-            //algo = new RoundedRectangle(10, 60, 450, 60, 50);
-            algo = new Rectangle(10, 60, 450, 60);
+            forma = new RoundedRectangle(200, 100, 300, 70, 50);
         } catch (SlickException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -62,11 +71,26 @@ public class MainMenu extends BasicGameState {
         g.setBackground(Color.white);
         gear.draw(0, 0, 626, 626);
         gear2.draw(560, 0, 626,626);
-        g.setColor(Color.blue);
-        g.fill(algo);
-        g.draw(algo);
-        leFont.drawString(25, 65, "Press Space", Color.yellow);
         
+        g.fill(forma);
+        
+        leFont.drawString(210,105,"MAIN MENU", Color.yellow);
+        
+        //Botones
+            playButton.setLocation(new Punto(200,200));
+            playButton.setSize(200, 70);
+            playButton.setFont(leFont);
+            g.setColor(Color.cyan);
+            g.fill(playButton.getForma());
+            playButton.setText("Play", Color.yellow);
+             
+            exitButton.setLocation(new Punto(200,320));
+            exitButton.setSize(200, 70);
+            exitButton.setFont(leFont);
+            g.setColor(Color.cyan);
+            g.fill(exitButton.getForma());
+            exitButton.setText("Exit", Color.yellow);
+  
     }
 
     @Override
@@ -77,10 +101,17 @@ public class MainMenu extends BasicGameState {
         }
         gear.setRotation(angulo);
         gear2.setRotation(-angulo+290);
-        if(control.isKeyDown(Input.KEY_SPACE)){
-            control.clearKeyPressedRecord();
-            game.enterState(1);
+        
+        if(control.getMouseX() >= 190 && control.getMouseX() <= 400 &&
+                control.getMouseY() >=190 && control.getMouseY() <= 270 && control.isMousePressed(0)){
+            game.enterState(4);
         }
+        
+        if(control.getMouseX() >= 190 && control.getMouseX() <= 400 &&
+                control.getMouseY() >= 350 && control.getMouseY() <= 390 && control.isMousePressed(0)){
+            System.exit(0);
+        }
+        
     }
     
 }

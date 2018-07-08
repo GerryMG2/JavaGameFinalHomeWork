@@ -11,6 +11,7 @@ package elements;
  */
 
 import org.newdawn.slick.geom.Rectangle;
+
 public class MenuItem extends Rectangle{
     
     public MenuItem(float x, float y, float width, float height) {
