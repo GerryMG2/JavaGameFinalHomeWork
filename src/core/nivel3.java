@@ -36,9 +36,9 @@ public class nivel3 extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         cosa = new Platform(new Rectangle(100, 2000, 300, 50));
-        cosa1 = new Platform(new Rectangle(500, 2000, 300, 50));
-        cosa2 = new Platform(new Rectangle(900, 2000, 300, 50));
-        cosa3 = new Platform(new Rectangle(1300, 2000, 300, 50));
+        cosa1 = new Platform(new Rectangle(900, 2000, 300, 50));
+        cosa2 = new Platform(new Rectangle(1300, 2000, 300, 50));
+        cosa3 = new Platform(new Rectangle(1800, 2200, 300, 50));
         cosa.setTexture(new Image("res\\Img\\brick.png"));
         cosa1.setTexture(new Image("res\\Img\\brick.png"));
         cosa2.setTexture(new Image("res\\Img\\brick.png"));
@@ -47,7 +47,7 @@ public class nivel3 extends BasicGameState {
         nivel.init(container, "res\\Img\\Backgorund\\ciudad.jpg");
         //personaje = new CharPlayer(100,100,2,1,500,1280);
         //personaje.setBoundry(0, 0, container.getWidth(), container.getHeight());
-        personaje = new Character(100f, 100f, 1.0f, 15, 250f, 1720f, 0, 0);
+        personaje = new Character(100f, 100f, 0.3f, 0, 250f, 800f, 0, 0);
         personaje.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
         nivel.setTarget(personaje);
         events = container.getInput();
@@ -87,9 +87,10 @@ public class nivel3 extends BasicGameState {
         if (events.isKeyPressed(Input.KEY_SPACE)) {
             nivel.setTarget(null);
         }
-        nivel.update(delta);
-        mainfrain.update(nivel.getGlobalX(), nivel.getGlobalY());
         personaje.updatePosition(delta, mainfrain);
+        
+        mainfrain.update(nivel.getGlobalX(), nivel.getGlobalY());
+        nivel.update(delta);
 
     }
 
