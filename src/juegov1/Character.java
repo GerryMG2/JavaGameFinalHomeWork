@@ -30,7 +30,7 @@ public class Character {
     public Punto LastPosition;
     private int vida;
     Animation animations[];
-    Image PrincipalAnimation;
+    Animation PrincipalAnimation;
     public Punto position;
     private float vx;
     private float vey0;
@@ -62,7 +62,7 @@ public class Character {
 
     public void IniAnimations(Image sprite) throws SlickException {
         tijeras = new SpriteSheetCutter();
-        PrincipalAnimation = tijeras.cutsubimg(sprite,0,0,489,499);
+        PrincipalAnimation = tijeras.makeAnimation(sprite,0,0,2445,499,5,1);
         animations = new Animation[3];
         animations[0] = tijeras.makeAnimation(sprite, 0, 0, 10, 270, 5, 1);
         shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() - desfaseextra);
