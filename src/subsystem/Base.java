@@ -25,12 +25,8 @@ import subsystem.SpriteSheetCutter;
 public class Base {
     
     private static SpriteSheetCutter aux;
-    
-    public static int lastIDReserva = 0;
-    public static int lastIDFactura = 0;
-    public static final String objetos = "objetos";
+
     public static final String enemigo = "enemigo";
-    public static final String personajes = "personaje";
     private File archivoTXT;
     
     public Base() {
@@ -67,7 +63,7 @@ public class Base {
         
         ArrayList<Animation> listaAux = new ArrayList<>();
         
-        for (String linea : getFileContent(personajes)) {
+        for (String linea : getFileContent(enemigo)) {
             listaAux.add(createAnimation(linea));
         }
         return listaAux;
