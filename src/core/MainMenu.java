@@ -58,8 +58,8 @@ public class MainMenu extends BasicGameState {
         leFont = new TrueTypeFont(fotnString, true);
         control = container.getInput();
         try {
-            gear = new Image("res/refer.png");
-            gear2 = new Image("res/refer.png");
+            gear = new Image("res/buttons.png");
+            gear2 = new Image("res/buttons_effect.png");
             forma = new RoundedRectangle(200, 100, 300, 70, 50);
         } catch (SlickException ex) {
             Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,48 +67,63 @@ public class MainMenu extends BasicGameState {
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g){
-        g.setBackground(Color.white);
-        gear.draw(0, 0, 626, 626);
-        gear2.draw(560, 0, 626,626);
-        
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException{
+        g.setBackground(Color.transparent);
+        //gear.draw(0, 0, 626, 626);
+        //gear2.draw(560, 0, 626,626);
+        g.setColor(Color.transparent);
         g.fill(forma);
         
         leFont.drawString(210,105,"MAIN MENU", Color.yellow);
         
         //Botones
             playButton.setLocation(new Punto(200,200));
-            playButton.setSize(200, 70);
+            playButton.setSize(500, 100);
             playButton.setFont(leFont);
-            g.setColor(Color.cyan);
-            g.fill(playButton.getForma());
-            playButton.setText("Play", Color.yellow);
-             
-            exitButton.setLocation(new Punto(200,320));
-            exitButton.setSize(200, 70);
+            playButton.setIcon(gear);
+            g.setColor(Color.transparent);
+            g.drawImage(gear, playButton.getPunto().getX(), playButton.getPunto().getY());
+            playButton.setText("Play", Color.black);
+            
+            if(control.getMouseX() >= 190 && control.getMouseX() <= 690 &&
+                control.getMouseY() >=190 && control.getMouseY() <= 300){
+                playButton.setIcon(gear2);
+                g.drawImage(gear2, playButton.getPunto().getX(), playButton.getPunto().getY());
+                playButton.setText("Play", Color.black);
+            }
+            
+            exitButton.setLocation(new Punto(200,400));
+            exitButton.setSize(500, 100);
             exitButton.setFont(leFont);
-            g.setColor(Color.cyan);
-            g.fill(exitButton.getForma());
-            exitButton.setText("Exit", Color.yellow);
+            exitButton.setIcon(gear);
+            g.drawImage(gear, exitButton.getPunto().getX(), exitButton.getPunto().getY());
+            exitButton.setText("Exit", Color.black);
+            
+            if(control.getMouseX() >= 190 && control.getMouseX() <= 690 &&
+                control.getMouseY() >=390 && control.getMouseY() <= 500){
+                playButton.setIcon(gear2);
+                g.drawImage(gear2, exitButton.getPunto().getX(), exitButton.getPunto().getY());
+                exitButton.setText("Exit", Color.black);
+            }
   
     }
 
     @Override
-    public void update(GameContainer container, StateBasedGame game, int delta){
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException{
         angulo++;
         if(angulo > 360){
             angulo =0;
         }
-        gear.setRotation(angulo);
-        gear2.setRotation(-angulo+290);
+        //gear.setRotation(angulo);
+        //gear2.setRotation(-angulo+290);
         
-        if(control.getMouseX() >= 190 && control.getMouseX() <= 400 &&
-                control.getMouseY() >=190 && control.getMouseY() <= 270 && control.isMousePressed(0)){
+        if(control.getMouseX() >= 190 && control.getMouseX() <= 690 &&
+                control.getMouseY() >=190 && control.getMouseY() <= 300 && control.isMousePressed(0)){
             game.enterState(4);
         }
         
-        if(control.getMouseX() >= 190 && control.getMouseX() <= 400 &&
-                control.getMouseY() >= 350 && control.getMouseY() <= 390 && control.isMousePressed(0)){
+        if(control.getMouseX() >= 190 && control.getMouseX() <= 690 &&
+                control.getMouseY() >= 390 && control.getMouseY() <= 500 && control.isMousePressed(0)){
             System.exit(0);
         }
         

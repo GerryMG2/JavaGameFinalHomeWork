@@ -121,7 +121,7 @@ public class Soldado extends personaje {
                     + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
             this.setVey0(this.getVey0() + (this.gravity * tiempo));
             this.shape.setY(this.position.y);
-            if(this.Choca(con.lista) == UtilEnum.Y){
+            if(this.Choca(con.lista) == UtilEnum.YD){
                 this.position = this.lastPosition;
                 this.puedoSaltar = true;
                 this.shape.setY(this.position.y);
@@ -144,7 +144,7 @@ public class Soldado extends personaje {
             }
         }
 //        this.position.x = this.position.x + (this.setVx(0); * (tiempo));
-         if(this.Choca(con.lista) == UtilEnum.X){
+         if(this.Choca(con.lista) == UtilEnum.XR){
                 this.position = this.lastPosition;
             }
         this.shape.setX(this.position.x);

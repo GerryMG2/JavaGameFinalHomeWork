@@ -71,11 +71,11 @@ public abstract class personaje extends DinamicObject {
             if(this.shape.intersects(r.shape))
             {
                 if(this.position.y == this.lastPosition.y){
-                    response = UtilEnum.X;
+                    response = UtilEnum.XR;
                 }
                 else
                 {
-                    response = UtilEnum.Y;
+                    response = UtilEnum.YD;
                 }
                 
             }
