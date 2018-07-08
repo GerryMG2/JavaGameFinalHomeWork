@@ -22,7 +22,7 @@ import subsystem.SpriteSheetCutter;
  *
  * @author mcdre
  */
-public class Base {
+public class LeverLoader {
     
     private static SpriteSheetCutter aux;
     
@@ -30,10 +30,10 @@ public class Base {
     public static int lastIDFactura = 0;
     public static final String objetos = "objetos";
     public static final String enemigo = "enemigo";
-    public static final String personajes = "personaje";
+    public static final String personajes = "enemigo";
     private File archivoTXT;
     
-    public Base() {
+    public LeverLoader() {
         aux=new SpriteSheetCutter();
     }
     
@@ -52,12 +52,12 @@ public class Base {
             lectorArchivo.close();
             archivoTXT = null;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LeverLoader.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("No se encontro el archivo " + archivoTXT.getName());
             System.out.println("\033[34mCreando nuevo;");
 
         } catch (IOException ex) {
-            Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LeverLoader.class.getName()).log(Level.SEVERE, null, ex);
             System.err.println("No se puede leer el archivo " + archivoTXT.getName());
         }
         return filecontent;
@@ -74,8 +74,7 @@ public class Base {
     }
     
     public  Animation createAnimation(String master) throws SlickException {
-        try{
-            String[] parts=master.split(" ");
+        String[] parts=master.split(" ");
         
         String nombre = parts[0];
         
@@ -94,11 +93,5 @@ public class Base {
         Image image = new Image(nombre);
         
         return  aux.makeAnimation(image, x,y,ancho,alto,cortesX, cortesY);
-        }
-        catch(Exception e){
-            //no se pudo
-        }
-        return null;
-        
     }
 }
