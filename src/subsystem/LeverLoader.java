@@ -19,8 +19,8 @@ import org.newdawn.slick.SlickException;
 import subsystem.SpriteSheetCutter;
 
 /**
- *
- * @author mcdre
+ * 
+* @author mcdre
  */
 public class LeverLoader {
     

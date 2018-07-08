@@ -17,8 +17,8 @@ public class IAcontroller {
     }
     
     public void think(Punto enemy){
-        if(){
+        /*if(){
             
-        }
+        }*/
     }
 }

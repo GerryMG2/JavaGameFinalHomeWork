@@ -1,0 +1,4 @@
+res\\Img\\ladrillo_2_texture.png 200 500 300 50
+res\\Img\\brick.png 200 500 300 50
+res\\Img\\brick.png 800 600 300 50
+res\\Img\\brick.png 1200 1900 50 500

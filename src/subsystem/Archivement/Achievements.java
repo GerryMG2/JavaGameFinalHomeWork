@@ -2,11 +2,12 @@ package subsystem.Archivement;
 
 import java.io.*;
 import java.util.ArrayList;
+import org.newdawn.slick.Animation;
 
 /**
  * @Roberto
  */
-public class Archivements {
+public class Achievements {
     private File ArchievementsTXT;
     private ArrayList<String> Archievements = new ArrayList<>();
     public void InicioGameArchievements(){
@@ -29,10 +30,16 @@ public class Archivements {
             Archievements.add("15. Ugandan Wolf: Derrota únicamente al jefe del nivel cuatro y sin perder una sola vida.#false\n");
             ArchievementsTXT = new File("Logros.txt");
             try {
+                ArrayList<Achievement> listaAux = new ArrayList<>();
+                
                 fichero = new FileWriter(ArchievementsTXT);
+                
                 pw = new PrintWriter(fichero);
+                
                 for (String element : Archievements) {
                     pw.print(element);
+                    Achievement a=new Achievement();
+                    listaAux.add( a.Logros(element));
                 }
                 pw.close();
                 fichero.close();
@@ -41,7 +48,7 @@ public class Archivements {
                 System.err.println("Imposible escribir a " + ArchievementsTXT.getName() + "correctamente");
             }
         }
-    public void RefreshArchievements(String Logro){
+    public void RefreshArchievements(ArrayList<Achievement> Logros){
         FileReader Archivo;
     }
 }
