@@ -6,6 +6,7 @@
 package TiposGenerales;
 
 import elements.levelcomponents.Platform;
+import org.newdawn.slick.Graphics;
 
 /**
  *
@@ -19,10 +20,11 @@ public class ContainerS {
         this.lista = lista;
     }
 
-    public void render() {
+    public void render(Graphics g) {
         for (Platform oj : lista) {
             if (!oj.transparente) {
                 oj.render();
+                g.draw(oj.shape);
             }
         }
     }
@@ -30,6 +32,7 @@ public class ContainerS {
     public void update(int gx, int gy) {
         for (Platform oj : lista) {
             oj.relocalizar(gx, gy);
+            
         }
 
     }

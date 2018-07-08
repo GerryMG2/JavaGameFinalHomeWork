@@ -35,10 +35,10 @@ public class nivel3 extends BasicGameState {
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        cosa = new Platform(new Rectangle(0, 500, 300, 50));
+        cosa = new Platform(new Rectangle(200, 500, 300, 50));
         cosa1 = new Platform(new Rectangle(500, 800, 300, 50));
         cosa2 = new Platform(new Rectangle(800, 600, 300, 50));
-        cosa3 = new Platform(new Rectangle(1200, 1500, 300, 50));
+        cosa3 = new Platform(new Rectangle(1200, 1900, 50, 500));
         cosa.setTexture(new Image("res\\Img\\brick.png"));
         cosa1.setTexture(new Image("res\\Img\\brick.png"));
         cosa2.setTexture(new Image("res\\Img\\brick.png"));
@@ -46,7 +46,7 @@ public class nivel3 extends BasicGameState {
         nivel = new StaticLevel(2);
         nivel.init(container, "res\\Img\\Backgorund\\ciudad.jpg");
         //algo = new Arma(new Image("res\\Img\\Character\\assets\\weapons\\bala.jpg"), container.getInput());
-        personaje = new Character(0.0f,0.0f,3.0f,0,250f,2200f);
+        personaje = new Character(100f,100f,3.0f,15,250f,1220f,0,5);
         personaje.IniAnimations(new Image("res\\Img\\Character\\assets\\player\\player.png"));
         nivel.setTarget(personaje);
         events = container.getInput();
@@ -55,19 +55,19 @@ public class nivel3 extends BasicGameState {
         mainfrain.lista[1] = cosa1;
         mainfrain.lista[2] = cosa2;
         mainfrain.lista[3] = cosa3;
-        cosito = new bug(0, 0, 9.8f, 2, 0);
-        cosito.IniAnimations(new Image("res\\Img\\Character\\assets\\player\\player.png"));
-        cosito.setControl(events);
-        cosito.setSpped(1);
+        //cosito = new bug(0, 0, 9.8f, 2, 0);
+        //cosito.IniAnimations(new Image("res\\Img\\Character\\assets\\player\\player.png"));
+        //cosito.setControl(events);
+        //cosito.setSpped(1);
 
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         nivel.render(container, game, g);
-        mainfrain.render();
-        personaje.RenderDraw();
-        cosito.render();
+        mainfrain.render(g);
+        personaje.RenderDraw(g);
+       // cosito.render();
 
     }
 
@@ -93,11 +93,11 @@ public class nivel3 extends BasicGameState {
         if(events.isKeyPressed(Input.KEY_SPACE)){
         nivel.setTarget(null);
         }
-        personaje.updatePosition(delta);
-        personaje.update(delta, mainfrain);
+        //personaje.updatePosition(delta);
+        personaje.updatePosition(delta, mainfrain);
         mainfrain.update(nivel.getGlobalX(), nivel.getGlobalY());
         nivel.update(delta);
-        cosito.retarget((int)nivel.getGlobalDXD(),(int) nivel.getGlobalDYD(), delta);
+        //cosito.retarget((int)nivel.getGlobalDXD(),(int) nivel.getGlobalDYD(), delta);
     }
 
 }

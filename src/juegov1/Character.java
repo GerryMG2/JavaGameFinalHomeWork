@@ -9,6 +9,7 @@ import TiposGenerales.ContainerS;
 import TiposGenerales.UtilEnum;
 import elements.levelcomponents.Platform;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SpriteSheet;
@@ -38,6 +39,9 @@ public class Character {
     private float velocidadsalto;
     public Shape shape;
     public boolean puedoSaltar = false;
+    private final int desfasey;
+    private final int desfaseextra;
+    private float aceleracionx;
 
     public float getVey0() {
         return vey0;
@@ -52,24 +56,39 @@ public class Character {
         PrincipalAnimation = tijeras.makeAnimation(sprite, 0, 160, 368, 40, 8, 1);
         animations = new Animation[3];
         animations[0] = tijeras.makeAnimation(sprite, 0, 50, 10, 270, 6, 1);
-        shape = new Rectangle(this.position.x, this.position.y, this.position.x + (this.PrincipalAnimation.getWidth() * escala) - (desfase * escala), this.position.y + (this.PrincipalAnimation.getHeight() * escala) - (desfase * escala));
+        shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() - desfaseextra);
 
     }
 
-    public Character(float x, float y, float escala, int desfase, float velocidad, float velocidadsalto) {
+    /**
+     *
+     * @param x
+     * @param y
+     * @param escala
+     * @param desfasex
+     * @param velocidad
+     * @param velocidadsalto
+     * @param desfasey
+     * @param desfaseextra
+     */
+    public Character(float x, float y, float escala, int desfasex, float velocidad, float velocidadsalto, int desfasey, int desfaseextra) {
         try {
             position = new Punto();
             LastPosition = new Punto();
             position.setX(x);
             position.setY(y);
             this.escala = escala;
-            this.desfase = desfase;
+            this.desfase = desfasex;
             this.velocidadx = velocidad;
             this.velocidadsalto = velocidadsalto;
+            this.aceleracionx = 0;
 
         } catch (Exception error) {
             error.printStackTrace();
         }
+        this.desfasey = desfasey;
+        this.desfaseextra = desfaseextra;
+        //this.aceleracionx = aceleracion;
     }
 
     public int getAncho() {
@@ -77,7 +96,7 @@ public class Character {
     }
 
     public int getAlto() {
-        return (this.PrincipalAnimation.getHeight() - desfase) * (int) escala;
+        return (this.PrincipalAnimation.getHeight() - desfasey) * (int) escala;
     }
 
     public int getVida() {
@@ -112,16 +131,17 @@ public class Character {
         this.desfase = desfase;
     }
 
-    public void RenderDraw() {
+    public void RenderDraw(Graphics g) {
         this.PrincipalAnimation.draw(position.x, position.y, this.getAncho(), this.getAlto());
+        g.draw(this.shape);
     }
 
     public void updatePosition(float delta) {
         float tiempo = (float) (delta / 1000);
         float y0 = this.position.y;
-        if (y0 + (this.PrincipalAnimation.getHeight() * escala) - (desfase * escala) >= JuegoV1.contenedor.getHeight()) {
+        if (y0 + this.getAlto() >= JuegoV1.contenedor.getHeight()) {
 
-            this.position.y = JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala);
+            this.position.y = JuegoV1.contenedor.getHeight() - this.getAlto();
             //System.out.println(this.position.y);
             this.shape.setY(this.position.y);
             //System.out.println(JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala));
@@ -160,9 +180,10 @@ public class Character {
             this.vx = 0;
         }
 
-        if (key == Input.KEY_X && this.position.y == JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala)) {
+        if (key == Input.KEY_X && this.puedoSaltar == true) {
 
             this.vey0 = this.velocidadsalto;
+            this.puedoSaltar = false;
         }
 
     }
@@ -181,6 +202,48 @@ public class Character {
         }
         this.position.x = this.position.x + (this.vx * (tiempo));
         this.shape.setX(this.position.x);
+    }
+
+    public void updatePosition(float delta, ContainerS con) {
+        float tiempo = (float) (delta / 1000);
+        this.LastPosition = this.position;
+        float y0 = this.position.y;
+        if (y0 + this.getAlto() >= JuegoV1.contenedor.getHeight()) {
+
+            this.position.y = JuegoV1.contenedor.getHeight() - this.getAlto();
+            //System.out.println(this.position.y);
+            this.shape.setY(this.position.y);
+            this.puedoSaltar = true;
+            //System.out.println(JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala));
+            if (this.vey0 == this.velocidadsalto) {
+                //System.out.println("salto");
+                this.position.y = (float) this.position.y
+                        - (float) (this.vey0 * tiempo)
+                        + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
+                this.vey0 = this.vey0 + (this.gravity * tiempo);
+                this.shape.setY(this.position.y);
+            }
+        } else {
+            this.position.y = (float) this.position.y
+                    - (float) (this.vey0 * tiempo)
+                    + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
+            this.vey0 = this.vey0 + (this.gravity * tiempo);
+            this.shape.setY(this.position.y);
+            System.out.println(this.Choca(con.lista));
+            if (this.Choca(con.lista) == UtilEnum.Y) {
+                if (this.vey0 > 0) {
+                    this.vey0 = -(this.vey0 * 2);
+                } else {
+                    this.vey0 = 1;
+                }
+                this.aceleracionx = 0;
+                this.position = this.LastPosition;
+                this.puedoSaltar = true;
+                this.shape.setY(this.position.y);
+            }
+        }
+        ActionMove(tiempo, con);
+
     }
 
     public void update(int delta, ContainerS con) {
@@ -207,7 +270,7 @@ public class Character {
             this.setVey0(this.getVey0() + (this.gravity * tiempo));
             this.shape.setY(this.position.y);
             if (this.Choca(con.lista) == UtilEnum.Y) {
-                this.position = this.LastPosition;
+                //this.position = this.LastPosition;
                 this.puedoSaltar = true;
                 this.shape.setY(this.position.y);
             }
@@ -217,35 +280,59 @@ public class Character {
     }
 
     private void ActionMove(float tiempo, ContainerS con) {
-        if (juegov1.JuegoV1.contenedor.getWidth() < this.position.x + (this.PrincipalAnimation.getWidth() * this.getEscala()) - (this.getDesfase() * this.getEscala())) {
-            this.setVx(0);
-            this.position.x = juegov1.JuegoV1.contenedor.getWidth() - (this.PrincipalAnimation.getWidth() * this.getEscala()) + (this.getDesfase() * this.getEscala());
+        if (JuegoV1.contenedor.getWidth() < this.position.x + this.getAncho()) {
+            this.position.x = JuegoV1.contenedor.getWidth() - this.getAncho();
             this.shape.setX(this.position.x);
-            
+            this.vx = 0;
         } else {
-            if (this.position.x <= 0) {
-                 this.setVx(0);
+            if (this.position.x < 0) {
                 this.position.x = 0;
                 this.shape.setX(this.position.x);
-               
+                this.vx = 0;
+                this.puedoSaltar = false;
+
             }
         }
-//        this.position.x = this.position.x + (this.setVx(0); * (tiempo));
-        if (this.Choca(con.lista) == UtilEnum.X) {
-            this.position = this.LastPosition;
-        }
+
+        this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
         this.shape.setX(this.position.x);
+        System.out.println(this.Choca(con.lista));
+        if (this.Choca(con.lista) == UtilEnum.Y) {
+            this.position = this.LastPosition;
+            if (this.vx > 0) {
+                this.vx = -250;
+                //this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+               // this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                // this.aceleracionx = -500;
+            } else {
+                if (this.vx < 0) {
+                    this.vx = 250;
+                   // this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                    //this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                    //this.aceleracionx = 500;
+                }
+            }
+        }
+        this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+        //this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+        // this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+        this.shape.setX(this.position.x);
+        //aca
+
     }
 
     public UtilEnum Choca(Platform[] recList) {
         UtilEnum response = UtilEnum.N;
         for (Platform r : recList) {
-            if (this.shape.intersects(r.shape)) {
+            if (this.shape.intersects(r.getContenedor())) {
+                /*
                 if (this.position.y == this.LastPosition.y) {
                     response = UtilEnum.X;
-                } else {
+                }else {
                     response = UtilEnum.Y;
-                }
+                }*/
+                
+                response = UtilEnum.Y;
 
             }
         }
