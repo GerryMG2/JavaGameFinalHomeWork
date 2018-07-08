@@ -28,9 +28,9 @@ public class Base {
     
     public static int lastIDReserva = 0;
     public static int lastIDFactura = 0;
-    public static final String personaje = "soldado";
+    public static final String objetos = "objetos";
     public static final String enemigo = "enemigo";
-    public static final String HABITACIONES = "habitaciones";
+    public static final String personajes = "personajes";
     private File archivoTXT;
     
     public Base() {
@@ -65,7 +65,7 @@ public class Base {
     public ArrayList<Animation> Personajes() throws SlickException {
         
         ArrayList<Animation> listaAux = new ArrayList<>();
-        for (String linea : getFileContent(HABITACIONES)) {
+        for (String linea : getFileContent(personajes)) {
             listaAux.add(createAnimation(linea));
         }
         return listaAux;
