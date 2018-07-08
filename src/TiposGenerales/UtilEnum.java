@@ -10,5 +10,5 @@ package TiposGenerales;
  * @author gerar
  */
 public enum UtilEnum {
-    X,Y,N
+    XR,XL,YU,YD,N
 }
