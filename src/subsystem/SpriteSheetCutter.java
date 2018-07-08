@@ -12,8 +12,23 @@ public class SpriteSheetCutter {
 
     private Image sheet;
     private SpriteSheet cuttedSheet;
-    
+
     public SpriteSheetCutter() {
+    }
+
+    /**
+     *este metodo retorna un corte como una subimagen de la original
+     * esta es solo una referencia asi que si se altera la imagen original
+     * tambien esta sufrira cambios
+     * @param imagen la imagen con la que trabajara el recorte
+     * @param x coordenadas respecto de la imagen
+     * @param y coordenadas respecto de la imagen
+     * @param wid es el ancho de cada cuadrado de la imagen
+     * @param hid es el alto del cuadrado de la subimagen
+     * @return un SpriteSheet con los cortes deseados listo para ser animado
+     */
+    public Image cutsubimg(Image imagen, int x, int y,int wid,int hid) {
+        return imagen.getSubImage(x, y, wid, hid);
     }
 
     /**
@@ -32,21 +47,23 @@ public class SpriteSheetCutter {
      * @param imagen la imagen con la que trabajara el recorte
      * @param htiles es el ancho de cada cuadrado del spritesheet
      * @param vtiles es elalto de cada cuadrado del sprite sheet
-     * @return una Animation con los cortes deseados con duracion de 80 milisegundos
+     * @return una Animation con los cortes deseados con duracion de 80
+     * milisegundos
      */
     public Animation makeAnimation(Image imagen, int htiles, int vtiles) {
         return new Animation(new SpriteSheet(imagen, htiles, vtiles), 80);
 
     }
 
-    
-        /**
+    /**
      *
      * @param imagen la imagen con la que trabajara el recorte
      * @param htiles es el ancho de cada cuadrado del spritesheet
      * @param vtiles es elalto de cada cuadrado del sprite sheet
-     * @param duracion el tiempo en milisegundos que dura cada frame, 1ms = 1, 100ms = 100 se expresa como int
-     * @return una Animation con los cortes deseados y la duracion especificada en milisegundos
+     * @param duracion el tiempo en milisegundos que dura cada frame, 1ms = 1,
+     * 100ms = 100 se expresa como int
+     * @return una Animation con los cortes deseados y la duracion especificada
+     * en milisegundos
      */
     public Animation makeAnimation(Image imagen, int htiles, int vtiles, int duracion) {
         return new Animation(new SpriteSheet(imagen, htiles, vtiles), duracion);

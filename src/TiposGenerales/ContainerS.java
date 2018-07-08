@@ -23,8 +23,9 @@ public class ContainerS {
     public void render(Graphics g) {
         for (Platform oj : lista) {
             if (!oj.transparente) {
-                oj.render();
                 g.draw(oj.shape);
+                oj.render();
+                
             }
         }
     }

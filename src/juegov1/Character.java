@@ -5,7 +5,7 @@
  */
 package juegov1;
 
-import subsystem.Base;
+import subsystem.LeverLoader;
 import TiposGenerales.ContainerS;
 import TiposGenerales.UtilEnum;
 import elements.levelcomponents.Platform;
@@ -26,7 +26,7 @@ import subsystem.SpriteSheetCutter;
  */
 public class Character {
 
-    public Base cargar;
+    public LeverLoader cargar;
     public Punto LastPosition;
     private int vida;
     Animation animations[];
@@ -62,25 +62,9 @@ public class Character {
 
     public void IniAnimations(Image sprite) throws SlickException {
         tijeras = new SpriteSheetCutter();
-        cargar = new Base();
-
-        //cargar.createAnimation("res\\Img\\Character\\assets\\player\\player.png 0 160 368 40 8 1");
-        ArrayList<Animation> aux = new ArrayList<>();
-
-        aux = cargar.Personajes();
-
-        for (Animation a : aux) {
-            PrincipalAnimation = a;
-        }
-
-        //PrincipalAnimation = 
-        //cargar.createAnimation("res\\Img\\Character\\assets\\player\\player.png 0 160 368 40 8 1");
-        //tijeras.makeAnimation(sprite, 0, 160, 368, 40, 8, 1);
-        //ArrayList<Animation> aux=new ArrayList<>();
-        //aux.add(PrincipalAnimation);
-        //aux=cargar.Personajes();
+        PrincipalAnimation = tijeras.makeAnimation(sprite, 0, 0, 2445, 499, 5, 1);
         animations = new Animation[3];
-        animations[0] = tijeras.makeAnimation(sprite, 0, 50, 10, 270, 6, 1);
+        animations[0] = tijeras.makeAnimation(sprite, 0, 0, 10, 270, 5, 1);
         shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() - desfaseextra);
         upshape = new Rectangle(this.position.x, this.position.y - 10, this.getAncho(), 10);
         downshape = new Rectangle(this.position.x, this.position.y + this.getAlto(), this.getAncho(), 10);
@@ -106,7 +90,7 @@ public class Character {
             LastPosition = new Punto();
             position.setX(x);
             position.setY(y);
-            this.escala = 1;
+            this.escala = escala;
             this.desfase = desfasex;
             this.velocidadx = velocidad;
             this.velocidadsalto = velocidadsalto;
@@ -121,11 +105,12 @@ public class Character {
     }
 
     public int getAncho() {
-        return (int) (this.PrincipalAnimation.getWidth() - desfase) * (int) escala;
+
+        return (int) ((float) (this.PrincipalAnimation.getWidth() - desfase) * (float) escala);
     }
 
     public int getAlto() {
-        return (this.PrincipalAnimation.getHeight() - desfasey) * (int) escala;
+        return (int) (((float) this.PrincipalAnimation.getHeight() - desfasey) * (float) escala);
     }
 
     public int getVida() {
@@ -161,8 +146,12 @@ public class Character {
     }
 
     public void RenderDraw(Graphics g) {
-        this.PrincipalAnimation.draw(position.x, position.y, this.getAncho(), this.getAlto());
+        //System.out.println(this.getAncho());
+        //System.out.println(this.PrincipalAnimation.getWidth());
+        this.PrincipalAnimation.draw(this.position.x, this.position.y, this.getAncho(), this.getAlto());
         g.draw(this.shape);
+        System.out.println(this.shape.getMinX());
+        System.out.println(this.position.x);
         g.draw(this.downshape);
         g.draw(this.leftshape);
         g.draw(this.rigthshape);
@@ -281,9 +270,19 @@ public class Character {
             this.upshape.setY(this.position.y - 10);
             System.out.println(this.Choca(con.lista));
             if (this.Choca(con.lista) == UtilEnum.YU) {
-                this.vey0 = 2;
+                this.vey0 = -this.vey0 * 0.5f;
                 this.aceleracionx = 0;
                 this.position = this.LastPosition;
+                this.position.y = (float) this.position.y
+                            - (float) (this.vey0 * tiempo)
+                            + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
+                    this.vey0 = this.vey0 + (this.gravity * tiempo);
+                    this.shape.setY(this.position.y);
+
+                    this.downshape.setY(this.position.y + this.getAlto());
+                    this.leftshape.setY(this.position.y);
+                    this.rigthshape.setY(this.position.y);
+                    this.upshape.setY(this.position.y - 10);
                 this.puedoSaltar = true;
                 this.shape.setY(this.position.y);
                 this.downshape.setY(this.position.y + this.getAlto());
@@ -297,7 +296,17 @@ public class Character {
                     this.leftshape.setY(this.position.y);
                     this.rigthshape.setY(this.position.y);
                     this.upshape.setY(this.position.y - 10);
-                    this.vey0 = -250;
+                    this.vey0 = -500;
+                    this.position.y = (float) this.position.y
+                            - (float) (this.vey0 * tiempo)
+                            + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
+                    this.vey0 = this.vey0 + (this.gravity * tiempo);
+                    this.shape.setY(this.position.y);
+
+                    this.downshape.setY(this.position.y + this.getAlto());
+                    this.leftshape.setY(this.position.y);
+                    this.rigthshape.setY(this.position.y);
+                    this.upshape.setY(this.position.y - 10);
                 }
             }
         }

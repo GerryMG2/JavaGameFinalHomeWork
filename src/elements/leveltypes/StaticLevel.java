@@ -1,6 +1,5 @@
 package elements.leveltypes;
 
-import juegov1.Character;
 import java.awt.Dimension;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,6 +8,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.geom.Rectangle;
+import juegov1.Character;
 
 /**
  *
