@@ -62,7 +62,7 @@ public class Base {
         return filecontent;
     }
     
-    public ArrayList<Animation> getListHabitacion() throws SlickException {
+    public ArrayList<Animation> Personajes() throws SlickException {
         
         ArrayList<Animation> listaAux = new ArrayList<>();
         for (String linea : getFileContent(HABITACIONES)) {
@@ -81,6 +81,5 @@ public class Base {
         int cortesY = Integer.parseInt(master.split(" ")[6]);
         Image image = new Image(nombre);
         return  aux.makeAnimation(image, x,y,ancho,alto,cortesX, cortesY);
-
     }
 }
