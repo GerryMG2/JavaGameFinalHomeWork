@@ -30,7 +30,7 @@ public class Base {
     public static int lastIDFactura = 0;
     public static final String objetos = "objetos";
     public static final String enemigo = "enemigo";
-    public static final String personajes = "enemigo";
+    public static final String personajes = "personaje";
     private File archivoTXT;
     
     public Base() {
@@ -74,7 +74,8 @@ public class Base {
     }
     
     public  Animation createAnimation(String master) throws SlickException {
-        String[] parts=master.split(" ");
+        try{
+            String[] parts=master.split(" ");
         
         String nombre = parts[0];
         
@@ -93,5 +94,11 @@ public class Base {
         Image image = new Image(nombre);
         
         return  aux.makeAnimation(image, x,y,ancho,alto,cortesX, cortesY);
+        }
+        catch(Exception e){
+            //no se pudo
+        }
+        return null;
+        
     }
 }

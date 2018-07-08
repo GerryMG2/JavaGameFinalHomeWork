@@ -1,0 +1,1 @@
+res\\Img\\Character\\assets\\player\\player.png 0 160 368 40 8 1

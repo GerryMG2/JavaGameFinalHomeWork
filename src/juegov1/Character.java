@@ -106,7 +106,7 @@ public class Character {
             LastPosition = new Punto();
             position.setX(x);
             position.setY(y);
-            this.escala = escala;
+            this.escala = 1;
             this.desfase = desfasex;
             this.velocidadx = velocidad;
             this.velocidadsalto = velocidadsalto;

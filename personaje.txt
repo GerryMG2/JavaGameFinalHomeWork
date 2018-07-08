@@ -1,0 +1,49 @@
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png 0 0 2445 499 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_die.png 0 0 3735 1204 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_idle.png 0 0 2030 1964 5 4
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_jump.png 0 0 2830 1650 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_lower.png 0 0 2525 501 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_run.png 0 0 2445 1437 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_shoot.png 0 0 3025 1020 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_throw_grenade.png 0 0 2945 1689 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_walk.png 0 0 2145 1515 5 3
+
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_desert_uniform_aim.png 0 0 2445 499 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_desert_uniform_die.png 0 0 3735 1204 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_desert_uniform_idle.png 0 0 2030 1964 5 4
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_desert_uniform_jump.png 0 0 2830 1650 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_desert_uniform_lower.png 0 0 2525 501 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_desert_uniform_run.png 0 0 2445 1437 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_desert_uniform_shoot.png 0 0 3025 1020 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_desert_uniform_throw_grenade.png 0 0 2945 1689 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_desert_uniform_walk.png 0 0 2145 1515 5 3
+
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_green_uniform_aim.png 0 0 2445 499 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_green_uniform_die.png 0 0 3735 1204 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_green_uniform_idle.png 0 0 2030 1964 5 4
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_green_uniform_jump.png 0 0 2830 1650 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_green_uniform_lower.png 0 0 2525 501 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_green_uniform_run.png 0 0 2445 1437 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_green_uniform_shoot.png 0 0 3025 1020 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_green_uniform_throw_grenade.png 0 0 2945 1689 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_green_uniform_walk.png 0 0 2145 1515 5 3
+
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_just_vest_aim.png 0 0 2430 451 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_just_vest_die.png 0 0 3445 1058 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_just_vest_idle.png 0 0 2060 1764 5 4
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_just_vest_jump.png 0 0 2545 1485 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_just_vest_lower.png 0 0 2380 454 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_just_vest_run.png 0 0 2445 1299 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_just_vest_shoot.png 0 0 2905 918 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_just_vest_throw_grenade.png 0 0 2905 1608 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_just_vest_walk.png 0 0 2175 1362 5 3
+
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_white_uniform_aim.png 0 0 2445 499 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_white_uniform_die.png 0 0 3735 1204 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_white_uniform_idle.png 0 0 2030 1964 5 4
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_white_uniform_jump.png 0 0 2830 1650 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_white_uniform_lower.png 0 0 2525 501 5 1
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_white_uniform_run.png 0 0 2445 1437 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_white_uniform_shoot.png 0 0 3025 1020 5 2
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_white_uniform_throw_grenade.png 0 0 2945 1689 5 3
+res\\Img\\Character\\assets\\spritesheets\\__soldier_one_white_uniform_walk.png 0 0 2145 1515 5 3
