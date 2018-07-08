@@ -5,13 +5,16 @@
  */
 package juegov1;
 
+import subsystem.Base;
 import TiposGenerales.ContainerS;
 import TiposGenerales.UtilEnum;
 import elements.levelcomponents.Platform;
+import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -23,6 +26,7 @@ import subsystem.SpriteSheetCutter;
  */
 public class Character {
 
+    public Base cargar;
     public Punto LastPosition;
     private int vida;
     Animation animations[];
@@ -56,9 +60,25 @@ public class Character {
         this.vey0 = vey0;
     }
 
-    public void IniAnimations(Image sprite) {
+    public void IniAnimations(Image sprite) throws SlickException {
         tijeras = new SpriteSheetCutter();
-        PrincipalAnimation = tijeras.makeAnimation(sprite, 0, 160, 368, 40, 8, 1);
+        cargar = new Base();
+
+        //cargar.createAnimation("res\\Img\\Character\\assets\\player\\player.png 0 160 368 40 8 1");
+        ArrayList<Animation> aux = new ArrayList<>();
+
+        aux = cargar.Personajes();
+
+        for (Animation a : aux) {
+            PrincipalAnimation = a;
+        }
+
+        //PrincipalAnimation = 
+        //cargar.createAnimation("res\\Img\\Character\\assets\\player\\player.png 0 160 368 40 8 1");
+        //tijeras.makeAnimation(sprite, 0, 160, 368, 40, 8, 1);
+        //ArrayList<Animation> aux=new ArrayList<>();
+        //aux.add(PrincipalAnimation);
+        //aux=cargar.Personajes();
         animations = new Animation[3];
         animations[0] = tijeras.makeAnimation(sprite, 0, 50, 10, 270, 6, 1);
         shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() - desfaseextra);
@@ -308,7 +328,7 @@ public class Character {
                 this.puedoSaltar = false;
 
             } else {
-                this.position.x = this.position.x + ((float)this.vx * (float)(tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                this.position.x = this.position.x + ((float) this.vx * (float) (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
                 this.shape.setX(this.position.x);
                 this.downshape.setX(this.position.x);
                 this.leftshape.setX(this.position.x - 10);
@@ -319,8 +339,8 @@ public class Character {
                 if (this.Choca(con.lista) == UtilEnum.XR) {
                     this.position = this.LastPosition;
                     this.vx = 300;
-                        this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
-                   
+                    this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+
                     /*if (this.vx > 0) {
                         this.vx = -250;
                         //this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Base;
+package subsystem;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,10 +30,11 @@ public class Base {
     public static int lastIDFactura = 0;
     public static final String objetos = "objetos";
     public static final String enemigo = "enemigo";
-    public static final String personajes = "personajes";
+    public static final String personajes = "enemigo";
     private File archivoTXT;
     
     public Base() {
+        aux=new SpriteSheetCutter();
     }
     
     private ArrayList<String> getFileContent(String filename) {
@@ -65,21 +66,32 @@ public class Base {
     public ArrayList<Animation> Personajes() throws SlickException {
         
         ArrayList<Animation> listaAux = new ArrayList<>();
+        
         for (String linea : getFileContent(personajes)) {
             listaAux.add(createAnimation(linea));
         }
         return listaAux;
     }
     
-    public static Animation createAnimation(String master) throws SlickException {
-        String nombre = master.split(" ")[0];
-        int x = Integer.parseInt(master.split(" ")[1]);
-        int y = Integer.parseInt(master.split(" ")[2]);
-        int ancho = Integer.parseInt(master.split(" ")[3]);
-        int alto = Integer.parseInt(master.split(" ")[4]);
-        int cortesX = Integer.parseInt(master.split(" ")[5]);
-        int cortesY = Integer.parseInt(master.split(" ")[6]);
+    public  Animation createAnimation(String master) throws SlickException {
+        String[] parts=master.split(" ");
+        
+        String nombre = parts[0];
+        
+        int x = Integer.parseInt(parts[1]);
+        
+        int y = Integer.parseInt(parts[2]);
+
+        int ancho = Integer.parseInt(parts[3]);
+
+        int alto = Integer.parseInt(parts[4]);
+
+        int cortesX =Integer.parseInt(parts[5]);
+
+        int cortesY =Integer.parseInt(parts[6]);
+
         Image image = new Image(nombre);
+        
         return  aux.makeAnimation(image, x,y,ancho,alto,cortesX, cortesY);
     }
 }
