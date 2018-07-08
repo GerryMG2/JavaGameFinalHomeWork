@@ -308,7 +308,7 @@ public class Character {
                 this.puedoSaltar = false;
 
             } else {
-                this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                this.position.x = this.position.x + ((float)this.vx * (float)(tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
                 this.shape.setX(this.position.x);
                 this.downshape.setX(this.position.x);
                 this.leftshape.setX(this.position.x - 10);
@@ -318,6 +318,9 @@ public class Character {
                 System.out.println(this.Choca(con.lista));
                 if (this.Choca(con.lista) == UtilEnum.XR) {
                     this.position = this.LastPosition;
+                    this.vx = 300;
+                        this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                   
                     /*if (this.vx > 0) {
                         this.vx = -250;
                         //this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
@@ -334,6 +337,8 @@ public class Character {
                 } else {
                     if (this.Choca(con.lista) == UtilEnum.XL) {
                         this.position = this.LastPosition;
+                        this.vx = -300;
+                        this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
                     }
                 }
                 /*this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
