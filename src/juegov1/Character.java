@@ -56,6 +56,8 @@ public class Character {
     public Shape rigthshape;
     protected Bullet[] bullets;
 
+    protected boolean alive = true;
+    
     protected int tiempoEsperaBala = 0;
     protected int DELAYBALA = 200;
     protected int current = 0;
@@ -161,23 +163,22 @@ public class Character {
                 tiempoEsperaBala = 0;
                 vec.sub(new Vector2f(position.x, position.y));
                 vec.normalise();
-                Vector2f aux=new Vector2f(position.x, position.y).copy();
-                Vector2f aux2=new Vector2f(aux.x+140,aux.y+65);
+                Vector2f aux = new Vector2f(position.x, position.y).copy();
+                Vector2f aux2 = new Vector2f(aux.x + 140, aux.y + 65);
                 bullets[current] = b.init(aux2, vec);
                 current++;
                 if (current >= bullets.length) {
                     current = 0;
                 }
             }
-        }
-        else{
+        } else {
             if (municion >= disparadasB) {
                 disparadasB++;
                 tiempoEsperaBala = 0;
                 vec.sub(new Vector2f(position.x, position.y));
                 vec.normalise();
-                Vector2f aux=new Vector2f(position.x, position.y).copy();
-                Vector2f aux2=new Vector2f(aux.x,aux.y+65);
+                Vector2f aux = new Vector2f(position.x, position.y).copy();
+                Vector2f aux2 = new Vector2f(aux.x, aux.y + 65);
                 bullets[current] = b.init(aux2, vec);
                 current++;
                 if (current >= bullets.length) {
@@ -457,12 +458,13 @@ public class Character {
             }
 
         }
-
-        this.ActionMove(tiempo, con, level);/*
-        }*/
         for (Bullet b : bullets) {
             b.update((int) delta);
         }
+
+        this.ActionMove(tiempo, con, level);/*
+        }*/
+
     }
 
     private void ActionMove(float tiempo, ContainerS con) {
@@ -643,6 +645,30 @@ public class Character {
 
     public int getTiempoBa() {
         return tiempoEsperaBala;
+    }
+    
+    public void checkBulletCollision(Bullet[] otherBullets) {
+        for (Bullet b : otherBullets) {
+            if (b.getActive() && b.collideWith(new Vector2f(position.x, position.y), this.getAncho()*this.getAlto())) {
+                b.setActive(false);
+                vida -= b.getDamage();
+                if (vida <= 0 && alive) {
+                    die();
+                }
+            }
+        }
+    }
+
+    public Bullet[] getBullets() {
+        return bullets;
+    }
+
+    public void die() {
+        alive = false;
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 
 }
