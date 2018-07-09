@@ -23,6 +23,7 @@ import org.newdawn.slick.geom.Vector2f;
  * @author yury_
  */
 public class nivel3 extends BasicGameState {
+
     private float wait = 0;
     private StaticLevel nivel;
     private ContainerS mainfrain;
@@ -31,6 +32,7 @@ public class nivel3 extends BasicGameState {
     private LeverLoader cargador;
     private Platform[] babosadas;
     private Character malo;
+
     @Override
     public int getID() {
         return 4;
@@ -43,15 +45,14 @@ public class nivel3 extends BasicGameState {
         cargador.prepareLevel(1);
         nivel = new StaticLevel(3);
         nivel.init(container, cargador.getBackgroiund());
-        personaje = new Character(100f, 100f, 0.3f, 0, 250f, 800f, 0, 0,0);
+        personaje = new Character(100f, 100f, 0.3f, 0, 250f, 800f, 0, 0, 0);
         personaje.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
-        malo = new Character(500f,100f,0.3f,0,250,800f,0,0,1);
+        personaje.setVida(20);
+        malo = new Character(500f, 100f, 0.3f, 0, 250, 800f, 0, 0, 1);
         malo.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
+        malo.setVida(15);
         IA = new IAcontroller();
-    
-        
-        
-        
+
         nivel.setTarget(personaje);
         events = container.getInput();
         babosadas = new Platform[3];
@@ -69,58 +70,71 @@ public class nivel3 extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         nivel.render(container, game, g);
         mainfrain.render(g);
-        personaje.RenderDraw(container,g);
-        malo.RenderDraw(container ,g);
+        if(personaje.isAlive()){
+             personaje.RenderDraw(container, g);
+        }
+        if(malo.isAlive()){
+               malo.RenderDraw(container, g);
+        }
+       
+     
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        wait += (float)delta / 1000f;
+        wait += (float) delta / 1000f;
         System.out.println("delta");
         System.out.println(wait);
-        if (container.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && personaje.getTiempoBa() > personaje.getDelay()) {
-            personaje.fireBullet(new Vector2f(container.getInput().getMouseX(), container.getInput().getMouseY()), new Bullet());
-        }
-        
-        if (events.isKeyDown(Input.KEY_D)) {
-            personaje.actionClick(Input.KEY_D);
+        if (personaje.isAlive()) {
+            if (container.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && personaje.getTiempoBa() > personaje.getDelay()) {
+                personaje.fireBullet(new Vector2f(container.getInput().getMouseX(), container.getInput().getMouseY()), new Bullet());
+            }
 
-        }
-        if (events.isKeyDown(Input.KEY_A)) {
-            personaje.actionClick(Input.KEY_A);
+            if (events.isKeyDown(Input.KEY_D)) {
+                personaje.actionClick(Input.KEY_D);
 
-        }
-        if (events.isKeyPressed(Input.KEY_X)) {
-            personaje.actionClick(Input.KEY_X);
+            }
+            if (events.isKeyDown(Input.KEY_A)) {
+                personaje.actionClick(Input.KEY_A);
 
-        }
-        if (!events.isKeyDown(Input.KEY_D) && !events.isKeyDown(Input.KEY_A)) {
-            //System.out.println("entro");
-            personaje.actionClick(666);
-        }
-        if (events.isKeyPressed(Input.KEY_SPACE)) {
-            nivel.setTarget(null);
-        }
+            }
+            if (events.isKeyPressed(Input.KEY_X)) {
+                personaje.actionClick(Input.KEY_X);
 
-        if (events.isKeyPressed(Input.KEY_DOWN)) {
-            game.enterState(1);
+            }
+            if (!events.isKeyDown(Input.KEY_D) && !events.isKeyDown(Input.KEY_A)) {
+                //System.out.println("entro");
+                personaje.actionClick(666);
+            }
+            if (events.isKeyPressed(Input.KEY_SPACE)) {
+                nivel.setTarget(null);
+            }
+
+            if (events.isKeyPressed(Input.KEY_DOWN)) {
+                game.enterState(1);
+            }
+            if (wait >= 2f) {
+                wait = 0f;
+                malo.fireBullet(new Vector2f(personaje.position.x, personaje.position.y), new Bullet());
+            }
+            personaje.updatePosition(delta, mainfrain);
+            personaje.checkBulletCollision(malo.getBullets());
         }
-        if ( wait >= 2f) {
-            wait = 0f;
-            malo.fireBullet(new Vector2f(personaje.position.x,personaje.position.y), new Bullet());
-        }
-        
-        malo.actionClick(IA.getkey(personaje.position, malo.position, personaje.shape, malo.shape, mainfrain));
-        personaje.updatePosition(delta, mainfrain);
+        if(malo.isAlive()){
+             malo.actionClick(IA.getkey(personaje.position, malo.position, personaje.shape, malo.shape, mainfrain));
+
+        malo.checkBulletCollision(personaje.getBullets());
         //malo.updatePosition(delta, mainfrain);
         malo.updatePosition(delta, mainfrain, true, nivel);
-       // malo.position.x = malo.position.x - nivel.getGlobalX();
+        // malo.position.x = malo.position.x - nivel.getGlobalX();
         //malo.position.y = malo.position.y - nivel.getGlobalY();
+
+        }
+
+       
         mainfrain.update(nivel.getGlobalX(), nivel.getGlobalY());
         nivel.update(delta);
 
-
     }
-
 
 }
