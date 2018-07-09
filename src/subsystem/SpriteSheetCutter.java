@@ -17,9 +17,10 @@ public class SpriteSheetCutter {
     }
 
     /**
-     *este metodo retorna un corte como una subimagen de la original
-     * esta es solo una referencia asi que si se altera la imagen original
-     * tambien esta sufrira cambios
+     * este metodo retorna un corte como una subimagen de la original esta es
+     * solo una referencia asi que si se altera la imagen original tambien esta
+     * sufrira cambios
+     *
      * @param imagen la imagen con la que trabajara el recorte
      * @param x coordenadas respecto de la imagen
      * @param y coordenadas respecto de la imagen
@@ -27,7 +28,7 @@ public class SpriteSheetCutter {
      * @param hid es el alto del cuadrado de la subimagen
      * @return un SpriteSheet con los cortes deseados listo para ser animado
      */
-    public Image cutsubimg(Image imagen, int x, int y,int wid,int hid) {
+    public Image cutsubimg(Image imagen, int x, int y, int wid, int hid) {
         return imagen.getSubImage(x, y, wid, hid);
     }
 

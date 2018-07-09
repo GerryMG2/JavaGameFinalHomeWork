@@ -35,10 +35,10 @@ public class StaticLevel {
         scal = scalar;
     }
 
-    public void init(GameContainer container, String path) throws SlickException {
+    public void init(GameContainer container, Image backbone) {
         Gx = 0;
         Gy = 0;
-        fondo = new Image(path);
+        fondo = backbone;
         fondo = fondo.getScaledCopy(scal);
         cwid = container.getWidth();
         chei = container.getHeight();
@@ -121,7 +121,10 @@ public class StaticLevel {
             Gy -= (target.position.y - tempy);
             Ly = Gy + chei;
         }
-
+        System.out.println("el abajo es " + getDown());
+        System.out.println("el arriba es " + getUp());
+        System.out.println("el derecho es " + getRight());
+        System.out.println("el izquierdo es " + getLeft());
     }
 
     public int getGlobalX() {
@@ -140,4 +143,40 @@ public class StaticLevel {
         return target.position.y - tempy;
     }
 
+    /**
+     *
+     * @return devuelve la distancia entre el fondo de la parte inferior de la
+     * ventana y la parte inferior de la imagen de fondo
+     */
+    public float getDown() {
+        float temp = (float) fondo.getHeight() - (Ly + target.getAlto());
+        if (temp < 0) {
+            temp = 0;
+        }
+        return temp;
+    }
+
+    public float getUp() {
+        float temp = (float) Gy - target.getAlto();
+        if (temp < 0) {
+            temp = 0;
+        }
+        return temp;
+    }
+
+    public float getRight() {
+        float temp = (float) fondo.getWidth() - (Lx);
+        if (temp < 0) {
+            temp = 0;
+        }
+        return temp;
+    }
+
+    public float getLeft() {
+        float temp = (float) Gx;
+        if (temp < 0) {
+            temp = 0;
+        }
+        return temp;
+    }
 }

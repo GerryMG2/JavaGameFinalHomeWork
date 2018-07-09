@@ -5,6 +5,7 @@
  */
 package subsystem;
 
+import elements.levelcomponents.Platform;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,82 +17,152 @@ import java.util.logging.Logger;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import subsystem.SpriteSheetCutter;
+import org.newdawn.slick.geom.Rectangle;
 
 /**
- * 
-* @author mcdre
+ *
+ * @author mcdre
  */
 public class LeverLoader {
-    
-    private static SpriteSheetCutter aux;
-    
-    public static int lastIDReserva = 0;
-    public static int lastIDFactura = 0;
-    public static final String objetos = "objetos";
-    public static final String enemigo = "enemigo";
-    public static final String personajes = "enemigo";
-    private File archivoTXT;
-    
+
+    private final SpriteSheetCutter tijeras;
+    private File archivoCFG;
+    private ArrayList<String> cfgfFile;
+    private ArrayList<String> levelcfg;
+    private ArrayList<String> playercfg;
+    private ArrayList<String> enemiscfg;
+
     public LeverLoader() {
-        aux=new SpriteSheetCutter();
+        tijeras = new SpriteSheetCutter();
+        loadcfg("res/launcher.cfg");
     }
-    
+
+    private void loadcfg(String path) {
+        cfgfFile = getFileContent(path);
+        playercfg = getFileContent("res/Proto/player.cfg");
+    }
+
     private ArrayList<String> getFileContent(String filename) {
         ArrayList<String> filecontent = new ArrayList<>();
         String cadenaAux;
-        archivoTXT = new File(filename + ".txt");
+        archivoCFG = new File(filename);
         FileReader lectorArchivo;
         try {
-            lectorArchivo = new FileReader(archivoTXT);
+            lectorArchivo = new FileReader(archivoCFG);
             try (BufferedReader lectorLines = new BufferedReader(lectorArchivo)) {
                 while ((cadenaAux = lectorLines.readLine()) != null) {
                     filecontent.add(cadenaAux);
                 }
             }
             lectorArchivo.close();
-            archivoTXT = null;
+            archivoCFG = null;
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LeverLoader.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("No se encontro el archivo " + archivoTXT.getName());
+            System.err.println("No se encontro el archivo " + archivoCFG.getName());
             System.out.println("\033[34mCreando nuevo;");
 
         } catch (IOException ex) {
             Logger.getLogger(LeverLoader.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("No se puede leer el archivo " + archivoTXT.getName());
+            System.err.println("No se puede leer el archivo " + archivoCFG.getName());
         }
         return filecontent;
     }
-    
-    public ArrayList<Animation> Personajes() throws SlickException {
-        
-        ArrayList<Animation> listaAux = new ArrayList<>();
-        
-        for (String linea : getFileContent(personajes)) {
-            listaAux.add(createAnimation(linea));
+
+    public void prepareLevel(int index) {
+        String conten;
+        for (String aux : cfgfFile) {
+            conten = aux.split(" ")[0];
+            if (Integer.parseInt(conten) == index) {
+                levelcfg = getFileContent(aux.split(" ")[1]);
+            }
         }
-        return listaAux;
+        if (levelcfg == null) {
+            System.err.println("No se pudo leer el nivel: " + index);
+        }
     }
-    
-    public  Animation createAnimation(String master) throws SlickException {
-        String[] parts=master.split(" ");
-        
-        String nombre = parts[0];
-        
-        int x = Integer.parseInt(parts[1]);
-        
-        int y = Integer.parseInt(parts[2]);
 
-        int ancho = Integer.parseInt(parts[3]);
-
-        int alto = Integer.parseInt(parts[4]);
-
-        int cortesX =Integer.parseInt(parts[5]);
-
-        int cortesY =Integer.parseInt(parts[6]);
-
-        Image image = new Image(nombre);
-        
-        return  aux.makeAnimation(image, x,y,ancho,alto,cortesX, cortesY);
+    public float getScale() {
+        float escala = 1.0f;
+        for (String str : levelcfg) {
+            if (str.split(" ")[0].equals("ecl")) {
+                escala = Float.parseFloat(str.split(" ")[1]);
+            }
+        }
+        return escala;
     }
+
+    public Image getBackgroiund() throws SlickException {
+        String semipath;
+        Image laimg = null;
+        for (String str : levelcfg) {
+            semipath = str.split(" ")[0];
+            if (semipath.equals("b")) {
+                laimg = new Image(str.split(" ")[1]);
+            }
+        }
+        return laimg;
+    }
+
+    public Platform[] getPlataformas() throws SlickException {
+        ArrayList<Platform> platsList = new ArrayList<>();
+        Platform[] plat;
+        for (String slam : levelcfg) {
+            if (slam.split(" ")[0].equals("p")) {
+                platsList.add(platmaker(slam));
+            }
+        }
+        if (platsList.isEmpty()) {
+            plat = new Platform[1];
+            plat[0] = new Platform(new Rectangle(0, 0, 500, 500));
+            plat[0].setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
+        } else {
+            plat = new Platform[platsList.size()];
+            for (int i = 0; i < plat.length; i++) {
+                plat[i] = platsList.get(i);
+            }
+        }
+        return plat;
+    }
+
+    private Platform platmaker(String param) throws SlickException {
+        Platform lepat;
+        String[] order = param.split(" ");
+        int x = Integer.parseInt(order[1]);
+        int y = Integer.parseInt(order[2]);
+        int wid = Integer.parseInt(order[3]);
+        int hid = Integer.parseInt(order[4]);
+        String texDir = order[5];
+        lepat = new Platform(new Rectangle(x, y, wid, hid));
+        lepat.setTexture(new Image(texDir));
+        return lepat;
+    }
+
+    public Animation[] getPlayerAnimations(boolean invertido) throws SlickException {
+        ArrayList<Animation> AniList = new ArrayList<>();
+        Animation[] anime;
+        for (String srt : playercfg) {
+            if (srt.split(" ")[0].equals("a")) {
+                String path = srt.split(" ")[1];
+                int wt = Integer.parseInt(srt.split(" ")[2]);
+                int ht = Integer.parseInt(srt.split(" ")[3]);
+                int ti = Integer.parseInt(srt.split(" ")[4]);
+                if (invertido) {
+                    AniList.add(tijeras.makeAnimation(new Image(path).getFlippedCopy(invertido, false), wt, ht, ti));
+                } else {
+                    AniList.add(tijeras.makeAnimation(new Image(path), wt, ht, ti));
+                }
+            }
+
+        }
+        if (AniList.isEmpty()) {
+            System.err.println("animaciones vacias");
+
+        }
+        anime = new Animation[AniList.size()];
+        for (int i = 0; i < anime.length; i++) {
+            anime[i] = AniList.get(i);
+        }
+        return anime;
+    }
+
 }

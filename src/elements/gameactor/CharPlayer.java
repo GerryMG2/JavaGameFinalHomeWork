@@ -2,6 +2,7 @@ package elements.gameactor;
 
 import TiposGenerales.ContainerS;
 import TiposGenerales.UtilEnum;
+import elements.levelcomponents.Bullet;
 import elements.levelcomponents.Platform;
 import juegov1.Punto;
 import org.newdawn.slick.Animation;
@@ -9,6 +10,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Vector2f;
 import subsystem.SpriteSheetCutter;
 
 /**
@@ -33,6 +35,8 @@ public class CharPlayer {
     public Shape shape;
     public boolean puedoSaltar = false;
     private Rectangle boundry;
+    protected Bullet[] bullets;
+    protected boolean alive = true;
 
     public float getVey0() {
         return vey0;
@@ -230,12 +234,37 @@ public class CharPlayer {
                 if (this.position.y == this.LastPosition.y) {
                     //response = UtilEnum.X;
                 } else {
-                   // response = UtilEnum.Y;
+                    // response = UtilEnum.Y;
                 }
 
             }
         }
 
         return response;
+    }
+
+    public void checkBulletCollision(Bullet[] otherBullets) {
+        for (Bullet b : otherBullets) {
+            if (b.getActive() && b.collideWith(new Vector2f(this.getVx(), this.getVey0()), this.getAncho() / 2)) {
+                // Delete the bullet if it hits something
+                b.setActive(false);
+                vida -= b.getDamage();
+                if (vida < 0 && alive) {
+                    die();
+                }
+            }
+        }
+    }
+
+    public Bullet[] getBullets() {
+        return bullets;
+    }
+
+    public void die() {
+        alive = false;
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 }
