@@ -1,17 +1,19 @@
 package core;
 
-import juegov1.Character;
+import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import elements.leveltypes.StaticLevel;
-import elements.levelcomponents.Platform;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.Input;
 import TiposGenerales.ContainerS;
+import subsystem.LeverLoader;
+import juegov1.Character;
+import elements.leveltypes.StaticLevel;
+import elements.levelcomponents.Platform;
 
 /**
  *
@@ -19,14 +21,12 @@ import TiposGenerales.ContainerS;
  */
 public class nivel3 extends BasicGameState {
 
-    private Platform cosa;
-    private Platform cosa1;
-    private Platform cosa2;
-    private Platform cosa3;
+    private ArrayList<Platform> plataformas;
     private StaticLevel nivel;
     private ContainerS mainfrain;
     public Character personaje;
     private Input events;
+    private LeverLoader cargador;
 
     @Override
     public int getID() {
@@ -52,10 +52,6 @@ public class nivel3 extends BasicGameState {
         nivel.setTarget(personaje);
         events = container.getInput();
         mainfrain = new ContainerS(new Platform[4]);
-        mainfrain.lista[0] = cosa;
-        mainfrain.lista[1] = cosa1;
-        mainfrain.lista[2] = cosa2;
-        mainfrain.lista[3] = cosa3;
     }
 
     @Override
@@ -93,5 +89,6 @@ public class nivel3 extends BasicGameState {
         nivel.update(delta);
 
     }
+    
 
 }
