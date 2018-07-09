@@ -83,8 +83,8 @@ public class Character {
     public void IniAnimations(String filepath) throws SlickException {
         cargar = new LeverLoader();
         cargar.prepareLevel(2);
-        animations = cargar.getPlayerAnimations(false);
-        animations2 = cargar.getPlayerAnimations(true);
+        animations = cargar.getPlayerAnimations(false, filepath);
+        animations2 = cargar.getPlayerAnimations(true, filepath);
         PrincipalAnimation = animations[0];
         shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() );
         upshape = new Rectangle(this.position.x, this.position.y - 10, this.getAncho(), 10);
