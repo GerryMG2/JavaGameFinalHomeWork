@@ -18,7 +18,6 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-import subsystem.SpriteSheetCutter;
 
 /**
  *
@@ -30,6 +29,8 @@ public class LeverLoader {
     private File archivoCFG;
     private ArrayList<String> cfgfFile;
     private ArrayList<String> levelcfg;
+    private ArrayList<String> playercfg;
+    private ArrayList<String> enemiscfg;
 
     public LeverLoader() {
         tijeras = new SpriteSheetCutter();
@@ -38,6 +39,7 @@ public class LeverLoader {
 
     private void loadcfg(String path) {
         cfgfFile = getFileContent(path);
+        playercfg = getFileContent("res/Proto/player.cfg");
     }
 
     private ArrayList<String> getFileContent(String filename) {
@@ -78,15 +80,15 @@ public class LeverLoader {
             System.err.println("No se pudo leer el nivel: " + index);
         }
     }
-    
-    public float getScale(){
+
+    public float getScale() {
         float escala = 1.0f;
-         for (String str : levelcfg) {
+        for (String str : levelcfg) {
             if (str.split(" ")[0].equals("ecl")) {
                 escala = Float.parseFloat(str.split(" ")[1]);
             }
         }
-    return escala;
+        return escala;
     }
 
     public Image getBackgroiund() throws SlickException {
@@ -133,6 +135,30 @@ public class LeverLoader {
         lepat = new Platform(new Rectangle(x, y, wid, hid));
         lepat.setTexture(new Image(texDir));
         return lepat;
+    }
+
+    public Animation[] getPlayerAnimations() throws SlickException {
+        ArrayList<Animation> AniList = new ArrayList<>();
+        Animation[] anime;
+        for (String srt : playercfg) {
+            if (srt.split(" ")[0].equals("a")) {
+                String path = srt.split(" ")[1];
+                int wt = Integer.parseInt(srt.split(" ")[2]);
+                int ht = Integer.parseInt(srt.split(" ")[3]);
+                int ti = Integer.parseInt(srt.split(" ")[4]);
+                AniList.add(tijeras.makeAnimation(new Image(path), wt, ht, ti));
+            }
+
+        }
+        if(AniList.isEmpty()){
+            System.err.println("animaciones vacias");
+        
+        }
+        anime = new Animation[AniList.size()];
+        for (int i = 0; i < anime.length; i++) {
+            anime[i] = AniList.get(i);
+        }
+        return anime;
     }
 
 }

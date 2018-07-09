@@ -11,7 +11,6 @@ import TiposGenerales.UtilEnum;
 import elements.levelcomponents.Bullet;
 import elements.levelcomponents.Platform;
 import elements.leveltypes.StaticLevel;
-import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -34,8 +33,8 @@ public class Character {
     public LeverLoader cargar;
     public Punto LastPosition;
     public int vida;
-    public int municion=20;
-    public int disparadasB=0;
+    public int municion = 20;
+    public int disparadasB = 0;
     public int vidatotal;
     Animation animations[];
     Animation PrincipalAnimation;
@@ -46,8 +45,6 @@ public class Character {
     private float escala;
     private int desfase;
     private float velocidadx;
-    private SpriteSheetCutter tijeras;
-    private SpriteSheet subImage;
     private float velocidadsalto;
     public Shape shape;
     public Shape upshape;
@@ -75,10 +72,10 @@ public class Character {
     }
 
     public void IniAnimations(Image sprite) throws SlickException {
-        tijeras = new SpriteSheetCutter();
-        PrincipalAnimation = tijeras.makeAnimation(sprite, 0, 0, 2445, 499, 5, 1);
-        animations = new Animation[3];
-        animations[0] = tijeras.makeAnimation(sprite, 0, 0, 10, 270, 5, 1);
+        cargar = new LeverLoader();
+        cargar.prepareLevel(2);
+        animations = cargar.getPlayerAnimations();
+        PrincipalAnimation = animations[8];
         shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() - desfaseextra);
         upshape = new Rectangle(this.position.x, this.position.y - 10, this.getAncho(), 10);
         downshape = new Rectangle(this.position.x, this.position.y + this.getAlto(), this.getAncho(), 10);
@@ -155,7 +152,7 @@ public class Character {
     }
 
     public void fireBullet(Vector2f vec, Bullet b) {
-        if (municion>=disparadasB) {
+        if (municion >= disparadasB) {
             disparadasB++;
             tiempoEsperaBala = 0;
             vec.sub(new Vector2f(position.x, position.y));
