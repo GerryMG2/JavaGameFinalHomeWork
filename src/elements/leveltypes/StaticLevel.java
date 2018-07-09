@@ -35,10 +35,10 @@ public class StaticLevel {
         scal = scalar;
     }
 
-    public void init(GameContainer container, String path) throws SlickException {
+    public void init(GameContainer container, Image backbone){
         Gx = 0;
         Gy = 0;
-        fondo = new Image(path);
+        fondo = backbone;
         fondo = fondo.getScaledCopy(scal);
         cwid = container.getWidth();
         chei = container.getHeight();

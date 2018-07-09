@@ -21,12 +21,12 @@ import elements.levelcomponents.Platform;
  */
 public class nivel3 extends BasicGameState {
 
-    private ArrayList<Platform> plataformas;
     private StaticLevel nivel;
     private ContainerS mainfrain;
     public Character personaje;
     private Input events;
     private LeverLoader cargador;
+    private Platform[] babosadas;
 
     @Override
     public int getID() {
@@ -35,23 +35,23 @@ public class nivel3 extends BasicGameState {
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        cosa = new Platform(new Rectangle(100, 2000, 300, 50));
-        cosa1 = new Platform(new Rectangle(900, 2000, 300, 50));
-        cosa2 = new Platform(new Rectangle(1300, 2000, 300, 50));
-        cosa3 = new Platform(new Rectangle(1800, 2200, 300, 50));
-        cosa.setTexture(new Image("res\\Img\\brick.png"));
-        cosa1.setTexture(new Image("res\\Img\\brick.png"));
-        cosa2.setTexture(new Image("res\\Img\\brick.png"));
-        cosa3.setTexture(new Image("res\\Img\\brick.png"));
+        cargador = new LeverLoader();
+        cargador.prepareLevel(1);
         nivel = new StaticLevel(2);
-        nivel.init(container, "res\\Img\\Backgorund\\ciudad.jpg");
-        //personaje = new CharPlayer(100,100,2,1,500,1280);
-        //personaje.setBoundry(0, 0, container.getWidth(), container.getHeight());
+        nivel.init(container, cargador.getBackgroiund());
         personaje = new Character(100f, 100f, 0.3f, 0, 250f, 800f, 0, 0);
         personaje.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
         nivel.setTarget(personaje);
         events = container.getInput();
-        mainfrain = new ContainerS(new Platform[4]);
+        babosadas = new Platform[3];
+        babosadas[0] = new Platform(new Rectangle(100, 1300, 300, 50));
+        babosadas[1] = new Platform(new Rectangle(500, 1300, 300, 50));
+        babosadas[2] = new Platform(new Rectangle(900, 1300, 300, 50));
+        babosadas[0].setTexture(new Image("res/Img/ladrillo_2_texture.png"));
+        babosadas[1].setTexture(new Image("res/Img/ladrillo_2_texture.png"));
+        babosadas[2].setTexture(new Image("res/Img/ladrillo_2_texture.png"));
+        mainfrain = new ContainerS(babosadas);
+        
     }
 
     @Override
