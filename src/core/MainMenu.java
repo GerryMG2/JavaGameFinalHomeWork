@@ -24,29 +24,30 @@ import org.newdawn.slick.TrueTypeFont;
 import subsystem.FontLoader;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.RoundedRectangle;
+
 /**
  *
  * @author yury_
  */
 public class MainMenu extends BasicGameState {
-    
+
     private Image play;
     private Image exit;
     private Image menu;
-    private int angulo; 
+    private int angulo;
     private FontLoader Cfont;
     private Font fotnString;
     private TrueTypeFont leFont;
     private Input control;
     private RoundedRectangle forma;
-    
+
     @Override
     public int getID() {
         return 0;
     }
 
     @Override
-    public void init(GameContainer container, StateBasedGame game){
+    public void init(GameContainer container, StateBasedGame game) {
         angulo = 0;
         Cfont = new FontLoader("res/Fonts/Fuente.ttf");
         fotnString = Cfont.getMyFont(1, 50);
@@ -63,41 +64,48 @@ public class MainMenu extends BasicGameState {
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException{
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         g.setBackground(Color.transparent);
         g.drawImage(menu, 0, 0);
+        g.setColor(Color.black);
+        g.drawString("A -> izquierda\n"
+                + "w -> arriba\n"
+                + "D -> derecha \n"
+                + "x  -> saltar\n"
+                + "apuntar con el mouse\n"
+                + "disparar -> click izquierdo", (int) 1280 / 2 - 100, 500);
 
         //Botones
-            if(control.getMouseX() >= 350 && control.getMouseX() <= 960 &&
-                control.getMouseY() >=245 && control.getMouseY() <= 355){
-                g.drawImage(play,358, 244);
-            }
-            if(control.getMouseX() >= 476 && control.getMouseX() <= 800 &&
-                control.getMouseY() >=390 && control.getMouseY() <= 465){
-                g.drawImage(exit,476 ,396 );
-            }
+        if (control.getMouseX() >= 350 && control.getMouseX() <= 960
+                && control.getMouseY() >= 245 && control.getMouseY() <= 355) {
+            g.drawImage(play, 358, 244);
+        }
+        if (control.getMouseX() >= 476 && control.getMouseX() <= 800
+                && control.getMouseY() >= 390 && control.getMouseY() <= 465) {
+            g.drawImage(exit, 476, 396);
+        }
 
     }
 
     @Override
-    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException{
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         angulo++;
-        if(angulo > 360){
-            angulo =0;
+        if (angulo > 360) {
+            angulo = 0;
         }
         //gear.setRotation(angulo);
         //gear2.setRotation(-angulo+290);
-        
-        if(control.getMouseX() >= 350 && control.getMouseX() <= 960 &&
-                control.getMouseY() >=245 && control.getMouseY() <= 355 && control.isMousePressed(0)){
+
+        if (control.getMouseX() >= 350 && control.getMouseX() <= 960
+                && control.getMouseY() >= 245 && control.getMouseY() <= 355 && control.isMousePressed(0)) {
             game.enterState(4);
         }
-        
-        if(control.getMouseX() >= 476 && control.getMouseX() <= 800 &&
-                control.getMouseY() >= 390 && control.getMouseY() <= 465 && control.isMousePressed(0)){
+
+        if (control.getMouseX() >= 476 && control.getMouseX() <= 800
+                && control.getMouseY() >= 390 && control.getMouseY() <= 465 && control.isMousePressed(0)) {
             System.exit(0);
         }
-        
+
     }
-    
+
 }
