@@ -90,7 +90,7 @@ public class MainMenu extends BasicGameState {
         
         if(control.getMouseX() >= 350 && control.getMouseX() <= 960 &&
                 control.getMouseY() >=245 && control.getMouseY() <= 355 && control.isMousePressed(0)){
-            game.enterState(4);
+            game.enterState(1);
         }
         
         if(control.getMouseX() >= 476 && control.getMouseX() <= 800 &&
