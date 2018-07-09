@@ -152,15 +152,34 @@ public class Character {
     }
 
     public void fireBullet(Vector2f vec, Bullet b) {
-        if (municion >= disparadasB) {
-            disparadasB++;
-            tiempoEsperaBala = 0;
-            vec.sub(new Vector2f(position.x, position.y));
-            vec.normalise();
-            bullets[current] = b.init(new Vector2f(position.x, position.y).copy(), vec);
-            current++;
-            if (current >= bullets.length) {
-                current = 0;
+        if (Derecha) {
+            if (municion >= disparadasB) {
+                disparadasB++;
+                tiempoEsperaBala = 0;
+                vec.sub(new Vector2f(position.x, position.y));
+                vec.normalise();
+                Vector2f aux=new Vector2f(position.x, position.y).copy();
+                Vector2f aux2=new Vector2f(aux.x+140,aux.y+65);
+                bullets[current] = b.init(aux2, vec);
+                current++;
+                if (current >= bullets.length) {
+                    current = 0;
+                }
+            }
+        }
+        else{
+            if (municion >= disparadasB) {
+                disparadasB++;
+                tiempoEsperaBala = 0;
+                vec.sub(new Vector2f(position.x, position.y));
+                vec.normalise();
+                Vector2f aux=new Vector2f(position.x, position.y).copy();
+                Vector2f aux2=new Vector2f(aux.x,aux.y+65);
+                bullets[current] = b.init(aux2, vec);
+                current++;
+                if (current >= bullets.length) {
+                    current = 0;
+                }
             }
         }
 
