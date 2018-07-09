@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import juegov1.Boton;
+import juegov1.Hud;
 
 import juegov1.Punto;
 import org.newdawn.slick.Color;
