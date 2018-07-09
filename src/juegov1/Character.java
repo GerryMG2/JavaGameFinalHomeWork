@@ -9,6 +9,7 @@ import subsystem.LeverLoader;
 import TiposGenerales.ContainerS;
 import TiposGenerales.UtilEnum;
 import elements.levelcomponents.Platform;
+import elements.leveltypes.StaticLevel;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
@@ -26,6 +27,7 @@ import subsystem.SpriteSheetCutter;
  */
 public class Character {
 
+    public boolean isenemy;
     public LeverLoader cargar;
     public Punto LastPosition;
     private int vida;
@@ -84,8 +86,13 @@ public class Character {
      * @param desfasey
      * @param desfaseextra
      */
-    public Character(float x, float y, float escala, int desfasex, float velocidad, float velocidadsalto, int desfasey, int desfaseextra) {
+    public Character(float x, float y, float escala, int desfasex, float velocidad, float velocidadsalto, int desfasey, int desfaseextra, int enemy) {
         try {
+            if (enemy == 1) {
+                this.isenemy = true;
+            } else {
+                this.isenemy = false;
+            }
             position = new Punto();
             LastPosition = new Punto();
             position.setX(x);
@@ -150,48 +157,11 @@ public class Character {
         //System.out.println(this.PrincipalAnimation.getWidth());
         this.PrincipalAnimation.draw(this.position.x, this.position.y, this.getAncho(), this.getAlto());
         g.draw(this.shape);
-        System.out.println(this.shape.getMinX());
-        System.out.println(this.position.x);
+        System.out.println(this.position.y);
         g.draw(this.downshape);
         g.draw(this.leftshape);
         g.draw(this.rigthshape);
         g.draw(this.upshape);
-    }
-
-    public void updatePosition(float delta) {
-        float tiempo = (float) (delta / 1000);
-        float y0 = this.position.y;
-        if (y0 + this.getAlto() >= JuegoV1.contenedor.getHeight()) {
-
-            this.position.y = JuegoV1.contenedor.getHeight() - this.getAlto();
-            //System.out.println(this.position.y);
-            this.shape.setY(this.position.y);
-            //System.out.println(JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala));
-            if (this.vey0 == this.velocidadsalto) {
-                //System.out.println("salto");
-                this.position.y = (float) this.position.y
-                        - (float) (this.vey0 * tiempo)
-                        + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
-                this.vey0 = this.vey0 + (this.gravity * tiempo);
-                this.shape.setY(this.position.y);
-                this.downshape.setY(this.position.y);
-                this.leftshape.setY(this.position.y);
-                this.rigthshape.setY(this.position.y);
-                this.upshape.setY(this.position.y);
-            }
-        } else {
-            this.position.y = (float) this.position.y
-                    - (float) (this.vey0 * tiempo)
-                    + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
-            this.vey0 = this.vey0 + (this.gravity * tiempo);
-            this.shape.setY(this.position.y);
-            this.downshape.setY(this.position.y);
-            this.leftshape.setY(this.position.y);
-            this.rigthshape.setY(this.position.y);
-            this.upshape.setY(this.position.y);
-        }
-        ActionMove(tiempo);
-
     }
 
     public void actionClick(int key) {
@@ -238,7 +208,7 @@ public class Character {
         float tiempo = (float) (delta / 1000);
         this.LastPosition = this.position;
         float y0 = this.position.y;
-        if (y0 + this.getAlto() >= JuegoV1.contenedor.getHeight()) {
+        if (y0 + this.getAlto() >= JuegoV1.contenedor.getHeight() && this.isenemy == false) {
 
             this.position.y = JuegoV1.contenedor.getHeight() - this.getAlto();
             //System.out.println(this.position.y);
@@ -258,6 +228,7 @@ public class Character {
                 this.upshape.setY(this.position.y - 10);
             }
         } else {
+
             this.position.y = (float) this.position.y
                     - (float) (this.vey0 * tiempo)
                     + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
@@ -274,15 +245,15 @@ public class Character {
                 this.aceleracionx = 0;
                 this.position = this.LastPosition;
                 this.position.y = (float) this.position.y
-                            - (float) (this.vey0 * tiempo)
-                            + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
-                    this.vey0 = this.vey0 + (this.gravity * tiempo);
-                    this.shape.setY(this.position.y);
+                        - (float) (this.vey0 * tiempo)
+                        + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
+                this.vey0 = this.vey0 + (this.gravity * tiempo);
+                this.shape.setY(this.position.y);
 
-                    this.downshape.setY(this.position.y + this.getAlto());
-                    this.leftshape.setY(this.position.y);
-                    this.rigthshape.setY(this.position.y);
-                    this.upshape.setY(this.position.y - 10);
+                this.downshape.setY(this.position.y + this.getAlto());
+                this.leftshape.setY(this.position.y);
+                this.rigthshape.setY(this.position.y);
+                this.upshape.setY(this.position.y - 10);
                 this.puedoSaltar = true;
                 this.shape.setY(this.position.y);
                 this.downshape.setY(this.position.y + this.getAlto());
@@ -296,7 +267,7 @@ public class Character {
                     this.leftshape.setY(this.position.y);
                     this.rigthshape.setY(this.position.y);
                     this.upshape.setY(this.position.y - 10);
-                    this.vey0 = -500;
+                    this.vey0 = -500f;
                     this.position.y = (float) this.position.y
                             - (float) (this.vey0 * tiempo)
                             + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
@@ -312,6 +283,98 @@ public class Character {
         }
         ActionMove(tiempo, con);
 
+    }
+
+    public void updatePosition(float delta, ContainerS con, boolean enemy, StaticLevel level) {
+        float tiempo = (float) delta / 1000;
+        /*if (this.position.y < 0) {
+            System.out.println("menor a cero");
+            this.shape.setY(this.position.y);
+            this.vey0 = 10f;
+
+            this.downshape.setY(this.position.y + this.getAlto());
+            this.leftshape.setY(this.position.y);
+            this.rigthshape.setY(this.position.y);
+            this.upshape.setY(this.position.y - 10);
+        } 
+        else {*/
+            if (this.position.y > level.getDown() + juegov1.JuegoV1.contenedor.getHeight()) {
+                System.out.println("leveldown");
+                System.out.println(level.getDown());
+                this.position.y = juegov1.JuegoV1.contenedor.getHeight() + level.getDown() - this.getAlto();
+                this.shape.setY(this.position.y);
+
+                this.downshape.setY(this.position.y + this.getAlto());
+                this.leftshape.setY(this.position.y);
+                this.rigthshape.setY(this.position.y);
+                this.upshape.setY(this.position.y - 10);
+                this.vey0 = 0;
+            } else {
+                if( this.position.y == juegov1.JuegoV1.contenedor.getHeight() + level.getDown() - this.getAlto()){
+                    
+                }else
+                {
+                                    System.out.println("Donde debe estar");
+                System.out.println(this.position.y);
+                System.out.println(
+                         (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2))));
+                this.position.y = (float) this.position.y
+                        - (float) (this.vey0 * tiempo)
+                        + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
+                this.vey0 = this.vey0 + (this.gravity * tiempo);
+                this.shape.setY(this.position.y);
+
+                this.downshape.setY(this.position.y + this.getAlto());
+                this.leftshape.setY(this.position.y);
+                this.rigthshape.setY(this.position.y);
+                this.upshape.setY(this.position.y - 10);
+                System.out.println(this.Choca(con.lista));
+                if (this.Choca(con.lista) == UtilEnum.YU) {
+                    this.vey0 = -this.vey0 * 0.5f;
+                    this.aceleracionx = 0;
+                    this.position = this.LastPosition;
+                    this.position.y = (float) this.position.y
+                            - (float) (this.vey0 * tiempo)
+                            + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
+                    this.vey0 = this.vey0 + (this.gravity * tiempo);
+                    this.shape.setY(this.position.y);
+
+                    this.downshape.setY(this.position.y + this.getAlto());
+                    this.leftshape.setY(this.position.y);
+                    this.rigthshape.setY(this.position.y);
+                    this.upshape.setY(this.position.y - 10);
+                    this.puedoSaltar = true;
+                    this.shape.setY(this.position.y);
+                    this.downshape.setY(this.position.y + this.getAlto());
+                    this.leftshape.setY(this.position.y);
+                    this.rigthshape.setY(this.position.y);
+                    this.upshape.setY(this.position.y - 10);
+                } else {
+                    if (this.Choca(con.lista) == UtilEnum.YD) {
+                        this.position = this.LastPosition;
+                        this.downshape.setY(this.position.y + this.getAlto());
+                        this.leftshape.setY(this.position.y);
+                        this.rigthshape.setY(this.position.y);
+                        this.upshape.setY(this.position.y - 10);
+                        this.vey0 = -500f;
+                        this.position.y = (float) this.position.y
+                                - (float) (this.vey0 * tiempo)
+                                + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
+                        this.vey0 = this.vey0 + (this.gravity * tiempo);
+                        this.shape.setY(this.position.y);
+
+                        this.downshape.setY(this.position.y + this.getAlto());
+                        this.leftshape.setY(this.position.y);
+                        this.rigthshape.setY(this.position.y);
+                        this.upshape.setY(this.position.y - 10);
+                    }
+                }
+                }
+
+            }
+
+            this.ActionMove(tiempo, con, level);/*
+        }*/
     }
 
     private void ActionMove(float tiempo, ContainerS con) {
@@ -420,5 +483,69 @@ public class Character {
         }
 
         return response;
+    }
+
+    private void ActionMove(float tiempo, ContainerS con, StaticLevel level) {
+        if (this.position.x > juegov1.JuegoV1.contenedor.getWidth()+ level.getRight() - this.getAncho()) {
+            this.position.x = juegov1.JuegoV1.contenedor.getWidth() + level.getRight() - this.getAncho();
+            this.shape.setX(this.position.x);
+            this.downshape.setX(this.position.x);
+            this.leftshape.setX(this.position.x - 10);
+            this.rigthshape.setX(this.position.x + this.getAncho());
+            this.upshape.setX(this.position.x);
+        } else {
+            if (this.position.x < level.getLeft()) {
+                this.position.x = level.getLeft();
+                this.shape.setX(this.position.x);
+                this.downshape.setX(this.position.x);
+                this.leftshape.setX(this.position.x - 10);
+                this.rigthshape.setX(this.position.x + this.getAncho());
+                this.upshape.setX(this.position.x);
+            } else {
+
+                this.position.x = this.position.x + ((float) this.vx * (float) (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                this.shape.setX(this.position.x);
+                this.downshape.setX(this.position.x);
+                this.leftshape.setX(this.position.x - 10);
+                this.rigthshape.setX(this.position.x + this.getAncho());
+                this.upshape.setX(this.position.x);
+
+                System.out.println(this.Choca(con.lista));
+                if (this.Choca(con.lista) == UtilEnum.XR) {
+                    this.position = this.LastPosition;
+                    this.vx = 300;
+                    this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+
+                    /*if (this.vx > 0) {
+                        this.vx = -250;
+                        //this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                        // this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                        // this.aceleracionx = -500;
+                    } else {
+                        if (this.vx < 0) {
+                            this.vx = 250;
+                            // this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                            //this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                            //this.aceleracionx = 500;
+                        }
+                    }*/
+                } else {
+                    if (this.Choca(con.lista) == UtilEnum.XL) {
+                        this.position = this.LastPosition;
+                        this.vx = -300;
+                        this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                    }
+                }
+                /*this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                //this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));
+                // this.position.x = this.position.x + (this.vx * (tiempo)) + (0.5f * aceleracionx * (float) (Math.pow(tiempo, 2)));*/
+                this.shape.setX(this.position.x);
+                this.downshape.setX(this.position.x);
+                this.leftshape.setX(this.position.x - 10);
+                this.rigthshape.setX(this.position.x + this.getAncho());
+                this.upshape.setX(this.position.x);
+            }
+
+        }
     }
 }

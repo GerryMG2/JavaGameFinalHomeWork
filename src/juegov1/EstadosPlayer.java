@@ -12,5 +12,5 @@ package juegov1;
 public enum EstadosPlayer {
     ArribaDerecha,ArribaIzquierda,AbajoDerecha,AbajoIzquierda,DerechaEnseguida,
     IzquierdaEnseguida,DerechaLejos,IzquierdaLejos,ParedDerecha,ParedIzquierda,ParedArriba,
-    EncimaPlataforam,nulo
+    EncimaPlataforam,nulo,Arriba,Abajo,Izquierda,Derecha,poralgunarazonelmismositio
 }
