@@ -44,7 +44,7 @@ public class JuegoV1 extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         addState(new MainMenu());
         this.addState(new nivel3());
-        //this.addState(new nvl1());
+        addState(new nvl1());
         //this.addState(new Menu());
     }
 

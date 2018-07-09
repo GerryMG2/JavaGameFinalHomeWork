@@ -35,7 +35,7 @@ public class StaticLevel {
         scal = scalar;
     }
 
-    public void init(GameContainer container, Image backbone){
+    public void init(GameContainer container, Image backbone) {
         Gx = 0;
         Gy = 0;
         fondo = backbone;
@@ -139,14 +139,25 @@ public class StaticLevel {
     public float getGlobalDYD() {
         return target.position.y - tempy;
     }
-    
-    
+
     /**
-     * 
-     * @return devuelve la distancia entre el fondo de la parte inferior
-     * de la ventana y la parte inferior de la imagen de fondo
+     *
+     * @return devuelve la distancia entre el fondo de la parte inferior de la
+     * ventana y la parte inferior de la imagen de fondo
      */
-    public float getdify(){
-    return (float) (chaBoundry.getY()+chaBoundry.getHeight()-tamano.getHeight());
+    public float getDown() {
+        return (float) (tamano.getHeight() - (chaBoundry.getY() + chaBoundry.getHeight()));
+    }
+
+    public float getUp() {
+        return (float) (chaBoundry.getY());
+    }
+
+    public float getRight() {
+        return (float) (tamano.getHeight() - (chaBoundry.getX() + chaBoundry.getWidth()));
+    }
+
+    public float getLeft() {
+        return (float) (chaBoundry.getX());
     }
 }

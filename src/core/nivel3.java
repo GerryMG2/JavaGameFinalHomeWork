@@ -37,7 +37,7 @@ public class nivel3 extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         cargador = new LeverLoader();
         cargador.prepareLevel(1);
-        nivel = new StaticLevel(2);
+        nivel = new StaticLevel(3);
         nivel.init(container, cargador.getBackgroiund());
         personaje = new Character(100f, 100f, 0.3f, 0, 250f, 800f, 0, 0);
         personaje.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
@@ -82,6 +82,7 @@ public class nivel3 extends BasicGameState {
         }
         if (events.isKeyPressed(Input.KEY_SPACE)) {
             nivel.setTarget(null);
+            game.enterState(1);
         }
         personaje.updatePosition(delta, mainfrain);
         
