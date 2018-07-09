@@ -92,7 +92,7 @@ public class Character {
         rigthshape = new Rectangle(this.position.x + this.getAncho(), this.position.y, 10, this.getAlto());
         leftshape = new Rectangle(this.position.x - 10, this.position.y, 10, this.getAlto());
 
-        bullets = new Bullet[35];
+        bullets = new Bullet[1000];
         for (int i = 0; i < bullets.length; i++) {
             bullets[i] = new Bullet();
         }
@@ -102,7 +102,7 @@ public class Character {
     public void setVidaAmmo(int vida, int ammo) {
         this.vida = vida;
         this.vidatotal = vida;
-        this.municion = ammo;
+        this.municion = 100000;
     }
 
     public void setbalas(int ammos) {
@@ -165,7 +165,7 @@ public class Character {
         this.PrincipalAnimation = !this.Derecha ? animations[5] : animations2[5];
 
         if (Derecha) {
-            if (municion >= disparadasB) {
+            if (this.municion >= 0) {
                 disparadasB++;
                 tiempoEsperaBala = 0;
                 vec.sub(new Vector2f(position.x, position.y));
@@ -179,7 +179,7 @@ public class Character {
                 }
             }
         } else {
-            if (municion >= disparadasB) {
+            if (municion >= 0) {
                 disparadasB++;
                 tiempoEsperaBala = 0;
                 vec.sub(new Vector2f(position.x, position.y));
