@@ -39,7 +39,6 @@ public class LeverLoader {
 
     private void loadcfg(String path) {
         cfgfFile = getFileContent(path);
-        playercfg = getFileContent("res/Proto/player.cfg");
     }
 
     private ArrayList<String> getFileContent(String filename) {
@@ -137,7 +136,8 @@ public class LeverLoader {
         return lepat;
     }
 
-    public Animation[] getPlayerAnimations(boolean invertido) throws SlickException {
+    public Animation[] getPlayerAnimations(boolean invertido, String filepath) throws SlickException {
+        playercfg = getFileContent(filepath);
         ArrayList<Animation> AniList = new ArrayList<>();
         Animation[] anime;
         for (String srt : playercfg) {

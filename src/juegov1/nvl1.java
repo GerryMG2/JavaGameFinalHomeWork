@@ -6,7 +6,6 @@
 package juegov1;
 
 import TiposGenerales.ContainerS;
-import elements.levelcomponents.Platform;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -15,7 +14,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.Image;
 import elements.levelcomponents.Bullet;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 import elements.leveltypes.StaticLevel;
 import subsystem.LeverLoader;
@@ -45,7 +43,7 @@ public class nvl1 extends BasicGameState {
         nivel = new StaticLevel(cargador.getScale());
         nivel.init(gc, cargador.getBackgroiund());
         jugador = new Character(100f, 100f, 0.3f, 0, 350f, 2000f, 0, 0,0);
-        jugador.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
+        jugador.IniAnimations("res/Proto/player.cfg");
         nivel.setTarget(jugador);
         mainfrain = new ContainerS(cargador.getPlataformas());
 
