@@ -19,22 +19,22 @@ import org.newdawn.slick.SlickException;
 import subsystem.SpriteSheetCutter;
 
 /**
- *
- * @author mcdre
+ * 
+* @author mcdre
  */
 public class LeverLoader {
     
-    private static SpriteSheetCutter tijeras;
+    private static SpriteSheetCutter aux;
     
-  
+    public static int lastIDReserva = 0;
+    public static int lastIDFactura = 0;
     public static final String objetos = "objetos";
     public static final String enemigo = "enemigo";
     public static final String personajes = "enemigo";
     private File archivoTXT;
     
     public LeverLoader() {
-        tijeras=new SpriteSheetCutter();
-        loadcfg();
+        aux=new SpriteSheetCutter();
     }
     
     private ArrayList<String> getFileContent(String filename) {
@@ -61,10 +61,6 @@ public class LeverLoader {
             System.err.println("No se puede leer el archivo " + archivoTXT.getName());
         }
         return filecontent;
-    }
-    
-    private void loadcfg(){
-    
     }
     
     public ArrayList<Animation> Personajes() throws SlickException {
@@ -96,6 +92,6 @@ public class LeverLoader {
 
         Image image = new Image(nombre);
         
-        return  tijeras.makeAnimation(image, x,y,ancho,alto,cortesX, cortesY);
+        return  aux.makeAnimation(image, x,y,ancho,alto,cortesX, cortesY);
     }
 }
