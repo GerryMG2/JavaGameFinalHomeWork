@@ -42,9 +42,9 @@ public class Character {
     public int municion = 20;
     public int disparadasB = 0;
     public int vidatotal;
-    Animation animations[];
-    Animation animations2[];
-    Animation PrincipalAnimation;
+    public Animation animations[];
+    public Animation animations2[];
+    public Animation PrincipalAnimation;
     public Punto position;
     private float vx;
     private float vey0;
@@ -86,7 +86,7 @@ public class Character {
         animations = cargar.getPlayerAnimations(false, filepath);
         animations2 = cargar.getPlayerAnimations(true, filepath);
         PrincipalAnimation = animations[0];
-        shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() );
+        shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto());
         upshape = new Rectangle(this.position.x, this.position.y - 10, this.getAncho(), 10);
         downshape = new Rectangle(this.position.x, this.position.y + this.getAlto(), this.getAncho(), 10);
         rigthshape = new Rectangle(this.position.x + this.getAncho(), this.position.y, 10, this.getAlto());
@@ -240,7 +240,15 @@ public class Character {
     public void RenderDraw(GameContainer gc, Graphics g) throws SlickException {
         //System.out.println(this.getAncho());
         //System.out.println(this.PrincipalAnimation.getWidth());
-        this.PrincipalAnimation.draw(this.position.x, this.position.y, this.getAncho(), this.getAlto());
+        if (this.isAlive()) {
+
+            this.PrincipalAnimation.draw(this.position.x, this.position.y, this.getAncho(), this.getAlto());
+        } else {
+            this.PrincipalAnimation = !this.Derecha ? animations[8] : animations2[8];
+            this.PrincipalAnimation.setLooping(false);
+            this.PrincipalAnimation.draw(this.position.x, this.position.y, this.getAncho(), this.getAlto());
+
+        }
         g.draw(this.shape);
         System.out.println(this.position.y);
         g.draw(this.downshape);
@@ -309,6 +317,10 @@ public class Character {
             this.position.y = JuegoV1.contenedor.getHeight() - this.getAlto();
             //System.out.println(this.position.y);
             this.shape.setY(this.position.y);
+            this.downshape.setY(this.position.y + this.getAlto());
+            this.leftshape.setY(this.position.y);
+            this.rigthshape.setY(this.position.y);
+            this.upshape.setY(this.position.y - 10);
             this.puedoSaltar = true;
             //System.out.println(JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala));
             if (this.vey0 == this.velocidadsalto) {
