@@ -8,10 +8,12 @@ package juegov1;
 import subsystem.LeverLoader;
 import TiposGenerales.ContainerS;
 import TiposGenerales.UtilEnum;
+import elements.levelcomponents.Bullet;
 import elements.levelcomponents.Platform;
 import elements.leveltypes.StaticLevel;
 import java.util.ArrayList;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -19,6 +21,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Vector2f;
 import subsystem.SpriteSheetCutter;
 
 /**
@@ -48,6 +51,11 @@ public class Character {
     public Shape downshape;
     public Shape leftshape;
     public Shape rigthshape;
+    protected Bullet[] bullets;
+
+    protected int tiempoEsperaBala = 0;
+    protected int DELAYBALA = 100;
+    protected int current = 0;
 
     public boolean puedoSaltar = false;
     private final int desfasey;
@@ -72,6 +80,11 @@ public class Character {
         downshape = new Rectangle(this.position.x, this.position.y + this.getAlto(), this.getAncho(), 10);
         rigthshape = new Rectangle(this.position.x + this.getAncho(), this.position.y, 10, this.getAlto());
         leftshape = new Rectangle(this.position.x - 10, this.position.y, 10, this.getAlto());
+
+        bullets = new Bullet[15];
+        for (int i = 0; i < bullets.length; i++) {
+            bullets[i] = new Bullet();
+        }
 
     }
 
@@ -109,6 +122,17 @@ public class Character {
         this.desfasey = desfasey;
         this.desfaseextra = desfaseextra;
         //this.aceleracionx = aceleracion;
+    }
+
+    public void fireBullet(Vector2f vec, Bullet b) {
+        tiempoEsperaBala = 0;
+        vec.sub(new Vector2f(position.x, position.y));
+        vec.normalise();
+        bullets[current] = b.init(new Vector2f(position.x, position.y).copy(), vec);
+        current++;
+        if (current >= bullets.length) {
+            current = 0;
+        }
     }
 
     public int getAncho() {
@@ -152,7 +176,7 @@ public class Character {
         this.desfase = desfase;
     }
 
-    public void RenderDraw(Graphics g) {
+    public void RenderDraw(GameContainer gc, Graphics g) throws SlickException {
         //System.out.println(this.getAncho());
         //System.out.println(this.PrincipalAnimation.getWidth());
         this.PrincipalAnimation.draw(this.position.x, this.position.y, this.getAncho(), this.getAlto());
@@ -162,6 +186,9 @@ public class Character {
         g.draw(this.leftshape);
         g.draw(this.rigthshape);
         g.draw(this.upshape);
+        for (Bullet b : bullets) {
+            b.render(gc, g);
+        }
     }
 
     public void actionClick(int key) {
@@ -205,6 +232,7 @@ public class Character {
     }
 
     public void updatePosition(float delta, ContainerS con) {
+        tiempoEsperaBala += delta;
         float tiempo = (float) (delta / 1000);
         this.LastPosition = this.position;
         float y0 = this.position.y;
@@ -281,6 +309,9 @@ public class Character {
                 }
             }
         }
+        for (Bullet b : bullets) {
+            b.update((int) delta);
+        }
         ActionMove(tiempo, con);
 
     }
@@ -298,26 +329,25 @@ public class Character {
             this.upshape.setY(this.position.y - 10);
         } 
         else {*/
-            if (this.position.y > level.getDown() + juegov1.JuegoV1.contenedor.getHeight()) {
-                System.out.println("leveldown");
-                System.out.println(level.getDown());
-                this.position.y = juegov1.JuegoV1.contenedor.getHeight() + level.getDown() - this.getAlto();
-                this.shape.setY(this.position.y);
+        if (this.position.y > level.getDown() + juegov1.JuegoV1.contenedor.getHeight()) {
+            System.out.println("leveldown");
+            System.out.println(level.getDown());
+            this.position.y = juegov1.JuegoV1.contenedor.getHeight() + level.getDown() - this.getAlto();
+            this.shape.setY(this.position.y);
 
-                this.downshape.setY(this.position.y + this.getAlto());
-                this.leftshape.setY(this.position.y);
-                this.rigthshape.setY(this.position.y);
-                this.upshape.setY(this.position.y - 10);
-                this.vey0 = 0;
+            this.downshape.setY(this.position.y + this.getAlto());
+            this.leftshape.setY(this.position.y);
+            this.rigthshape.setY(this.position.y);
+            this.upshape.setY(this.position.y - 10);
+            this.vey0 = 0;
+        } else {
+            if (this.position.y == juegov1.JuegoV1.contenedor.getHeight() + level.getDown() - this.getAlto()) {
+
             } else {
-                if( this.position.y == juegov1.JuegoV1.contenedor.getHeight() + level.getDown() - this.getAlto()){
-                    
-                }else
-                {
-                                    System.out.println("Donde debe estar");
+                System.out.println("Donde debe estar");
                 System.out.println(this.position.y);
                 System.out.println(
-                         (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2))));
+                        (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2))));
                 this.position.y = (float) this.position.y
                         - (float) (this.vey0 * tiempo)
                         + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
@@ -369,12 +399,15 @@ public class Character {
                         this.upshape.setY(this.position.y - 10);
                     }
                 }
-                }
-
             }
 
-            this.ActionMove(tiempo, con, level);/*
+        }
+
+        this.ActionMove(tiempo, con, level);/*
         }*/
+        for (Bullet b : bullets) {
+            b.update((int) delta);
+        }
     }
 
     private void ActionMove(float tiempo, ContainerS con) {
@@ -486,7 +519,7 @@ public class Character {
     }
 
     private void ActionMove(float tiempo, ContainerS con, StaticLevel level) {
-        if (this.position.x > juegov1.JuegoV1.contenedor.getWidth()+ level.getRight() - this.getAncho()) {
+        if (this.position.x > juegov1.JuegoV1.contenedor.getWidth() + level.getRight() - this.getAncho()) {
             this.position.x = juegov1.JuegoV1.contenedor.getWidth() + level.getRight() - this.getAncho();
             this.shape.setX(this.position.x);
             this.downshape.setX(this.position.x);
@@ -548,4 +581,13 @@ public class Character {
 
         }
     }
+
+    public int getDelay() {
+        return DELAYBALA;
+    }
+
+    public int getTiempoBa() {
+        return tiempoEsperaBala;
+    }
+
 }

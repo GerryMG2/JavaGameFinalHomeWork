@@ -10,11 +10,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.Input;
 import TiposGenerales.ContainerS;
+import elements.levelcomponents.Bullet;
 import subsystem.LeverLoader;
 import juegov1.Character;
 import elements.leveltypes.StaticLevel;
 import elements.levelcomponents.Platform;
 import juegov1.IAcontroller;
+import org.newdawn.slick.geom.Vector2f;
 
 /**
  *
@@ -67,12 +69,17 @@ public class nivel3 extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         nivel.render(container, game, g);
         mainfrain.render(g);
-        personaje.RenderDraw(g);
-        malo.RenderDraw(g);
+        personaje.RenderDraw(container,g);
+        malo.RenderDraw(container ,g);
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        
+        if (container.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && personaje.getTiempoBa() > personaje.getDelay()) {
+            personaje.fireBullet(new Vector2f(container.getInput().getMouseX(), container.getInput().getMouseY()), new Bullet());
+        }
+        
         if (events.isKeyDown(Input.KEY_D)) {
             personaje.actionClick(Input.KEY_D);
 
