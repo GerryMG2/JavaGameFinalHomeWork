@@ -45,7 +45,7 @@ public class JuegoV1 extends StateBasedGame {
         addState(new MainMenu());
         this.addState(new nivel3());
         addState(new nvl1());
-        //this.addState(new Menu());
+        this.addState(new PauseMenu());
     }
 
 }
