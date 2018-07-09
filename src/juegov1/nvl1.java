@@ -41,7 +41,7 @@ public class nvl1 extends BasicGameState {
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
         events = gc.getInput();
         cargador = new LeverLoader();
-        cargador.prepareLevel(2);
+        cargador.prepareLevel(4);
         nivel = new StaticLevel(cargador.getScale());
         nivel.init(gc, cargador.getBackgroiund());
         jugador = new Character(100f, 100f, 0.3f, 0, 350f, 2000f, 0, 0);

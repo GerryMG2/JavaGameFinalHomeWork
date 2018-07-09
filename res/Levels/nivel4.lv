@@ -1,1 +1,14 @@
-1- numero de nivel, direccion del txt 
+p 100 500 300 50 res/Img/piedra_2.png
+p 900 600 300 50 res/Img/piedra_2.png
+p 1300 200 300 50 res/Img/piedra_2.png
+p 1800 200 300 50 res/Img/piedra_2.png
+p 2500 450 150 50 res/Img/piedra_2.png
+p 2500 100 150 50 res/Img/piedra_2.png
+p 2800 300 300 50 res/Img/piedra_2.png
+p 3200 100 100 50 res/Img/piedra_2.png
+p 3200 500 300 40 res/Img/piedra_2.png
+p 3600 200 300 50 res/Img/piedra_2.png
+p 4050 300 150 50 res/Img/piedra_2.png
+p 4050 650 150 50 res/Img/piedra_2.png
+b res/Img/Backgorund/nivel4_2.jpg
+ecl 1.8

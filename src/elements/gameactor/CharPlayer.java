@@ -245,7 +245,7 @@ public class CharPlayer {
 
     public void checkBulletCollision(Bullet[] otherBullets) {
         for (Bullet b : otherBullets) {
-            if (b.getActive() && b.collideWith(new Vector2f(this.getVx(), this.getVey0()), this.getAncho())) {
+            if (b.getActive() && b.collideWith(new Vector2f(this.getVx(), this.getVey0()), this.getAncho() / 2)) {
                 // Delete the bullet if it hits something
                 b.setActive(false);
                 vida -= b.getDamage();
@@ -254,6 +254,10 @@ public class CharPlayer {
                 }
             }
         }
+    }
+
+    public Bullet[] getBullets() {
+        return bullets;
     }
 
     public void die() {
