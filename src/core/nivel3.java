@@ -103,8 +103,13 @@ public class nivel3 extends BasicGameState {
         if (events.isKeyPressed(Input.KEY_DOWN)) {
             game.enterState(1);
         }
+        if ( malo.getTiempoBa() > malo.getDelay()) {
+            malo.fireBullet(new Vector2f(personaje.position.x,personaje.position.y), new Bullet());
+        }
+        
         malo.actionClick(IA.getkey(personaje.position, malo.position, personaje.shape, malo.shape, mainfrain));
         personaje.updatePosition(delta, mainfrain);
+        malo.updatePosition(delta, mainfrain);
         malo.updatePosition(delta, mainfrain, true, nivel);
        // malo.position.x = malo.position.x - nivel.getGlobalX();
         //malo.position.y = malo.position.y - nivel.getGlobalY();
