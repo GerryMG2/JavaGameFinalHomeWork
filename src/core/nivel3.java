@@ -23,7 +23,7 @@ import org.newdawn.slick.geom.Vector2f;
  * @author yury_
  */
 public class nivel3 extends BasicGameState {
-
+    private float wait = 0;
     private StaticLevel nivel;
     private ContainerS mainfrain;
     public Character personaje;
@@ -75,7 +75,9 @@ public class nivel3 extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        
+        wait += (float)delta / 1000f;
+        System.out.println("delta");
+        System.out.println(wait);
         if (container.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && personaje.getTiempoBa() > personaje.getDelay()) {
             personaje.fireBullet(new Vector2f(container.getInput().getMouseX(), container.getInput().getMouseY()), new Bullet());
         }
@@ -103,13 +105,14 @@ public class nivel3 extends BasicGameState {
         if (events.isKeyPressed(Input.KEY_DOWN)) {
             game.enterState(1);
         }
-        if ( malo.getTiempoBa() > malo.getDelay()) {
+        if ( wait >= 2f) {
+            wait = 0f;
             malo.fireBullet(new Vector2f(personaje.position.x,personaje.position.y), new Bullet());
         }
         
         malo.actionClick(IA.getkey(personaje.position, malo.position, personaje.shape, malo.shape, mainfrain));
         personaje.updatePosition(delta, mainfrain);
-        malo.updatePosition(delta, mainfrain);
+        //malo.updatePosition(delta, mainfrain);
         malo.updatePosition(delta, mainfrain, true, nivel);
        // malo.position.x = malo.position.x - nivel.getGlobalX();
         //malo.position.y = malo.position.y - nivel.getGlobalY();
