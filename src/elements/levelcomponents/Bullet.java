@@ -5,8 +5,6 @@
  */
 package elements.levelcomponents;
 
-import TiposGenerales.ContainerS;
-import TiposGenerales.DinamicObject;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

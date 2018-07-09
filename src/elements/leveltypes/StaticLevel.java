@@ -16,7 +16,7 @@ import juegov1.Character;
  */
 public class StaticLevel {
 
-    private Dimension tamano;
+    public Dimension tamano;
     private Image fondo;
     private final float scal;
     private int cwid, chei;
@@ -121,10 +121,6 @@ public class StaticLevel {
             Gy -= (target.position.y - tempy);
             Ly = Gy + chei;
         }
-        System.out.println("el abajo es " + getDown());
-        System.out.println("el arriba es " + getUp());
-        System.out.println("el derecho es " + getRight());
-        System.out.println("el izquierdo es " + getLeft());
     }
 
     public int getGlobalX() {

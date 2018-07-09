@@ -21,19 +21,18 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import subsystem.FontLoader;
 
-
 /**
  *
  * @author gerar
  */
 public class PauseMenu extends BasicGameState {
-    
+
     private Image pauseMenu;
     private Image resume;
     private Image restart;
     private Image quit;
     private Input control;
-    
+
     @Override
     public int getID() {
         return 2;
@@ -54,31 +53,35 @@ public class PauseMenu extends BasicGameState {
 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-         grphcs.setBackground(Color.transparent);
+        grphcs.setBackground(Color.transparent);
         grphcs.drawImage(pauseMenu, 0, 0);
-        
-        if(control.getMouseX() >= 455 && control.getMouseX() <= 783 &&
-                control.getMouseY() >= 294 && control.getMouseY() <= 357){
-                grphcs.drawImage(resume,457, 294);
+
+        if (control.getMouseX() >= 455 && control.getMouseX() <= 783
+                && control.getMouseY() >= 294 && control.getMouseY() <= 357) {
+            grphcs.drawImage(resume, 457, 294);
         }
-        
-        if(control.getMouseX() >= 457 && control.getMouseX() <= 783 &&
-                control.getMouseY() >= 393 && control.getMouseY() <= 455){
-                grphcs.drawImage(restart,457, 392);
+
+        if (control.getMouseX() >= 457 && control.getMouseX() <= 783
+                && control.getMouseY() >= 393 && control.getMouseY() <= 455) {
+            grphcs.drawImage(restart, 457, 392);
         }
-        
-        if(control.getMouseX() >= 458 && control.getMouseX() <= 783 &&
-                control.getMouseY() >= 487 && control.getMouseY() <= 548){
-                grphcs.drawImage(quit,458, 486);
+
+        if (control.getMouseX() >= 458 && control.getMouseX() <= 783
+                && control.getMouseY() >= 487 && control.getMouseY() <= 548) {
+            grphcs.drawImage(quit, 458, 486);
         }
-        
+
     }
 
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-        if(control.getMouseX() >= 458 && control.getMouseX() <= 783 &&
-                control.getMouseY() >= 487 && control.getMouseY() <= 548 && control.isMousePressed(0)){
-                sbg.enterState(0);
+        if (control.getMouseX() >= 455 && control.getMouseX() <= 783
+                && control.getMouseY() >= 294 && control.getMouseY() <= 357 && control.isMousePressed(0)) {
+            sbg.enterState(1);
+        }
+        if (control.getMouseX() >= 458 && control.getMouseX() <= 783
+                && control.getMouseY() >= 487 && control.getMouseY() <= 548 && control.isMousePressed(0)) {
+            sbg.enterState(0);
         }
     }
 

@@ -3,4 +3,5 @@ p 500 800 300 50 res/Img/brick.png
 p 900 800 300 50 res/Img/brick.png
 p 1300 800 300 50 res/Img/brick.png
 p 1700 800 300 50 res/Img/brick.png
-b res/Img/Backgorund/war_zone.png 
+b res/Img/Backgorund/war_zone.png
+ecl 5

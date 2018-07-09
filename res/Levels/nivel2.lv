@@ -6,7 +6,7 @@ p 900 800 300 50 res/Img/brick.png
 p 1300 800 300 50 res/Img/brick.png
 p 1700 800 300 50 res/Img/brick.png
 # la b significa backgroung es la imagen que estara de fondo en el nivel
-b res/Img/Backgorund/nivel3.jpg
+b res/Img/Backgorund/nivel4.jpg
 # ecl significa escale es basicamente que tantas veces sera mas grande el fondo que la imagen original
 #por ejemplo si la imagen es de 800*600 con escala 1 siempre seria de 800*600 pero con escala 2.5 por ejemplo
 #la imagen seria de 1200*900 escala por defecto 1.0

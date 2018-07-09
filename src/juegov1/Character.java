@@ -14,14 +14,11 @@ import elements.leveltypes.StaticLevel;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
-import subsystem.SpriteSheetCutter;
 
 /**
  *
@@ -241,12 +238,12 @@ public class Character {
         //System.out.println(this.getAncho());
         //System.out.println(this.PrincipalAnimation.getWidth());
         this.PrincipalAnimation.draw(this.position.x, this.position.y, this.getAncho(), this.getAlto());
-        g.draw(this.shape);
-        System.out.println(this.position.y);
-        g.draw(this.downshape);
-        g.draw(this.leftshape);
-        g.draw(this.rigthshape);
-        g.draw(this.upshape);
+//        g.draw(this.shape);
+//        System.out.println(this.position.y);
+//        g.draw(this.downshape);
+//        g.draw(this.leftshape);
+//        g.draw(this.rigthshape);
+//        g.draw(this.upshape);
         for (Bullet b : bullets) {
             b.render(gc, g);
         }
@@ -336,7 +333,7 @@ public class Character {
             this.leftshape.setY(this.position.y);
             this.rigthshape.setY(this.position.y);
             this.upshape.setY(this.position.y - 10);
-            System.out.println(this.Choca(con.lista));
+            //System.out.println(this.Choca(con.lista));
             if (this.Choca(con.lista) == UtilEnum.YU) {
                 this.PrincipalAnimation = !this.Derecha ? animations[0] : animations2[0];
 
@@ -403,8 +400,8 @@ public class Character {
         } 
         else {*/
         if (this.position.y > level.getDown() + juegov1.JuegoV1.contenedor.getHeight()) {
-            System.out.println("leveldown");
-            System.out.println(level.getDown());
+            //System.out.println("leveldown");
+            //System.out.println(level.getDown());
             this.position.y = juegov1.JuegoV1.contenedor.getHeight() + level.getDown() - this.getAlto();
             this.shape.setY(this.position.y);
             this.PrincipalAnimation = !this.Derecha ? animations[0] : animations2[0];
@@ -420,10 +417,10 @@ public class Character {
             } else {
                 this.PrincipalAnimation = !this.Derecha ? animations[6] : animations2[6];
 
-                System.out.println("Donde debe estar");
-                System.out.println(this.position.y);
-                System.out.println(
-                        (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2))));
+               // System.out.println("Donde debe estar");
+               // System.out.println(this.position.y);
+                /*System.out.println(
+                        (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2))));*/
                 this.position.y = (float) this.position.y
                         - (float) (this.vey0 * tiempo)
                         + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
@@ -434,7 +431,7 @@ public class Character {
                 this.leftshape.setY(this.position.y);
                 this.rigthshape.setY(this.position.y);
                 this.upshape.setY(this.position.y - 10);
-                System.out.println(this.Choca(con.lista));
+                //System.out.println(this.Choca(con.lista));
                 if (this.Choca(con.lista) == UtilEnum.YU) {
                     this.PrincipalAnimation = this.Derecha ? animations[0] : animations2[0];
 
@@ -519,7 +516,7 @@ public class Character {
                 this.rigthshape.setX(this.position.x + this.getAncho());
                 this.upshape.setX(this.position.x);
 
-                System.out.println(this.Choca(con.lista));
+               // System.out.println(this.Choca(con.lista));
                 if (this.Choca(con.lista) == UtilEnum.XR) {
                     this.position = this.LastPosition;
                     this.vx = 300;
@@ -622,7 +619,7 @@ public class Character {
                 this.rigthshape.setX(this.position.x + this.getAncho());
                 this.upshape.setX(this.position.x);
 
-                System.out.println(this.Choca(con.lista));
+               // System.out.println(this.Choca(con.lista));
                 if (this.Choca(con.lista) == UtilEnum.XR) {
                     this.position = this.LastPosition;
                     this.vx = 300;
