@@ -113,16 +113,17 @@ public class nivel3 extends BasicGameState {
             if (events.isKeyPressed(Input.KEY_DOWN)) {
                 game.enterState(1);
             }
-            if (wait >= 2f) {
+            if (wait >= 10f) {
                 wait = 0f;
+                 malo.actionClick(IA.getkey(personaje.position, malo.position, personaje.shape, malo.shape, mainfrain));
+
                 malo.fireBullet(new Vector2f(personaje.position.x, personaje.position.y), new Bullet());
             }
             personaje.updatePosition(delta, mainfrain);
             personaje.checkBulletCollision(malo.getBullets());
         }
         if(malo.isAlive()){
-             malo.actionClick(IA.getkey(personaje.position, malo.position, personaje.shape, malo.shape, mainfrain));
-
+            
         malo.checkBulletCollision(personaje.getBullets());
         //malo.updatePosition(delta, mainfrain);
         malo.updatePosition(delta, mainfrain, true, nivel);

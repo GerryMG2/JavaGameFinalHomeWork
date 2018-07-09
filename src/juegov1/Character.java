@@ -29,6 +29,12 @@ import subsystem.SpriteSheetCutter;
  */
 public class Character {
 
+    public final int IDLE = 0;
+    public final int SALTAR = 6;
+    public final int MORIR = 8;
+    public final int CAMINAR = 1;
+    public final int APUNTAR = 3;
+
     public boolean isenemy;
     public LeverLoader cargar;
     public Punto LastPosition;
@@ -77,10 +83,10 @@ public class Character {
     public void IniAnimations(String filepath) throws SlickException {
         cargar = new LeverLoader();
         cargar.prepareLevel(2);
-        animations = cargar.getPlayerAnimations(false, filepath);
-        animations2 = cargar.getPlayerAnimations(true, filepath);
-        PrincipalAnimation = animations2[1];
-        shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() - desfaseextra);
+        animations = cargar.getPlayerAnimations(false);
+        animations2 = cargar.getPlayerAnimations(true);
+        PrincipalAnimation = animations[0];
+        shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() );
         upshape = new Rectangle(this.position.x, this.position.y - 10, this.getAncho(), 10);
         downshape = new Rectangle(this.position.x, this.position.y + this.getAlto(), this.getAncho(), 10);
         rigthshape = new Rectangle(this.position.x + this.getAncho(), this.position.y, 10, this.getAlto());
@@ -156,6 +162,8 @@ public class Character {
     }
 
     public void fireBullet(Vector2f vec, Bullet b) {
+        this.PrincipalAnimation = !this.Derecha ? animations[5] : animations2[5];
+
         if (Derecha) {
             if (municion >= disparadasB) {
                 disparadasB++;
@@ -248,21 +256,26 @@ public class Character {
         if (key == Input.KEY_D) {
             this.vx = this.velocidadx;
             this.Derecha = true;
+            this.PrincipalAnimation = !this.Derecha ? animations[2] : animations2[2];
+
         } else {
             //this.vx = 0;
         }
         if (key == Input.KEY_A) {
             this.vx = -this.velocidadx;
             this.Derecha = false;
+            this.PrincipalAnimation = !this.Derecha ? animations[2] : animations2[2];
+
         } else {
             //this.vx = 0;
         }
         if (key == 666) {
             //System.out.println("");
             this.vx = 0;
+            this.PrincipalAnimation = !this.Derecha ? animations[0] : animations2[0];
         }
-
         if (key == Input.KEY_X && this.puedoSaltar == true) {
+            this.PrincipalAnimation = !this.Derecha ? animations[6] : animations2[6];
 
             this.vey0 = this.velocidadsalto;
             this.puedoSaltar = false;
@@ -311,6 +324,7 @@ public class Character {
                 this.upshape.setY(this.position.y - 10);
             }
         } else {
+            this.PrincipalAnimation = !this.Derecha ? animations[6] : animations2[6];
 
             this.position.y = (float) this.position.y
                     - (float) (this.vey0 * tiempo)
@@ -324,6 +338,8 @@ public class Character {
             this.upshape.setY(this.position.y - 10);
             System.out.println(this.Choca(con.lista));
             if (this.Choca(con.lista) == UtilEnum.YU) {
+                this.PrincipalAnimation = !this.Derecha ? animations[0] : animations2[0];
+
                 this.vey0 = -this.vey0 * 0.5f;
                 this.aceleracionx = 0;
                 this.position = this.LastPosition;
@@ -345,6 +361,8 @@ public class Character {
                 this.upshape.setY(this.position.y - 10);
             } else {
                 if (this.Choca(con.lista) == UtilEnum.YD) {
+                    this.PrincipalAnimation = !this.Derecha ? animations[6] : animations2[6];
+
                     this.position = this.LastPosition;
                     this.downshape.setY(this.position.y + this.getAlto());
                     this.leftshape.setY(this.position.y);
@@ -389,6 +407,7 @@ public class Character {
             System.out.println(level.getDown());
             this.position.y = juegov1.JuegoV1.contenedor.getHeight() + level.getDown() - this.getAlto();
             this.shape.setY(this.position.y);
+            this.PrincipalAnimation = !this.Derecha ? animations[0] : animations2[0];
 
             this.downshape.setY(this.position.y + this.getAlto());
             this.leftshape.setY(this.position.y);
@@ -399,6 +418,8 @@ public class Character {
             if (this.position.y == juegov1.JuegoV1.contenedor.getHeight() + level.getDown() - this.getAlto()) {
 
             } else {
+                this.PrincipalAnimation = !this.Derecha ? animations[6] : animations2[6];
+
                 System.out.println("Donde debe estar");
                 System.out.println(this.position.y);
                 System.out.println(
@@ -415,6 +436,8 @@ public class Character {
                 this.upshape.setY(this.position.y - 10);
                 System.out.println(this.Choca(con.lista));
                 if (this.Choca(con.lista) == UtilEnum.YU) {
+                    this.PrincipalAnimation = this.Derecha ? animations[0] : animations2[0];
+
                     this.vey0 = -this.vey0 * 0.5f;
                     this.aceleracionx = 0;
                     this.position = this.LastPosition;
