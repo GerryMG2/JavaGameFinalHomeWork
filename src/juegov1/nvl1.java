@@ -44,7 +44,7 @@ public class nvl1 extends BasicGameState {
         cargador.prepareLevel(4);
         nivel = new StaticLevel(cargador.getScale());
         nivel.init(gc, cargador.getBackgroiund());
-        jugador = new Character(100f, 100f, 0.3f, 0, 350f, 2000f, 0, 0);
+        jugador = new Character(100f, 100f, 0.3f, 0, 350f, 2000f, 0, 0,0);
         jugador.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
         nivel.setTarget(jugador);
         mainfrain = new ContainerS(cargador.getPlataformas());

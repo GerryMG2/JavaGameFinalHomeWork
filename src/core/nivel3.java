@@ -14,6 +14,7 @@ import subsystem.LeverLoader;
 import juegov1.Character;
 import elements.leveltypes.StaticLevel;
 import elements.levelcomponents.Platform;
+import juegov1.IAcontroller;
 
 /**
  *
@@ -27,11 +28,12 @@ public class nivel3 extends BasicGameState {
     private Input events;
     private LeverLoader cargador;
     private Platform[] babosadas;
-
+    private Character malo;
     @Override
     public int getID() {
         return 4;
     }
+    private IAcontroller IA;
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -39,8 +41,15 @@ public class nivel3 extends BasicGameState {
         cargador.prepareLevel(1);
         nivel = new StaticLevel(3);
         nivel.init(container, cargador.getBackgroiund());
-        personaje = new Character(100f, 100f, 0.3f, 0, 250f, 800f, 0, 0);
+        personaje = new Character(100f, 100f, 0.3f, 0, 250f, 800f, 0, 0,0);
         personaje.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
+        malo = new Character(500f,100f,0.3f,0,250,800f,0,0,1);
+        malo.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
+        IA = new IAcontroller();
+    
+        
+        
+        
         nivel.setTarget(personaje);
         events = container.getInput();
         babosadas = new Platform[3];
@@ -59,7 +68,7 @@ public class nivel3 extends BasicGameState {
         nivel.render(container, game, g);
         mainfrain.render(g);
         personaje.RenderDraw(g);
-
+        malo.RenderDraw(g);
     }
 
     @Override
@@ -87,11 +96,16 @@ public class nivel3 extends BasicGameState {
         if (events.isKeyPressed(Input.KEY_DOWN)) {
             game.enterState(1);
         }
+        malo.actionClick(IA.getkey(personaje.position, malo.position, personaje.shape, malo.shape, mainfrain));
         personaje.updatePosition(delta, mainfrain);
-
+        malo.updatePosition(delta, mainfrain, true, nivel);
+       // malo.position.x = malo.position.x - nivel.getGlobalX();
+        //malo.position.y = malo.position.y - nivel.getGlobalY();
         mainfrain.update(nivel.getGlobalX(), nivel.getGlobalY());
         nivel.update(delta);
 
+
     }
+
 
 }
