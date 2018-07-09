@@ -37,6 +37,7 @@ public class Character {
     public int disparadasB = 0;
     public int vidatotal;
     Animation animations[];
+    Animation animations2[];
     Animation PrincipalAnimation;
     public Punto position;
     private float vx;
@@ -54,7 +55,7 @@ public class Character {
     protected Bullet[] bullets;
 
     protected boolean alive = true;
-    
+
     protected int tiempoEsperaBala = 0;
     protected int DELAYBALA = 200;
     protected int current = 0;
@@ -76,8 +77,9 @@ public class Character {
     public void IniAnimations(Image sprite) throws SlickException {
         cargar = new LeverLoader();
         cargar.prepareLevel(2);
-        animations = cargar.getPlayerAnimations();
-        PrincipalAnimation = animations[8];
+        animations = cargar.getPlayerAnimations(false);
+        animations2 = cargar.getPlayerAnimations(true);
+        PrincipalAnimation = animations2[1];
         shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() - desfaseextra);
         upshape = new Rectangle(this.position.x, this.position.y - 10, this.getAncho(), 10);
         downshape = new Rectangle(this.position.x, this.position.y + this.getAlto(), this.getAncho(), 10);
@@ -643,10 +645,10 @@ public class Character {
     public int getTiempoBa() {
         return tiempoEsperaBala;
     }
-    
+
     public void checkBulletCollision(Bullet[] otherBullets) {
         for (Bullet b : otherBullets) {
-            if (b.getActive() && b.collideWith(new Vector2f(position.x, position.y), this.getAncho()*this.getAlto())) {
+            if (b.getActive() && b.collideWith(new Vector2f(position.x, position.y), this.getAncho() * this.getAlto())) {
                 b.setActive(false);
                 vida -= b.getDamage();
                 if (vida <= 0 && alive) {

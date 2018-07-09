@@ -137,7 +137,7 @@ public class LeverLoader {
         return lepat;
     }
 
-    public Animation[] getPlayerAnimations() throws SlickException {
+    public Animation[] getPlayerAnimations(boolean invertido) throws SlickException {
         ArrayList<Animation> AniList = new ArrayList<>();
         Animation[] anime;
         for (String srt : playercfg) {
@@ -146,13 +146,17 @@ public class LeverLoader {
                 int wt = Integer.parseInt(srt.split(" ")[2]);
                 int ht = Integer.parseInt(srt.split(" ")[3]);
                 int ti = Integer.parseInt(srt.split(" ")[4]);
-                AniList.add(tijeras.makeAnimation(new Image(path), wt, ht, ti));
+                if (invertido) {
+                    AniList.add(tijeras.makeAnimation(new Image(path).getFlippedCopy(invertido, false), wt, ht, ti));
+                } else {
+                    AniList.add(tijeras.makeAnimation(new Image(path), wt, ht, ti));
+                }
             }
 
         }
-        if(AniList.isEmpty()){
+        if (AniList.isEmpty()) {
             System.err.println("animaciones vacias");
-        
+
         }
         anime = new Animation[AniList.size()];
         for (int i = 0; i < anime.length; i++) {
