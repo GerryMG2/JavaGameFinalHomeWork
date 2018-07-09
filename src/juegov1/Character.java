@@ -75,7 +75,7 @@ public class Character {
         cargar = new LeverLoader();
         cargar.prepareLevel(2);
         animations = cargar.getPlayerAnimations();
-        PrincipalAnimation = animations[8];
+        PrincipalAnimation = animations[1];
         shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() - desfaseextra);
         upshape = new Rectangle(this.position.x, this.position.y - 10, this.getAncho(), 10);
         downshape = new Rectangle(this.position.x, this.position.y + this.getAlto(), this.getAncho(), 10);
