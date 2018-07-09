@@ -139,5 +139,14 @@ public class StaticLevel {
     public float getGlobalDYD() {
         return target.position.y - tempy;
     }
-
+    
+    
+    /**
+     * 
+     * @return devuelve la distancia entre el fondo de la parte inferior
+     * de la ventana y la parte inferior de la imagen de fondo
+     */
+    public float getdify(){
+    return (float) (chaBoundry.getY()+chaBoundry.getHeight()-tamano.getHeight());
+    }
 }
