@@ -70,8 +70,14 @@ public class nivel3 extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         nivel.render(container, game, g);
         mainfrain.render(g);
-        personaje.RenderDraw(container, g);
-        malo.RenderDraw(container, g);
+        if(personaje.isAlive()){
+             personaje.RenderDraw(container, g);
+        }
+        if(malo.isAlive()){
+               malo.RenderDraw(container, g);
+        }
+       
+     
     }
 
     @Override
@@ -111,17 +117,21 @@ public class nivel3 extends BasicGameState {
                 wait = 0f;
                 malo.fireBullet(new Vector2f(personaje.position.x, personaje.position.y), new Bullet());
             }
+            personaje.updatePosition(delta, mainfrain);
+            personaje.checkBulletCollision(malo.getBullets());
         }
+        if(malo.isAlive()){
+             malo.actionClick(IA.getkey(personaje.position, malo.position, personaje.shape, malo.shape, mainfrain));
 
-        malo.actionClick(IA.getkey(personaje.position, malo.position, personaje.shape, malo.shape, mainfrain));
-        personaje.updatePosition(delta, mainfrain);
-        personaje.checkBulletCollision(malo.getBullets());
         malo.checkBulletCollision(personaje.getBullets());
         //malo.updatePosition(delta, mainfrain);
         malo.updatePosition(delta, mainfrain, true, nivel);
         // malo.position.x = malo.position.x - nivel.getGlobalX();
         //malo.position.y = malo.position.y - nivel.getGlobalY();
 
+        }
+
+       
         mainfrain.update(nivel.getGlobalX(), nivel.getGlobalY());
         nivel.update(delta);
 
