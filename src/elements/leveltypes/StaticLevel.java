@@ -121,6 +121,10 @@ public class StaticLevel {
             Gy -= (target.position.y - tempy);
             Ly = Gy + chei;
         }
+        System.out.println("el abajo es " + getDown());
+        System.out.println("el arriba es " + getUp());
+        System.out.println("el derecho es " + getRight());
+        System.out.println("el izquierdo es " + getLeft());
     }
 
     public int getGlobalX() {
@@ -145,18 +149,34 @@ public class StaticLevel {
      * ventana y la parte inferior de la imagen de fondo
      */
     public float getDown() {
-        return (float) (tamano.getHeight() - (chaBoundry.getY() + chaBoundry.getHeight()));
+        float temp = (float) fondo.getHeight() - (Ly + target.getAlto());
+        if (temp < 0) {
+            temp = 0;
+        }
+        return temp;
     }
 
     public float getUp() {
-        return (float) (chaBoundry.getY());
+        float temp = (float) Gy - target.getAlto();
+        if (temp < 0) {
+            temp = 0;
+        }
+        return temp;
     }
 
     public float getRight() {
-        return (float) (tamano.getHeight() - (chaBoundry.getX() + chaBoundry.getWidth()));
+        float temp = (float) fondo.getWidth() - (Lx);
+        if (temp < 0) {
+            temp = 0;
+        }
+        return temp;
     }
 
     public float getLeft() {
-        return (float) (chaBoundry.getX());
+        float temp = (float) Gx;
+        if (temp < 0) {
+            temp = 0;
+        }
+        return temp;
     }
 }
