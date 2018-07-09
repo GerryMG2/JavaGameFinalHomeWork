@@ -39,9 +39,9 @@ public class Character {
     public int municion = 20;
     public int disparadasB = 0;
     public int vidatotal;
-    Animation animations[];
-    Animation animations2[];
-    Animation PrincipalAnimation;
+    public Animation animations[];
+    public Animation animations2[];
+    public Animation PrincipalAnimation;
     public Punto position;
     private float vx;
     private float vey0;
@@ -83,13 +83,13 @@ public class Character {
         animations = cargar.getPlayerAnimations(false, filepath);
         animations2 = cargar.getPlayerAnimations(true, filepath);
         PrincipalAnimation = animations[0];
-        shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto() );
+        shape = new Rectangle(this.position.x, this.position.y, this.getAncho(), this.getAlto());
         upshape = new Rectangle(this.position.x, this.position.y - 10, this.getAncho(), 10);
         downshape = new Rectangle(this.position.x, this.position.y + this.getAlto(), this.getAncho(), 10);
         rigthshape = new Rectangle(this.position.x + this.getAncho(), this.position.y, 10, this.getAlto());
         leftshape = new Rectangle(this.position.x - 10, this.position.y, 10, this.getAlto());
 
-        bullets = new Bullet[35];
+        bullets = new Bullet[1000];
         for (int i = 0; i < bullets.length; i++) {
             bullets[i] = new Bullet();
         }
@@ -99,7 +99,7 @@ public class Character {
     public void setVidaAmmo(int vida, int ammo) {
         this.vida = vida;
         this.vidatotal = vida;
-        this.municion = ammo;
+        this.municion = 100000;
     }
 
     public void setbalas(int ammos) {
@@ -162,7 +162,7 @@ public class Character {
         this.PrincipalAnimation = !this.Derecha ? animations[5] : animations2[5];
 
         if (Derecha) {
-            if (municion >= disparadasB) {
+            if (this.municion >= 0) {
                 disparadasB++;
                 tiempoEsperaBala = 0;
                 vec.sub(new Vector2f(position.x, position.y));
@@ -176,7 +176,7 @@ public class Character {
                 }
             }
         } else {
-            if (municion >= disparadasB) {
+            if (municion >= 0) {
                 disparadasB++;
                 tiempoEsperaBala = 0;
                 vec.sub(new Vector2f(position.x, position.y));
@@ -306,6 +306,10 @@ public class Character {
             this.position.y = JuegoV1.contenedor.getHeight() - this.getAlto();
             //System.out.println(this.position.y);
             this.shape.setY(this.position.y);
+            this.downshape.setY(this.position.y + this.getAlto());
+            this.leftshape.setY(this.position.y);
+            this.rigthshape.setY(this.position.y);
+            this.upshape.setY(this.position.y - 10);
             this.puedoSaltar = true;
             //System.out.println(JuegoV1.contenedor.getHeight() - (this.PrincipalAnimation.getHeight() * escala) + (desfase * escala));
             if (this.vey0 == this.velocidadsalto) {
