@@ -78,6 +78,16 @@ public class LeverLoader {
             System.err.println("No se pudo leer el nivel: " + index);
         }
     }
+    
+    public float getScale(){
+        float escala = 1.0f;
+         for (String str : levelcfg) {
+            if (str.split(" ")[0].equals("ecl")) {
+                escala = Float.parseFloat(str.split(" ")[1]);
+            }
+        }
+    return escala;
+    }
 
     public Image getBackgroiund() throws SlickException {
         String semipath;
@@ -91,28 +101,38 @@ public class LeverLoader {
         return laimg;
     }
 
-    public Platform[] getPlataformas() {
-        ArrayList<Platform> plats = new ArrayList<>();
-        Platform[] lasplat;
+    public Platform[] getPlataformas() throws SlickException {
+        ArrayList<Platform> platsList = new ArrayList<>();
+        Platform[] plat;
         for (String slam : levelcfg) {
             if (slam.split(" ")[0].equals("p")) {
-                plats.add(new Platform(new Rectangle(0, 0, 0, 0)));
+                platsList.add(platmaker(slam));
             }
         }
-        if (plats.size() == 0) {
-            lasplat = new Platform[1];
-            lasplat[0] = new Platform(new Rectangle(0, 0, 100, 100));
+        if (platsList.isEmpty()) {
+            plat = new Platform[1];
+            plat[0] = new Platform(new Rectangle(0, 0, 500, 500));
+            plat[0].setTexture(new Image("res\\Img\\Levelcomponents\\platforms\\brick.png"));
         } else {
-            lasplat = new Platform[2];
+            plat = new Platform[platsList.size()];
+            for (int i = 0; i < plat.length; i++) {
+                plat[i] = platsList.get(i);
+            }
         }
-        return lasplat;
+        return plat;
     }
 
-    private void texturePlatform(Platform[] platanos) {
-        for (int i = 0; i < platanos.length; i++) {
-
-        }
-
+    private Platform platmaker(String param) throws SlickException {
+        Platform lepat;
+        String[] order = param.split(" ");
+        int x = Integer.parseInt(order[1]);
+        int y = Integer.parseInt(order[2]);
+        int wid = Integer.parseInt(order[3]);
+        int hid = Integer.parseInt(order[4]);
+        String texDir = order[5];
+        lepat = new Platform(new Rectangle(x, y, wid, hid));
+        lepat.setTexture(new Image(texDir));
+        return lepat;
     }
 
 }

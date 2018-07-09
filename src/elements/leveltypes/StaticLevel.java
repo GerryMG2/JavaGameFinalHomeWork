@@ -121,7 +121,6 @@ public class StaticLevel {
             Gy -= (target.position.y - tempy);
             Ly = Gy + chei;
         }
-
     }
 
     public int getGlobalX() {

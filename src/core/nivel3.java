@@ -44,14 +44,14 @@ public class nivel3 extends BasicGameState {
         nivel.setTarget(personaje);
         events = container.getInput();
         babosadas = new Platform[3];
-        babosadas[0] = new Platform(new Rectangle(100, 1300, 300, 50));
-        babosadas[1] = new Platform(new Rectangle(500, 1300, 300, 50));
-        babosadas[2] = new Platform(new Rectangle(900, 1300, 300, 50));
-        babosadas[0].setTexture(new Image("res/Img/ladrillo_2_texture.png"));
-        babosadas[1].setTexture(new Image("res/Img/ladrillo_2_texture.png"));
-        babosadas[2].setTexture(new Image("res/Img/ladrillo_2_texture.png"));
+        babosadas[0] = new Platform(new Rectangle(100, 800, 300, 50));
+        babosadas[1] = new Platform(new Rectangle(500, 800, 300, 50));
+        babosadas[2] = new Platform(new Rectangle(900, 800, 300, 50));
+        babosadas[0].setTexture(new Image("res/Img/brick.png"));
+        babosadas[1].setTexture(new Image("res/Img/brick.png"));
+        babosadas[2].setTexture(new Image("res/Img/brick.png"));
         mainfrain = new ContainerS(babosadas);
-        
+
     }
 
     @Override
@@ -82,14 +82,16 @@ public class nivel3 extends BasicGameState {
         }
         if (events.isKeyPressed(Input.KEY_SPACE)) {
             nivel.setTarget(null);
+        }
+
+        if (events.isKeyPressed(Input.KEY_DOWN)) {
             game.enterState(1);
         }
         personaje.updatePosition(delta, mainfrain);
-        
+
         mainfrain.update(nivel.getGlobalX(), nivel.getGlobalY());
         nivel.update(delta);
 
     }
-    
 
 }
