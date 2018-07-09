@@ -55,7 +55,7 @@ public class nvl1 extends BasicGameState {
     public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
         nivel.render(gc, sbg, grphcs);
         mainfrain.render(grphcs);
-        jugador.RenderDraw(grphcs);
+        jugador.RenderDraw(gc,grphcs);
     }
 
     @Override
@@ -63,6 +63,9 @@ public class nvl1 extends BasicGameState {
         if (events.isKeyDown(Input.KEY_D)) {
             jugador.actionClick(Input.KEY_D);
 
+        }
+        if (gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && jugador.getTiempoBa() > jugador.getDelay()) {
+            jugador.fireBullet(new Vector2f(gc.getInput().getMouseX(), gc.getInput().getMouseY()), new Bullet());
         }
         if (events.isKeyDown(Input.KEY_A)) {
             jugador.actionClick(Input.KEY_A);

@@ -25,7 +25,7 @@ public class Bullet
 	
 	protected boolean active = true;
 	
-	protected int tiempoVida = 2000;
+	protected int tiempoVida = 3500;
 	protected int radioBala = 100;
 	protected int Danno = 5;
 	

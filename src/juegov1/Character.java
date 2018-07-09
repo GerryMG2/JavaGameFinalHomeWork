@@ -34,7 +34,8 @@ public class Character {
     public LeverLoader cargar;
     public Punto LastPosition;
     public int vida;
-    public int municion;
+    public int municion=20;
+    public int disparadasB=0;
     public int vidatotal;
     Animation animations[];
     Animation PrincipalAnimation;
@@ -56,7 +57,7 @@ public class Character {
     protected Bullet[] bullets;
 
     protected int tiempoEsperaBala = 0;
-    protected int DELAYBALA = 100;
+    protected int DELAYBALA = 200;
     protected int current = 0;
 
     public boolean puedoSaltar = false;
@@ -83,34 +84,36 @@ public class Character {
         rigthshape = new Rectangle(this.position.x + this.getAncho(), this.position.y, 10, this.getAlto());
         leftshape = new Rectangle(this.position.x - 10, this.position.y, 10, this.getAlto());
 
-        bullets = new Bullet[15];
+        bullets = new Bullet[35];
         for (int i = 0; i < bullets.length; i++) {
             bullets[i] = new Bullet();
         }
 
     }
-    
-    public void setVidaAmmo(int vida,int ammo){
+
+    public void setVidaAmmo(int vida, int ammo) {
         this.vida = vida;
         this.vidatotal = vida;
         this.municion = ammo;
     }
-    public void setbalas(int ammos){
+
+    public void setbalas(int ammos) {
         this.municion += ammos;
     }
-    
-    public void disparar(){
+
+    public void disparar() {
         this.municion -= 1;
-        if(this.municion <=0){
+        if (this.municion <= 0) {
             this.municion = 0;
         }
     }
-    
-    public void mehicierondannio(int dannio){
+
+    public void mehicierondannio(int dannio) {
         // ay no le hicieron el dannio
         this.vida -= dannio;
     }
-    public boolean estoymuerto(){
+
+    public boolean estoymuerto() {
         return this.vida <= 0;
     }
 
@@ -151,14 +154,18 @@ public class Character {
     }
 
     public void fireBullet(Vector2f vec, Bullet b) {
-        tiempoEsperaBala = 0;
-        vec.sub(new Vector2f(position.x, position.y));
-        vec.normalise();
-        bullets[current] = b.init(new Vector2f(position.x, position.y).copy(), vec);
-        current++;
-        if (current >= bullets.length) {
-            current = 0;
+        if (municion>=disparadasB) {
+            disparadasB++;
+            tiempoEsperaBala = 0;
+            vec.sub(new Vector2f(position.x, position.y));
+            vec.normalise();
+            bullets[current] = b.init(new Vector2f(position.x, position.y).copy(), vec);
+            current++;
+            if (current >= bullets.length) {
+                current = 0;
+            }
         }
+
     }
 
     public int getAncho() {
