@@ -64,6 +64,7 @@ public class Character {
     private final int desfasey;
     private final int desfaseextra;
     private float aceleracionx;
+    private boolean Derecha = true;
 
     public float getVey0() {
         return vey0;
@@ -227,11 +228,13 @@ public class Character {
     public void actionClick(int key) {
         if (key == Input.KEY_D) {
             this.vx = this.velocidadx;
+            this.Derecha = true;
         } else {
             //this.vx = 0;
         }
         if (key == Input.KEY_A) {
             this.vx = -this.velocidadx;
+            this.Derecha = false;
         } else {
             //this.vx = 0;
         }
