@@ -18,7 +18,7 @@ public class Achievement {
 
     public Achievement Logros(String Logro) {
         String[] parts = Logro.split("#");
-        if (parts[1].equals(true)) {
+        if (parts[1].equals("true")) {
             return new Achievement(parts[0],true);
         }
         else{
