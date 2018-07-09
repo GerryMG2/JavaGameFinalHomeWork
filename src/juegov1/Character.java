@@ -33,7 +33,9 @@ public class Character {
     public boolean isenemy;
     public LeverLoader cargar;
     public Punto LastPosition;
-    private int vida;
+    public int vida;
+    public int municion;
+    public int vidatotal;
     Animation animations[];
     Animation PrincipalAnimation;
     public Punto position;
@@ -86,6 +88,30 @@ public class Character {
             bullets[i] = new Bullet();
         }
 
+    }
+    
+    public void setVidaAmmo(int vida,int ammo){
+        this.vida = vida;
+        this.vidatotal = vida;
+        this.municion = ammo;
+    }
+    public void setbalas(int ammos){
+        this.municion += ammos;
+    }
+    
+    public void disparar(){
+        this.municion -= 1;
+        if(this.municion <=0){
+            this.municion = 0;
+        }
+    }
+    
+    public void mehicierondannio(int dannio){
+        // ay no le hicieron el dannio
+        this.vida -= dannio;
+    }
+    public boolean estoymuerto(){
+        return this.vida <= 0;
     }
 
     /**
