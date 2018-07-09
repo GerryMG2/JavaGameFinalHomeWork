@@ -46,10 +46,10 @@ public class nivel3 extends BasicGameState {
         nivel = new StaticLevel(3);
         nivel.init(container, cargador.getBackgroiund());
         personaje = new Character(100f, 100f, 0.3f, 0, 250f, 800f, 0, 0, 0);
-        personaje.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
+        personaje.IniAnimations("res/Proto/player.cfg");
         personaje.setVida(20);
         malo = new Character(500f, 100f, 0.3f, 0, 250, 800f, 0, 0, 1);
-        malo.IniAnimations(new Image("res\\Img\\Character\\assets\\spritesheets\\__soldier_one_black_uniform_aim.png"));
+        malo.IniAnimations("res/Proto/enemigo1.cfg");
         malo.setVida(15);
         IA = new IAcontroller();
 
