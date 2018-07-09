@@ -43,14 +43,14 @@ public class Bullet extends DinamicObject {
     public void update(int t) {
         if (active) {
 
-            this.position.y = (float) this.position.y
+            /*this.position.y = (float) this.position.y
                     - (float) (this.vey0 * tiempo)
                     + (float) (0.5f * (gravity) * (float) (Math.pow(tiempo, 2)));
             this.vey0 = this.vey0 + (this.gravity * tiempo);
 
             this.shape.setY(this.position.y);
 
-            this.position.x = JuegoV1.contenedor.getWidth() - this.getAncho();
+            this.position.x = JuegoV1.contenedor.getWidth() - this.getAncho();*/
             Vector2f realSpeed = speed.copy();
             realSpeed.scale((t / 1000.0f));
             pos.add(realSpeed);
